@@ -1,7 +1,16 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.25)
 project(left4dead)
 
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -ggdb -DDEBUG -Wall -fno-inline -pedantic -pedantic-errors -pthread")
+
 set(CMAKE_CXX_STANDARD 17)
+
+PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+PKG_SEARCH_MODULE(SDL2_image REQUIRED sdl2_image)
+
+find_package(sdl2 REQUIRED)
+find_package(sdl2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
 add_executable(left4dead server_src/main.cpp
                         server_src/server.cpp
