@@ -28,6 +28,7 @@
 
 # Build folder
 build
+cmake-build-debug
 
 # Executables
 *.exe
