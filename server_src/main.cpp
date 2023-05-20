@@ -6,9 +6,8 @@
 #define SERVICE_NAME argv[1]
 
 int main(int argc, char* argv[]) { try {
-    if (argc != 2) {
-        return ERROR;
-    }
+    if (argc != 2)
+        throw std::runtime_error("Invalid arguments. Usage: ./server <service-name>");
     Server server(SERVICE_NAME);
     Server::execute();
     return SUCCESS;

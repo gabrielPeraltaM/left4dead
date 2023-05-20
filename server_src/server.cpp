@@ -6,10 +6,7 @@
 #include <string>
 
 void Server::execute() {
-    std::string q;
-    do {
-        std::cin >> q;
-    } while (q != "q");
+    while (std::getc(stdin) != 'q') { }
 }
 
 Server::~Server() {

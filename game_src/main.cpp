@@ -9,7 +9,7 @@ int main(int argc, const char * argv[]) {
     _window = SDL_CreateWindow("Game Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 700, 500, SDL_WINDOW_RESIZABLE);
 
     SDL_Delay(100);
-
+    SDL_ShowWindow(_window);
     SDL_Event e;
     bool quit = false;
     while (!quit){

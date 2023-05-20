@@ -6,13 +6,10 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -ggdb -DDEBUG -Wall -fno-inl
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(SDL2pp REQUIRED)
-
-
 find_package(sdl2 REQUIRED)
 find_package(sdl2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
-#[[
 add_executable(left4dead server_src/main.cpp
                         server_src/server.cpp
                         common_src/liberror.cpp
@@ -32,9 +29,9 @@ add_executable(left4dead server_src/main.cpp
                         server_src/StateQueue.cpp
                         server_src/Player.cpp
                         server_src/Groups.cpp
-                        server_src/Players.cpp game_src/main.cpp)
+                        server_src/Players.cpp)
 target_link_libraries(left4dead SDL2pp::SDL2pp)
-]]
+
 
 # define targets
 add_executable(lesson00 game_src/main.cpp)
