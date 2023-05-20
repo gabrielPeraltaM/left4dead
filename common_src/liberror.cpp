@@ -17,11 +17,11 @@
 #undef _GNU_SOURCE
 #undef GNU_SOURCE
 
-#include <errno.h>
+#include <cerrno>
 #include <cstdio>
 #include <cstdarg>
 #include <cstring>
-
+#include <string.h>
 #include "liberror.h"
 
 LibError::LibError(int error_code, const char* fmt, ...) noexcept {
