@@ -6,13 +6,20 @@
 #define MATCHES_H
 
 #include "./Match.h"
+#include "./Players.h"
+#include "./Groups.h"
+#include <mutex>
 
 class Matches {
-public:
-    Match create();
+    int created = 0;
+    Groups groups;
+    Players players;
+    std::mutex m;
 
-    /*Matches(const Matches&) = delete;
-    Matches& operator=(const Matches&) = delete;*/
+public:
+    bool exist(int code);
+
+    Match create(std::string name);
 };
 
 #endif //MATCHES_H

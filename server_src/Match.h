@@ -5,10 +5,17 @@
 #ifndef MATCH_H
 #define MATCH_H
 
+#include "./GroupMatch.h"
+#include "./Player.h"
+
 class Match {
+    const GroupMatch *group;
+    const Player *player;
+
 public:
-    Match(const Match&) = delete;
-    Match& operator=(const Match&) = delete;
+    Match(GroupMatch *group, Player *player) : group(group),
+                                               player(player) {
+    }
 };
 
 #endif //MATCH_H
