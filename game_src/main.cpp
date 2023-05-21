@@ -1,35 +1,42 @@
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <exception>
 
-int main(int argc, const char * argv[]) {
+#include <SDL2pp/SDL2pp.hh>
 
-    SDL_Init(SDL_INIT_VIDEO);
+using namespace SDL2pp;
 
-    SDL_Window *_window;
-    _window = SDL_CreateWindow("Game Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 700, 500, SDL_WINDOW_RESIZABLE);
+int main() try {
+	// Initialize SDL library
+	SDL sdl(SDL_INIT_VIDEO);
 
-    SDL_Delay(100);
-    SDL_ShowWindow(_window);
-    SDL_Event e;
-    bool quit = false;
-    while (!quit){
-        while (SDL_PollEvent(&e)){
-            if (e.type == SDL_QUIT){
-                quit = true;
-            }
-            if (e.type == SDL_KEYDOWN){
-                quit = true;
-            }
-            if (e.type == SDL_MOUSEBUTTONDOWN){
-                quit = true;
-            }
-        }
-    }
+	// Create main window: 640x480 dimensions, resizable, "SDL2pp demo" title
+	Window window("SDL2pp demo",
+			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+			640, 480,
+			SDL_WINDOW_RESIZABLE);
 
+	// Create accelerated video renderer with default driver
+	Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    SDL_DestroyWindow(_window);
-    SDL_Quit();
+	// Load sprites image as a new texture
+	//Texture sprites(renderer, DATA_PATH "/M484SpaceSoldier.png");
 
-    return 0;
+	// Clear screen
+	renderer.Clear();
 
+	// Render our image, stretching it to the whole window
+	//renderer.Copy(sprites);
+
+	// Show rendered frame
+	renderer.Present();
+
+	// 5 second delay
+	SDL_Delay(5000);
+
+	// Here all resources are automatically released and library deinitialized
+	return 0;
+} catch (std::exception& e) {
+	// If case of error, print it and exit with error
+	std::cerr << e.what() << std::endl;
+	return 1;
 }

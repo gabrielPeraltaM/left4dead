@@ -1,15 +1,13 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 project(left4dead)
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -ggdb -DDEBUG -Wall -fno-inline -pedantic -pedantic-errors -pthread -D _POSIX_C_SOURCE=200809L")
+# Packages required
+find_package(SDL2pp REQUIRED)
 
+# Compilation flags
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(SDL2pp REQUIRED)
-find_package(sdl2 REQUIRED)
-find_package(sdl2_image REQUIRED)
-find_package(SDL2_ttf REQUIRED)
-
+#[[
 add_executable(left4dead server_src/main.cpp
                         server_src/server.cpp
                         common_src/liberror.cpp
@@ -31,7 +29,7 @@ add_executable(left4dead server_src/main.cpp
                         server_src/Groups.cpp
                         server_src/Players.cpp)
 target_link_libraries(left4dead SDL2pp::SDL2pp)
-
+]]
 
 # define targets
 add_executable(lesson00 game_src/main.cpp)
