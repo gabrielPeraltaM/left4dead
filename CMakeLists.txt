@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
-project(left4dead)
+project(left4dead LANGUAGES CXX VERSION 0.10 DESCRIPTION "Left 4 Dead Grupo 8")
 
 # Packages required
 find_package(SDL2pp REQUIRED)
 
 # Compilation flags
 set(CMAKE_CXX_STANDARD 17)
+
+# Resources
+add_definitions(-DRESOURCE_PATH="${PROJECT_SOURCE_DIR}/resources")
 
 #[[
 add_executable(left4dead server_src/main.cpp

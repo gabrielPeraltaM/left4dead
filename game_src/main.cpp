@@ -9,23 +9,32 @@ int main() try {
 	// Initialize SDL library
 	SDL sdl(SDL_INIT_VIDEO);
 
-	// Create main window: 640x480 dimensions, resizable, "SDL2pp demo" title
-	Window window("SDL2pp demo",
+	// Create main window
+	Window window("Game",
 			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 			640, 480,
-			SDL_WINDOW_RESIZABLE);
+            SDL_WINDOW_MAXIMIZED);
 
 	// Create accelerated video renderer with default driver
 	Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-	// Load sprites image as a new texture
-	//Texture sprites(renderer, DATA_PATH "/M484SpaceSoldier.png");
+    // Change background color to red
+    renderer.SetDrawColor(255,0,0,255);
+
+    // Obtengo el centro de la pantall
+    int centerY = renderer.GetOutputHeight()/2;
+    int centerX = renderer.GetOutputWidth()/2;
+
+	// Load player image as a new texture
+	Texture player(renderer, RESOURCE_PATH "/Soldier_1/Idle.png");
 
 	// Clear screen
 	renderer.Clear();
 
-	// Render our image, stretching it to the whole window
-	//renderer.Copy(sprites);
+	// Render our image
+	renderer.Copy(player,
+                  Rect(30, 30, 100, 100),
+                  Rect(centerX, centerY, 100, 100));
 
 	// Show rendered frame
 	renderer.Present();
