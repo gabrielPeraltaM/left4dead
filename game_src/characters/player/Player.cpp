@@ -4,28 +4,18 @@
 
 #include "Player.h"
 
-void Player::attack() {
+void Player::attack() {}
 
-}
+void Player::die() {}
 
-void Player::die() {
+void Player::spawn() {}
 
-}
+void Player::update() {}
 
-void Player::spawn() {
+void Player::destroy() {}
 
-}
+void Player::getCharacterType() {}
 
-void Player::update() {
-
-}
-
-void Player::destroy() {
-
-}
-
-void Player::getCharacterType() {
-
-}
-
-Player::Player() : Character(400, 900, 100, 5, 10, 10, 10, 50, 100, RESOURCE_PATH "/Soldier_1/", 40, 60) { }
+Player::Player()
+    : Character(400, 900, 100, 5, 10, 10, 10, 50, 100,
+                RESOURCE_PATH "/Soldier_1/", 40, 60) {}
