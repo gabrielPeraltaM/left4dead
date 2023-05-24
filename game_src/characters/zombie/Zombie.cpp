@@ -4,9 +4,9 @@
 
 #include "Zombie.h"
 
-Zombie::Zombie() : Character(300, 50, 100, 20, 5, 100, 5, 1, 50, 100, RESOURCE_PATH "/Jumper") { }
+Zombie::Zombie() : Character(300, 50, 100, 8, 5, 10, 1, 50, 100, RESOURCE_PATH "/Zombie/", 30, 30) { }
 
-Zombie::Zombie(int16_t posX, int16_t posY) : Character(posX, posY, 100, 20, 5, 100, 5, 1, 50, 100, RESOURCE_PATH "/Jumper") { }
+Zombie::Zombie(int16_t posX, int16_t posY) : Character(posX, posY, 100, 8, 5, 10, 1, 50, 100, RESOURCE_PATH "/Zombie/", 30, 30) { }
 
 void Zombie::attack() {
 

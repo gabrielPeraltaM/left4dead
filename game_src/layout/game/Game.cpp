@@ -29,7 +29,7 @@ void Game::StartGame() {
     addPlayer();
 
     // Add the zombies
-    addZombie();
+    spawnZombie();
 
     // Present changes
     renderer.Present();
@@ -73,30 +73,10 @@ void Game::StartGame() {
 void Game::drawPlayers(Renderer &renderer) {
     for( auto &player : players ) {
         std::string spritePath = player.getSpritePath();
-        switch (player.getState()) {
-            case State::IDLE:
-                spritePath += "/Idle.png";
-                break;
-            case State::WALK:
-                spritePath += "/Walk.png";
-                break;
-            case State::RUN:
-                spritePath += "/Run.png";
-                break;
-            case State::ATTACK:
-                spritePath += "/Attack.png";
-                break;
-            case State::HURT:
-                spritePath += "/Hurt.png";
-                break;
-            case State::DEAD:
-                spritePath += "/Dead.png";
-                break;
-        }
 
         Texture sprite(renderer, spritePath);
         renderer.Copy(sprite,
-                      Rect(30, 60, player.getWidth(), player.getHeight()),
+                      Rect(player.getFrameWidth(), player.getFrameHeight(), player.getWidth(), player.getHeight()),
                       Rect(player.getPositionX(), player.getPositionY(), player.getWidth(), player.getHeight()));
     }
 }
@@ -106,30 +86,28 @@ void Game::addPlayer() {
     players.push_back(player);
 }
 
-void Game::addZombie() {
-    Zombie zombie(50, 900);
+void Game::addZombie(int16_t x, int16_t y) {
+    Zombie zombie(x, y);
     zombies.push_back(zombie);
 }
 
 void Game::drawZombies(Renderer &renderer) {
     for( auto &zombie : zombies ) {
-        Texture sprite(renderer, zombie.getSpritePath() + "/Idle.png");
+        Texture sprite(renderer, zombie.getSpritePath());
         renderer.Copy(sprite,
-                      Rect(30, 30, zombie.getWidth(), zombie.getHeight()),
+                      Rect(zombie.getFrameWidth(), zombie.getFrameHeight(), zombie.getWidth(), zombie.getHeight()), //x, y deben ser frameX y frameY y se deben actualizar
                       Rect(zombie.getPositionX(), zombie.getPositionY(), zombie.getWidth(), zombie.getHeight()));
-        // Draw a rectangle around the zombie
-        renderer.SetDrawColor(255, 0, 0, 255);
-        renderer.DrawRect(Rect(zombie.getPositionX(), zombie.getPositionY(), zombie.getWidth(), zombie.getHeight()));
     }
+
+    spawnZombie();
 
 }
 
 void Game::drawBackground(Renderer &renderer) {
-    Texture background(renderer, RESOURCE_PATH "/backgrounds/War1/Bright/War.png");
+    Texture background(renderer, background_src);
     renderer.Copy(background,
                   Rect(0, 0, width, height),
                   Rect(0, 0, width, height));
-
 }
 
 void Game::movePlayer(Player &player) {
@@ -166,3 +144,13 @@ void Game::movePlayer(Player &player) {
     }
 
 }
+
+void Game::spawnZombie() {
+    if (zombies.size() < 10 * difficulty && rand() % 100 < 10 * difficulty) {
+        int16_t x = rand() % width;
+        int16_t y = height * 0.8 + rand() % (int16_t )(height * 0.2 - 100);
+        addZombie(x, y);
+    }
+}
+
+Game::Game(int difficulty, std::string &background_src) : difficulty(difficulty), background_src(background_src) {}

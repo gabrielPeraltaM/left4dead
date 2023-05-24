@@ -15,16 +15,20 @@ private:
     SDL_DisplayMode DM = SDL_DisplayMode();
     int width = 800;
     int height = 600;
+    std::string background_src = RESOURCE_PATH "/backgrounds/War1/Bright/War.png";
+    const int difficulty = 3; // 1 = easy, 2 = medium, 3 = hard
     std::vector<Zombie> zombies;
     std::vector<Player> players;
     void addPlayer();
-    void addZombie();
+    void addZombie(int16_t x, int16_t y);
+    void spawnZombie();
     void drawBackground(Renderer &renderer);
     void drawZombies(Renderer &renderer);
     void drawPlayers(Renderer &renderer);
     void movePlayer(Player &player);
 public:
     Game() = default;
+    Game(int difficulty, std::string &background_src);
     void StartGame();
 };
 

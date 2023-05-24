@@ -15,24 +15,32 @@ enum class State {
 class Character {
 protected:
     State state = State::IDLE;
-    std::string spritePath;
+    std::string srcPath;
+    std::string spritePath = srcPath + "Idle.png";
     uint16_t positionX;
     uint16_t positionY;
     uint16_t width;
     uint16_t height;
+    uint16_t frameWidth;
+    uint16_t frameHeight;
     uint8_t health;
     uint8_t speed;
     uint8_t damage;
     uint8_t attackSpeed;
     uint8_t attackRange;
-    uint8_t attackCooldown;
+    uint8_t attackCooldown = 0;
 public:
     Character(uint16_t positionX, uint16_t positionY, uint8_t health, uint8_t speed, uint8_t damage,
-              uint8_t attackSpeed, uint8_t attackRange, uint8_t attackCooldown, uint16_t width, uint16_t height, const char *spritePath);
+              uint8_t attackSpeed, uint8_t attackRange, uint16_t width, uint16_t height, const char* srcPath,
+              uint16_t frameWidth, uint16_t frameHeight);
 
     uint16_t getWidth() const;
 
     uint16_t getHeight() const;
+
+    uint16_t getFrameWidth() const;
+
+    uint16_t getFrameHeight() const;
 
     uint16_t getPositionX() const;
 
@@ -43,6 +51,8 @@ public:
     void setState(State newState);
 
     std::string getSpritePath() const;
+
+    void setSpritePath(const char* spritePath);
 
     bool moveX(int16_t x);
 

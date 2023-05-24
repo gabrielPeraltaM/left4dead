@@ -5,11 +5,11 @@
 #include "Character.h"
 
 Character::Character(uint16_t positionX, uint16_t positionY, uint8_t health, uint8_t speed, uint8_t damage,
-                     uint8_t attackSpeed, uint8_t attackRange, uint8_t attackCooldown, uint16_t width, uint16_t height,
-                     const char *spritePath) :
+                     uint8_t attackSpeed, uint8_t attackRange, uint16_t width, uint16_t height,
+                     const char *srcPath, uint16_t frameWidth, uint16_t frameHeight) :
                      positionX(positionX), positionY(positionY), health(health), speed(speed), damage(damage),
-                     attackSpeed(attackSpeed), attackRange(attackRange), attackCooldown(attackCooldown),
-                     width(width), height(height), spritePath(spritePath) { }
+                     attackSpeed(attackSpeed), attackRange(attackRange),
+                     width(width), height(height), srcPath(srcPath), frameWidth(frameWidth), frameHeight(frameHeight)  { }
 
 uint16_t Character::getWidth() const {
     return width;
@@ -27,7 +27,8 @@ bool Character::moveX(int16_t x) {
     if( positionX + x * speed < 0 ) {
         return false;
     }
-    this->positionX += x * speed;
+    bool running = state == State::RUN;
+    this->positionX += x * speed * (running ? 2 : 1);
     return true;
 }
 
@@ -39,7 +40,8 @@ bool Character::moveY(int16_t y) {
     if( positionY + y * speed < 0 ) {
         return false;
     }
-    this->positionY += y * speed;
+    bool running = state == State::RUN;
+    this->positionY += y * speed * (running ? 2 : 1);
     return true;
 }
 
@@ -105,9 +107,44 @@ State Character::getState() const {
 }
 
 void Character::setState(State newState) {
+    if (state == newState) {
+        return;
+    }
     state = newState;
+    switch (state) {
+        case State::IDLE:
+            setSpritePath("Idle.png");
+            break;
+        case State::WALK:
+            setSpritePath("Walk.png");
+            break;
+        case State::RUN:
+            setSpritePath("Run.png");
+            break;
+        case State::ATTACK:
+            setSpritePath("Attack.png");
+            break;
+        case State::HURT:
+            setSpritePath("Hurt.png");
+            break;
+        case State::DEAD:
+            setSpritePath("Dead.png");
+            break;
+    }
 }
 
 std::string Character::getSpritePath() const {
     return spritePath;
+}
+
+void Character::setSpritePath(const char *newSpritePath) {
+    spritePath = srcPath + newSpritePath;
+}
+
+uint16_t Character::getFrameWidth() const {
+    return frameWidth;
+}
+
+uint16_t Character::getFrameHeight() const {
+    return frameHeight;
 }
