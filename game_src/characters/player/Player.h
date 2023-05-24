@@ -5,17 +5,11 @@
 #ifndef LEFT4DEAD_PLAYER_H
 #define LEFT4DEAD_PLAYER_H
 
+#include <string>
 #include "../Character.h"
-
-enum PlayerType {
-    IDF,
-    P90,
-    SCOUT,
-};
 
 class Player : public Character {
 private:
-    PlayerType type;
 public:
     Player();
     void attack() override;

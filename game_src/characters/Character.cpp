@@ -5,14 +5,19 @@
 #include "Character.h"
 
 Character::Character(uint16_t positionX, uint16_t positionY, uint8_t health, uint8_t speed, uint8_t damage,
-                     uint8_t attackSpeed, uint8_t attackRange, uint8_t attackCooldown) : positionX(positionX),
-                                                                                         positionY(positionY),
-                                                                                         health(health), speed(speed),
-                                                                                         damage(damage),
-                                                                                         attackSpeed(attackSpeed),
-                                                                                         attackRange(attackRange),
-                                                                                         attackCooldown(
-                                                                                                 attackCooldown) {}
+                     uint8_t attackSpeed, uint8_t attackRange, uint8_t attackCooldown, uint16_t width, uint16_t height,
+                     const char *spritePath) :
+                     positionX(positionX), positionY(positionY), health(health), speed(speed), damage(damage),
+                     attackSpeed(attackSpeed), attackRange(attackRange), attackCooldown(attackCooldown),
+                     width(width), height(height), spritePath(spritePath) { }
+
+uint16_t Character::getWidth() const {
+    return width;
+}
+
+uint16_t Character::getHeight() const {
+    return height;
+}
 
 uint16_t Character::getPositionX() const {
     return positionX;
@@ -36,6 +41,22 @@ bool Character::moveY(int16_t y) {
     }
     this->positionY += y * speed;
     return true;
+}
+
+bool Character::moveUp() {
+    return moveY(-1);
+}
+
+bool Character::moveDown() {
+    return moveY(1);
+}
+
+bool Character::moveLeft() {
+    return moveX(-1);
+}
+
+bool Character::moveRight() {
+    return moveX(1);
 }
 
 uint8_t Character::getHealth() const {
@@ -77,4 +98,16 @@ void Character::move(int16_t newPosX, int16_t newPosY) {
     }
     moveX(newPosX);
     moveY(newPosY);
+}
+
+State Character::getState() const {
+    return state;
+}
+
+void Character::setState(State newState) {
+    state = newState;
+}
+
+std::string Character::getSpritePath() const {
+    return spritePath;
 }

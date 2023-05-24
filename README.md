@@ -1,7 +1,7 @@
 # left4dead
 TP Grupal de Taller de Programación
 
-Para hacer que funcione realizar:
+Para correr el juego:
 ```
 mkdir build
 cd build
@@ -10,4 +10,12 @@ make
 ./lesson00
 ```
 
-A mi me abre el programa pero no muestra nada.
+Para correr los tests (cuando hayan):
+```
+mkdir build
+cd build
+cmake ..
+make
+./runTests
+```
+

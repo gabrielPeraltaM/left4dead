@@ -28,4 +28,4 @@ void Player::getCharacterType() {
 
 }
 
-Player::Player() : Character(100, 100, 100, 5, 10, 10, 10, 2) { }
+Player::Player() : Character(400, 900, 100, 5, 10, 10, 10, 2, 50, 100, RESOURCE_PATH "/Soldier_1") { }

@@ -12,7 +12,7 @@ using namespace SDL2pp;
 
 class Game {
 private:
-    SDL_DisplayMode DM;
+    SDL_DisplayMode DM = SDL_DisplayMode();
     int width = 800;
     int height = 600;
     std::vector<Zombie> zombies;
@@ -22,6 +22,7 @@ private:
     void drawBackground(Renderer &renderer);
     void drawZombies(Renderer &renderer);
     void drawPlayers(Renderer &renderer);
+    void movePlayer(Player &player);
 public:
     Game() = default;
     void StartGame();

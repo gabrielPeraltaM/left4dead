@@ -5,13 +5,21 @@
 #ifndef LEFT4DEAD_CHARACTER_H
 #define LEFT4DEAD_CHARACTER_H
 
-
 #include <cstdint>
+#include <string>
+
+enum class State {
+    IDLE, WALK, RUN, ATTACK, HURT, DEAD,
+};
 
 class Character {
-private:
+protected:
+    State state = State::IDLE;
+    std::string spritePath;
     uint16_t positionX;
     uint16_t positionY;
+    uint16_t width;
+    uint16_t height;
     uint8_t health;
     uint8_t speed;
     uint8_t damage;
@@ -20,15 +28,33 @@ private:
     uint8_t attackCooldown;
 public:
     Character(uint16_t positionX, uint16_t positionY, uint8_t health, uint8_t speed, uint8_t damage,
-              uint8_t attackSpeed, uint8_t attackRange, uint8_t attackCooldown);
+              uint8_t attackSpeed, uint8_t attackRange, uint8_t attackCooldown, uint16_t width, uint16_t height, const char *spritePath);
+
+    uint16_t getWidth() const;
+
+    uint16_t getHeight() const;
 
     uint16_t getPositionX() const;
 
-    bool moveX(int16_t x);
-
     uint16_t getPositionY() const;
 
+    State getState() const;
+
+    void setState(State newState);
+
+    std::string getSpritePath() const;
+
+    bool moveX(int16_t x);
+
     bool moveY(int16_t y);
+
+    bool moveUp();
+
+    bool moveDown();
+
+    bool moveLeft();
+
+    bool moveRight();
 
     uint8_t getHealth() const;
 

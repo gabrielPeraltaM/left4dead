@@ -12,6 +12,7 @@ class Zombie : public Character {
 private:
 public:
     Zombie();
+    Zombie(int16_t posX, int16_t posY);
     void attack() override;
     void die() override;
     void spawn() override;
