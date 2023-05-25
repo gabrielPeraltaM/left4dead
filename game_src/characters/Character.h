@@ -36,7 +36,7 @@ class Character {
   uint8_t attackCooldown = 0;
 
  public:
-  Character(uint16_t positionX, uint16_t positionY, uint8_t health,
+  Character(uint8_t health,
             uint8_t speed, uint8_t damage, uint8_t attackSpeed,
             uint8_t attackRange, uint16_t width, uint16_t height,
             const char* srcPath, uint16_t frameWidth, uint16_t frameHeight);

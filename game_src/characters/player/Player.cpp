@@ -4,7 +4,14 @@
 
 #include "Player.h"
 
-void Player::attack() {}
+void Player::attack() {
+    if (ammo > 0) {
+        ammo--;
+        shoot();
+    } else {
+        reload();
+    }
+}
 
 void Player::die() {}
 
@@ -14,8 +21,16 @@ void Player::update() {}
 
 void Player::destroy() {}
 
-void Player::getCharacterType() {}
+void Player::reload() {
+    ammo = maxAmmo;
+}
 
-Player::Player()
-    : Character(400, 900, 100, 5, 10, 10, 10, 50, 100,
-                RESOURCE_PATH "/Soldier_1/", 40, 60) {}
+Player::Player(int burst, int maxAmmo, const char *srcPath, int16_t posX, int16_t posY,
+               int16_t damage, int16_t attackSpeed, int16_t attackRange) : Character(100, 10, damage, attackSpeed,
+                                                                                     attackRange, 40,
+                                                                                     100, srcPath, 30, 60),
+                                                                           burst(burst), maxAmmo(maxAmmo) {}
+
+void Player::shoot() {
+
+}

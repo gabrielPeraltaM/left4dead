@@ -35,5 +35,5 @@ target_link_libraries(left4dead SDL2pp::SDL2pp)
 ]]
 
 # define targets
-add_executable(lesson00 game_src/main.cpp game_src/characters/player/Player.cpp game_src/characters/player/Player.h game_src/characters/Character.cpp game_src/characters/Character.h game_src/layout/game/Game.cpp game_src/layout/game/Game.h game_src/characters/zombie/Zombie.cpp game_src/characters/zombie/Zombie.h)
+add_executable(lesson00 game_src/main.cpp game_src/characters/player/Player.cpp game_src/characters/player/Player.h game_src/characters/Character.cpp game_src/characters/Character.h game_src/layout/game/Game.cpp game_src/layout/game/Game.h game_src/characters/zombie/Zombie.cpp game_src/characters/zombie/Zombie.h game_src/characters/player/IDF.cpp game_src/characters/player/IDF.h game_src/characters/player/P90.cpp game_src/characters/player/P90.h game_src/characters/player/Scout.cpp game_src/characters/player/Scout.h)
 target_link_libraries(lesson00 PUBLIC SDL2pp::SDL2pp)
