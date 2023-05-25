@@ -9,97 +9,97 @@
 #include <string>
 
 enum class State {
-  IDLE,
-  WALK,
-  RUN,
-  ATTACK,
-  HURT,
-  DEAD,
+    IDLE,
+    WALK,
+    RUN,
+    ATTACK,
+    HURT,
+    DEAD,
 };
 
 class Character {
- protected:
-  State state = State::IDLE;
-  std::string srcPath;
-  std::string spritePath = srcPath + "Idle.png";
-  uint16_t positionX;
-  uint16_t positionY;
-  uint16_t width;
-  uint16_t height;
-  uint16_t frameWidth;
-  uint16_t frameHeight;
-  uint8_t health;
-  uint8_t speed;
-  uint8_t damage;
-  uint8_t attackSpeed;
-  uint8_t attackRange;
-  uint8_t attackCooldown = 0;
+protected:
+    State state = State::IDLE;
+    std::string srcPath;
+    std::string spritePath = srcPath + "Idle.png";
+    uint16_t positionX;
+    uint16_t positionY;
+    uint16_t width;
+    uint16_t height;
+    uint16_t frameWidth;
+    uint16_t frameHeight;
+    uint8_t health;
+    uint8_t speed;
+    uint8_t damage;
+    uint8_t attackSpeed;
+    uint8_t attackRange;
+    uint8_t attackCooldown = 0;
 
- public:
-  Character(uint8_t health,
-            uint8_t speed, uint8_t damage, uint8_t attackSpeed,
-            uint8_t attackRange, uint16_t width, uint16_t height,
-            const char* srcPath, uint16_t frameWidth, uint16_t frameHeight);
+public:
+    Character(uint16_t positionX, uint16_t positionY, uint8_t health,
+              uint8_t speed, uint8_t damage, uint8_t attackSpeed,
+              uint8_t attackRange, uint16_t width, uint16_t height,
+              const char *srcPath, uint16_t frameWidth,
+              uint16_t frameHeight);
 
-  uint16_t getWidth() const;
 
-  uint16_t getHeight() const;
+    uint16_t getWidth() const;
 
-  uint16_t getFrameWidth() const;
+    uint16_t getHeight() const;
 
-  uint16_t getFrameHeight() const;
+    uint16_t getFrameWidth() const;
 
-  uint16_t getPositionX() const;
+    uint16_t getFrameHeight() const;
 
-  uint16_t getPositionY() const;
+    uint16_t getPositionX() const;
 
-  State getState() const;
+    uint16_t getPositionY() const;
 
-  void setState(State newState);
+    State getState() const;
 
-  std::string getSpritePath() const;
+    void setState(State newState);
 
-  void setSpritePath(const char* spritePath);
+    std::string getSpritePath() const;
 
-  bool moveX(int16_t x);
+    void setSpritePath(const char *spritePath);
 
-  bool moveY(int16_t y);
+    bool moveX(int16_t x);
 
-  bool moveUp();
+    bool moveY(int16_t y);
 
-  bool moveDown();
+    bool moveUp();
 
-  bool moveLeft();
+    bool moveDown();
 
-  bool moveRight();
+    bool moveLeft();
 
-  uint8_t getHealth() const;
+    bool moveRight();
 
-  void reduceHealth(uint8_t damage);
+    uint8_t getHealth() const;
 
-  uint8_t getSpeed() const;
+    void reduceHealth(uint8_t damage);
 
-  uint8_t getDamage() const;
+    uint8_t getSpeed() const;
 
-  uint8_t getAttackSpeed() const;
+    uint8_t getDamage() const;
 
-  uint8_t getAttackRange() const;
+    uint8_t getAttackSpeed() const;
 
-  uint8_t getAttackCooldown() const;
+    uint8_t getAttackRange() const;
 
-  virtual void attack() = 0;
+    uint8_t getAttackCooldown() const;
 
-  void move(int16_t posX, int16_t posY);
+    void move(int16_t posX, int16_t posY);
 
-  virtual void die() = 0;
+    virtual void attack() = 0;
 
-  virtual void spawn() = 0;
+    virtual void die() = 0;
 
-  virtual void update() = 0;
+    virtual void spawn() = 0;
 
-  virtual void destroy() = 0;
+    virtual void update() = 0;
 
-  virtual void getCharacterType() = 0;
+    virtual void destroy() = 0;
 };
 
 #endif  // LEFT4DEAD_CHARACTER_H

@@ -26,9 +26,9 @@ void Player::reload() {
 }
 
 Player::Player(int burst, int maxAmmo, const char *srcPath, int16_t posX, int16_t posY,
-               int16_t damage, int16_t attackSpeed, int16_t attackRange) : Character(100, 10, damage, attackSpeed,
+               int16_t damage, int16_t attackSpeed, int16_t attackRange) : Character(posX, posY, 100, 10, damage, attackSpeed,
                                                                                      attackRange, 40,
-                                                                                     100, srcPath, 30, 60),
+                                                                                     100, srcPath, 35, 60),
                                                                            burst(burst), maxAmmo(maxAmmo) {}
 
 void Player::shoot() {

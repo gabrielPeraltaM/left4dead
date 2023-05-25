@@ -18,7 +18,6 @@ public:
     void spawn() override;
     void update() override;
     void destroy() override;
-    void getCharacterType() override;
 
 };
 

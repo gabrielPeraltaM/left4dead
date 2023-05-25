@@ -13,6 +13,7 @@ class IDF : public Player {
     private:
     public:
     IDF(int16_t posX, int16_t posY);
+
 };
 
 

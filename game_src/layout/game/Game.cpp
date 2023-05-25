@@ -3,6 +3,8 @@
 //
 
 #include "Game.h"
+#include "../../characters/player/IDF.h"
+#include "../../characters/player/P90.h"
 
 void Game::StartGame() {
   // Initialize SDL library
@@ -78,11 +80,15 @@ void Game::drawPlayers(Renderer &renderer) {
                        player.getWidth(), player.getHeight()),
                   Rect(player.getPositionX(), player.getPositionY(),
                        player.getWidth(), player.getHeight()));
+    // draw a red rect around the player
+    renderer.SetDrawColor(255, 0, 0, 255);
+    renderer.DrawRect(Rect(player.getPositionX(), player.getPositionY(),
+                           player.getWidth(), player.getHeight()));
   }
 }
 
 void Game::addPlayer() {
-  Player player;
+  IDF player(400, 900);
   players.push_back(player);
 }
 
@@ -97,10 +103,13 @@ void Game::drawZombies(Renderer &renderer) {
     renderer.Copy(
         sprite,
         Rect(zombie.getFrameWidth(), zombie.getFrameHeight(), zombie.getWidth(),
-             zombie.getHeight()),  // x, y deben ser frameX y frameY y se deben
-                                   // actualizar
+             zombie.getHeight()),
         Rect(zombie.getPositionX(), zombie.getPositionY(), zombie.getWidth(),
              zombie.getHeight()));
+    // draw a red rect around the zombie
+    renderer.SetDrawColor(255, 0, 0, 255);
+    renderer.DrawRect(Rect(zombie.getPositionX(), zombie.getPositionY(),
+                           zombie.getWidth(), zombie.getHeight()));
   }
 
   spawnZombie();
