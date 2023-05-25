@@ -6,19 +6,19 @@
 #define LEFT4DEAD_PLAYER_H
 
 #include <string>
+
 #include "../Character.h"
 
 class Player : public Character {
-private:
-public:
-    Player();
-    void attack() override;
-    void die() override;
-    void spawn() override;
-    void update() override;
-    void destroy() override;
-    void getCharacterType() override;
+ private:
+ public:
+  Player();
+  void attack() override;
+  void die() override;
+  void spawn() override;
+  void update() override;
+  void destroy() override;
+  void getCharacterType() override;
 };
 
-
-#endif //LEFT4DEAD_PLAYER_H
+#endif  // LEFT4DEAD_PLAYER_H
