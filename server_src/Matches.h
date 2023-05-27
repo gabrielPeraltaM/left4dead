@@ -19,7 +19,9 @@ class Matches {
 public:
     bool exist(int code);
 
-    Match create(std::string name);
+    int create(std::string name);
+
+    Match join(int match_code);
 };
 
 #endif //MATCHES_H

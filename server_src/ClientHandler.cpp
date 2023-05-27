@@ -5,9 +5,22 @@
 #include "ClientHandler.h"
 
 void ClientHandler::run() {
-    while (keep_talking) {
-        std::cout << "Implement" << std::endl;
+    ServerProtocol protocol;
+    int match_code = -1;
+    while (match_code < 0) {
+        Login login = protocol.receive_login(sk);
+        match_code = login.get_login(matches);
+        if (not login.is_joined() && match_code >= 0) {
+            protocol.send_match_code(sk, match_code);
+            continue;
+        }
+        if (login.is_joined()) {
+            protocol.send_join_successful(sk);
+            continue;
+        }
+        protocol.send_join_fail(sk);
     }
+    Match match = matches.join(match_code);
     is_alive = false;
 }
 
