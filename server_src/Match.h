@@ -11,11 +11,20 @@
 class Match {
     const GroupMatch *group;
     const Player *player;
+    std::atomic<bool> finished;
 
 public:
     Match(GroupMatch *group, Player *player) : group(group),
-                                               player(player) {
+                                               player(player),
+                                               finished(false) {
     }
+
+    Match(Match&& other);
+
+    bool is_finished();
+
+    Match(const Match&) = delete;
+    Match& operator=(const Match&) = delete;
 };
 
 #endif //MATCH_H

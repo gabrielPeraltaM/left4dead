@@ -12,12 +12,15 @@ bool Matches::exist(int code) {
     return (this->created > code);
 }
 
-Match Matches::create(std::string name) {
+int Matches::create(std::string name) {
     std::lock_guard<std::mutex> lock(m);
-    GroupMatch *group = groups.create_group(created, std::move(name));
+    groups.create_group(created, std::move(name));
+    return created++;
+}
+
+Match Matches::join(int match_code) {
+    GroupMatch *group = groups.get_group(match_code);
     Player *player = players.create_player();
     group->add_player(player);
-    Match match(group, player);
-    ++created;
-    return match;
+    return {group, player};
 }
