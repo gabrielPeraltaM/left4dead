@@ -13,7 +13,7 @@ struct IDFData : CharacterData {
     int burst = 20;
     IDFData() {
         health = 100;
-        speed = 7;
+        speed = 5;
         damage = 40;
         attackSpeed = 20;
         attackRange = 50;

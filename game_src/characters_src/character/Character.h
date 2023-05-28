@@ -36,6 +36,8 @@ public:
     void takeDamage(int damage);
     void spawn();
     void destroy();
+    void scrollLeft(int amount);
+    void scrollRight(int amount);
     int getAnimationFrame() const {
         return animationFrame;
     }
@@ -49,6 +51,18 @@ public:
     }
     SDL_RendererFlip getFlip() const {
         return status.flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+    }
+    int getBorderLeft() const {
+        return textures.borderLeft;
+    }
+    int getWidth() const {
+        return textures.width;
+    }
+    int getBorderTop() const {
+        return textures.borderTop;
+    }
+    int getHeight() const {
+        return textures.height;
     }
 };
 

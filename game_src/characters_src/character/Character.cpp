@@ -66,6 +66,11 @@ int Character::getPosY() const {
 }
 
 void Character::idle() {
+    if (status.state == State::IDLE) {
+        nextAnimationFrame();
+    } else {
+        resetAnimationFrame();
+    }
     status.state = State::IDLE;
     setCurrentSprite(textures.idle);
 }
@@ -92,4 +97,11 @@ void Character::setCurrentSprite(Texture *sprite) {
 }
 Texture *Character::getCurrentSprite() const {
         return currentSprite;
+}
+
+void Character::scrollLeft(int amount) {
+        status.x += amount;
+}
+void Character::scrollRight(int amount) {
+        status.x -= amount;
 }

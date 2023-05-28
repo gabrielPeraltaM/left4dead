@@ -28,7 +28,7 @@ add_executable(left4dead
         game_src/characters_src/characterTextures/CharacterTexture.h
         game_src/characters_src/characterTextures/players/IDFTextures.h
         game_src/characters_src/characterTextures/enemies/ZombieTextures.h
-        game_src/characters_src/characterStatus/players/IDFStatus.h
+        game_src/characters_src/characterStatus/players/PlayerStatus.h
         game_src/characters_src/characterStatus/CharacterStatus.h
         game_src/characters_src/character/Character.cpp
         game_src/characters_src/character/Character.h
@@ -39,7 +39,7 @@ add_executable(left4dead
         game_src/characters_src/character/players/IDF.cpp
         game_src/characters_src/character/players/IDF.h
         game_src/characters_src/character/enemies/Zombie.cpp
-        game_src/characters_src/character/enemies/Zombie.h)
+        game_src/characters_src/character/enemies/Zombie.h game_src/characters_src/character/enemies/Jumper.cpp game_src/characters_src/character/enemies/Jumper.h game_src/characters_src/character/enemies/Witch.cpp game_src/characters_src/character/enemies/Witch.h game_src/characters_src/character/enemies/Spear.cpp game_src/characters_src/character/enemies/Spear.h game_src/characters_src/character/enemies/Venom.cpp game_src/characters_src/character/enemies/Venom.h game_src/characters_src/characterTextures/players/P90Textures.h game_src/characters_src/character/players/P90.cpp game_src/characters_src/character/players/P90.h game_src/characters_src/characterTextures/players/PlayerTexture.h game_src/characters_src/characterTextures/enemies/EnemyTexture.h)
 
 target_link_libraries(left4dead PUBLIC SDL2pp::SDL2pp)
 

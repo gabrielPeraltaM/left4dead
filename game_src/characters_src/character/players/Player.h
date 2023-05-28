@@ -7,6 +7,7 @@
 
 
 #include "game_src/characters_src/character/Character.h"
+#include "game_src/characters_src/characterTextures/players/PlayerTexture.h"
 
 class Player : public Character {
 protected:

@@ -8,12 +8,12 @@
 
 #include "game_src/characters_src/characterData/CharacterData.h"
 
-class ScoutData : CharacterData {
+struct ScoutData : CharacterData {
     int maxAmmo = 20;
     int burst = 1;
     ScoutData() {
         health = 100;
-        speed = 7;
+        speed = 6;
         damage = 200;
         attackSpeed = 10;
         attackRange = 200;

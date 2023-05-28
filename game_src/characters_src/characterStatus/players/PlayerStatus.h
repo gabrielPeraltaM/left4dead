@@ -2,17 +2,17 @@
 // Created by ignacio on 5/27/23.
 //
 
-#ifndef LEFT4DEAD_IDFSTATUS_H
-#define LEFT4DEAD_IDFSTATUS_H
+#ifndef LEFT4DEAD_PLAYERSTATUS_H
+#define LEFT4DEAD_PLAYERSTATUS_H
 
 #include "game_src/characters_src/characterStatus/CharacterStatus.h"
 #include "game_src/characters_src/characterData/players/IDFData.h"
 
-struct IDFStatus : CharacterStatus {
+struct PlayerStatus : CharacterStatus {
     int ammo;
     int killed = 0;
     int distance = 0;
-    IDFStatus(int posx, int posy) {
+    PlayerStatus(int posx, int posy) {
         IDFData data;
         health = data.health;
         ammo = data.maxAmmo;
@@ -21,4 +21,4 @@ struct IDFStatus : CharacterStatus {
     }
 };
 
-#endif //LEFT4DEAD_IDFSTATUS_H
+#endif  // LEFT4DEAD_PLAYERSTATUS_H

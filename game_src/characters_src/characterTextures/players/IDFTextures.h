@@ -5,11 +5,14 @@
 #ifndef LEFT4DEAD_IDFTEXTURES_H
 #define LEFT4DEAD_IDFTEXTURES_H
 
-#include "game_src/characters_src/characterTextures/CharacterTexture.h"
+#include "PlayerTexture.h"
 
-struct IDFTextures : CharacterTexture {
-    IDFTextures(Renderer &renderer) : CharacterTexture(renderer, RESOURCE_PATH "/IDF/") {
-        attack = new Texture(renderer, RESOURCE_PATH "/IDF/Attack.png");
+struct IDFTextures : PlayerTexture {
+    IDFTextures(Renderer &renderer) : PlayerTexture(renderer, RESOURCE_PATH "/IDF/") {
+        borderLeft= 46;
+        width = 33;
+        borderTop = 60;
+        height = 70;
     }
 };
 

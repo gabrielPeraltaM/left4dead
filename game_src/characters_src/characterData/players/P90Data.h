@@ -8,12 +8,12 @@
 
 #include "game_src/characters_src/characterData/CharacterData.h"
 
-class P90Data : CharacterData {
+struct P90Data : CharacterData {
     int maxAmmo = 30;
     int burst = 10;
     P90Data() {
         health = 150;
-        speed = 5;
+        speed = 3;
         damage = 50;
         attackSpeed = 10;
         attackRange = 20;

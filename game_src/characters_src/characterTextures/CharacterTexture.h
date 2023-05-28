@@ -17,6 +17,10 @@ struct CharacterTexture {
     Texture *hurt;
     int frameWidth = 128;
     int frameHeight = 128;
+    int borderLeft = 30;
+    int borderTop = 40;
+    int width = 50;
+    int height = 50;
     CharacterTexture(Renderer &renderer, const char *srcPath) {
         idle = new Texture(renderer, srcPath + std::string("Idle.png"));
         walk = new Texture(renderer, srcPath + std::string("Walk.png"));

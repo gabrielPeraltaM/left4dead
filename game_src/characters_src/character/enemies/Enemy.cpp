@@ -10,5 +10,7 @@ Enemy::Enemy(int posX, int posY, const CharacterData &data, CharacterTexture &te
 }
 
 void Enemy::attack() {
+    status.state = State::ATTACK;
+
     setCurrentSprite(textures.attack);
 }

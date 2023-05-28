@@ -4,7 +4,7 @@
 
 #include "Player.h"
 
-
+#include "game_src/characters_src/characterStatus/players/PlayerStatus.h"
 
 Player::Player(int16_t posX, int16_t posY, CharacterData const &data, CharacterTexture &textures) : Character(data, textures) {
     status.x = posX;
@@ -12,15 +12,37 @@ Player::Player(int16_t posX, int16_t posY, CharacterData const &data, CharacterT
 }
 
 void Player::attack() {
+    if (status.state == State::ATTACK) {
+      nextAnimationFrame();
+    } else {
+      resetAnimationFrame();
+    }
+    status.state = State::ATTACK;
     setCurrentSprite(textures.attack);
 }
 
 void Player::shoot() {
-    //setCurrentSprite(textures.shoot);
+    if (status.state == State::SHOOT) {
+      nextAnimationFrame();
+    } else {
+      resetAnimationFrame();
+    }
+    status.state = State::SHOOT;
+
+    PlayerTexture &playerTextures = static_cast<PlayerTexture &>(textures);
+    setCurrentSprite(playerTextures.shoot);
 }
 
 void Player::reload() {
-    //setCurrentSprite(textures.reload);
+    if (status.state == State::RELOAD) {
+      nextAnimationFrame();
+    } else {
+      resetAnimationFrame();
+    }
+    status.state = State::RELOAD;
+
+    PlayerTexture &playerTextures = static_cast<PlayerTexture &>(textures);
+    setCurrentSprite(playerTextures.reload);
 }
 
 void Player::update() {

@@ -12,6 +12,8 @@ enum class State {
     ATTACK,
     HURT,
     DEAD,
+    SHOOT,
+    RELOAD,
 };
 
 struct CharacterStatus {
