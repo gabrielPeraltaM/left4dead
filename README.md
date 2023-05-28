@@ -18,4 +18,3 @@ cmake ..
 make
 ./runTests
 ```
-

@@ -4,19 +4,46 @@ project(left4dead LANGUAGES CXX VERSION 0.10 DESCRIPTION "Left 4 Dead Grupo 8")
 # SDL
 find_package(SDL2pp REQUIRED)
 
-# Qt
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_PREFIX_PATH $ENV{QTDIR})
-find_package(Qt6Core REQUIRED)
-find_package(Qt6Widgets REQUIRED)
-
 # Compilation flags
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Resources
 add_definitions(-DRESOURCE_PATH="${PROJECT_SOURCE_DIR}/resources")
+
+# define targets
+add_executable(left4dead 
+        game_src/main.cpp
+        game_src/layout/game/Game.cpp
+        game_src/layout/game/Game.h
+        game_src/characters_src/characterData/CharacterData.h
+        game_src/characters_src/characterData/players/IDFData.h
+        game_src/characters_src/characterData/players/P90Data.h
+        game_src/characters_src/characterData/players/ScoutData.h
+        game_src/characters_src/characterData/enemies/ZombieData.h
+        game_src/characters_src/characterData/enemies/JumperData.h
+        game_src/characters_src/characterData/enemies/SpearData.h
+        game_src/characters_src/characterData/enemies/VenomData.h
+        game_src/characters_src/characterData/enemies/WitchData.h
+        game_src/characters_src/characterTextures/CharacterTexture.h
+        game_src/characters_src/characterTextures/players/IDFTextures.h
+        game_src/characters_src/characterTextures/enemies/ZombieTextures.h
+        game_src/characters_src/characterStatus/players/IDFStatus.h
+        game_src/characters_src/characterStatus/CharacterStatus.h
+        game_src/characters_src/character/Character.cpp
+        game_src/characters_src/character/Character.h
+        game_src/characters_src/character/players/Player.cpp
+        game_src/characters_src/character/players/Player.h
+        game_src/characters_src/character/enemies/Enemy.cpp
+        game_src/characters_src/character/enemies/Enemy.h
+        game_src/characters_src/character/players/IDF.cpp
+        game_src/characters_src/character/players/IDF.h
+        game_src/characters_src/character/enemies/Zombie.cpp
+        game_src/characters_src/character/enemies/Zombie.h)
+
+target_link_libraries(left4dead PUBLIC SDL2pp::SDL2pp)
+
+
 
 #[[
 add_executable(left4dead server_src/main.cpp
@@ -41,8 +68,3 @@ add_executable(left4dead server_src/main.cpp
                         server_src/Players.cpp)
 target_link_libraries(left4dead SDL2pp::SDL2pp)
 ]]
-
-# define targets
-add_executable(lesson00 game_src/main.cpp game_src/characters/player/Player.cpp game_src/characters/player/Player.h game_src/characters/Character.cpp game_src/characters/Character.h game_src/layout/game/Game.cpp game_src/layout/game/Game.h game_src/characters/zombie/Zombie.cpp game_src/characters/zombie/Zombie.h game_src/characters/player/IDF.cpp game_src/characters/player/IDF.h game_src/characters/player/P90.cpp game_src/characters/player/P90.h game_src/characters/player/Scout.cpp game_src/characters/player/Scout.h game_src/characters/zombie/Jumper.cpp game_src/characters/zombie/Jumper.h game_src/characters/zombie/Spear.cpp game_src/characters/zombie/Spear.h game_src/characters/zombie/Venom.cpp game_src/characters/zombie/Venom.h game_src/characters/zombie/Witch.cpp game_src/characters/zombie/Witch.h game_src/layout/menu/menu.cpp game_src/layout/menu/menu.h game_src/layout/menu/menu.ui)
-target_link_libraries(lesson00 PUBLIC SDL2pp::SDL2pp)
-target_link_libraries(lesson00 PUBLIC Qt6::Widgets)
