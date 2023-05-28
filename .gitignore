@@ -35,3 +35,6 @@ cmake-build-debug
 *.exe
 *.out
 *.app
+
+# Other
+tasks.json
