@@ -9,40 +9,76 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Resources
-add_definitions(-DRESOURCE_PATH="${PROJECT_SOURCE_DIR}/resources")
+add_definitions(-DRESOURCE_PATH= "${PROJECT_SOURCE_DIR}/resources")
 
 # define targets
-add_executable(left4dead 
-        game_src/main.cpp
-        game_src/layout/game/Game.cpp
-        game_src/layout/game/Game.h
-        game_src/characters_src/characterData/CharacterData.h
-        game_src/characters_src/characterData/players/IDFData.h
-        game_src/characters_src/characterData/players/P90Data.h
-        game_src/characters_src/characterData/players/ScoutData.h
-        game_src/characters_src/characterData/enemies/ZombieData.h
-        game_src/characters_src/characterData/enemies/JumperData.h
-        game_src/characters_src/characterData/enemies/SpearData.h
-        game_src/characters_src/characterData/enemies/VenomData.h
-        game_src/characters_src/characterData/enemies/WitchData.h
-        game_src/characters_src/characterTextures/CharacterTexture.h
-        game_src/characters_src/characterTextures/players/IDFTextures.h
-        game_src/characters_src/characterTextures/enemies/ZombieTextures.h
-        game_src/characters_src/characterStatus/players/PlayerStatus.h
-        game_src/characters_src/characterStatus/CharacterStatus.h
-        game_src/characters_src/character/Character.cpp
-        game_src/characters_src/character/Character.h
-        game_src/characters_src/character/players/Player.cpp
-        game_src/characters_src/character/players/Player.h
-        game_src/characters_src/character/enemies/Enemy.cpp
-        game_src/characters_src/character/enemies/Enemy.h
-        game_src/characters_src/character/players/IDF.cpp
-        game_src/characters_src/character/players/IDF.h
-        game_src/characters_src/character/enemies/Zombie.cpp
-        game_src/characters_src/character/enemies/Zombie.h game_src/characters_src/character/enemies/Jumper.cpp game_src/characters_src/character/enemies/Jumper.h game_src/characters_src/character/enemies/Witch.cpp game_src/characters_src/character/enemies/Witch.h game_src/characters_src/character/enemies/Spear.cpp game_src/characters_src/character/enemies/Spear.h game_src/characters_src/character/enemies/Venom.cpp game_src/characters_src/character/enemies/Venom.h game_src/characters_src/characterTextures/players/P90Textures.h game_src/characters_src/character/players/P90.cpp game_src/characters_src/character/players/P90.h game_src/characters_src/characterTextures/players/PlayerTexture.h game_src/characters_src/characterTextures/enemies/EnemyTexture.h game_src/characters_src/characterTextures/players/ScoutTextures.h game_src/layout/game/GameInterface.cpp game_src/layout/game/GameInterface.h game_src/layout/game/GameStatus.cpp game_src/layout/game/GameStatus.h game_src/layout/game/GameStorage.cpp game_src/layout/game/GameStorage.h)
+add_executable(cliente
+        client_src/main.cpp
+        client_src/layout/game/Game.cpp
+        client_src/layout/game/Game.h
+        client_src/characters_src/characterData/CharacterData.h
+        client_src/characters_src/characterData/players/IDFData.h
+        client_src/characters_src/characterData/players/P90Data.h
+        client_src/characters_src/characterData/players/ScoutData.h
+        client_src/characters_src/characterData/enemies/ZombieData.h
+        client_src/characters_src/characterData/enemies/JumperData.h
+        client_src/characters_src/characterData/enemies/SpearData.h
+        client_src/characters_src/characterData/enemies/VenomData.h
+        client_src/characters_src/characterData/enemies/WitchData.h
+        client_src/characters_src/characterTextures/CharacterTexture.h
+        client_src/characters_src/characterTextures/players/IDFTextures.h
+        client_src/characters_src/characterTextures/enemies/ZombieTextures.h
+        client_src/characters_src/characterStatus/players/PlayerStatus.h
+        client_src/characters_src/characterStatus/CharacterStatus.h
+        client_src/characters_src/character/Character.cpp
+        client_src/characters_src/character/Character.h
+        client_src/characters_src/character/players/Player.cpp
+        client_src/characters_src/character/players/Player.h
+        client_src/characters_src/character/enemies/Enemy.cpp
+        client_src/characters_src/character/enemies/Enemy.h
+        client_src/characters_src/character/players/IDF.cpp
+        client_src/characters_src/character/players/IDF.h
+        client_src/characters_src/character/enemies/Zombie.cpp
+        client_src/characters_src/character/enemies/Zombie.h
+        client_src/characters_src/character/enemies/Jumper.cpp
+        client_src/characters_src/character/enemies/Jumper.h
+        client_src/characters_src/character/enemies/Witch.cpp
+        client_src/characters_src/character/enemies/Witch.h
+        client_src/characters_src/character/enemies/Spear.cpp
+        client_src/characters_src/character/enemies/Spear.h
+        client_src/characters_src/character/enemies/Venom.cpp
+        client_src/characters_src/character/enemies/Venom.h
+        client_src/characters_src/characterTextures/players/P90Textures.h
+        client_src/characters_src/character/players/P90.cpp
+        client_src/characters_src/character/players/P90.h
+        client_src/characters_src/characterTextures/players/PlayerTexture.h
+        client_src/characters_src/characterTextures/enemies/EnemyTexture.h
+        client_src/characters_src/characterTextures/players/ScoutTextures.h
+        client_src/layout/game/GameInterface.cpp
+        client_src/layout/game/GameInterface.h
+        client_src/layout/game/GameStatus.cpp
+        client_src/layout/game/GameStatus.h
+        client_src/layout/game/GameStorage.cpp
+        client_src/layout/game/GameStorage.h
+        client_src/client/Client.cpp
+        client_src/client/Client.h
+        client_src/client/ActionsParser.cpp
+        client_src/client/ActionsParser.h
+        client_src/client/Protocol.cpp
+        client_src/client/Protocol.h
+        common_src/socket.h
+        common_src/socket.cpp
+        common_src/thread.h
+        common_src/thread.cpp
+        common_src/liberror.h
+        common_src/liberror.cpp
+        common_src/resolvererror.h
+        common_src/resolvererror.cpp
+        common_src/resolver.h
+        common_src/resolver.cpp
+        )
 
-target_link_libraries(left4dead PUBLIC SDL2pp::SDL2pp)
-
+target_link_libraries(cliente PUBLIC SDL2pp::SDL2pp)
 
 
 #[[
