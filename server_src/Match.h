@@ -7,6 +7,7 @@
 
 #include "./GroupMatch.h"
 #include "./Player.h"
+#include <atomic>
 
 class Match {
     const GroupMatch *group;
@@ -19,7 +20,9 @@ public:
                                                finished(false) {
     }
 
-    Match(Match&& other);
+    Match(Match&& other) noexcept;
+
+    void finish();
 
     bool is_finished();
 

@@ -16,6 +16,8 @@ public:
     GroupMatch *create_group(int match_code, std::string name);
 
     ~Groups();
+
+    GroupMatch *get_group(int code);
 };
 
 #endif //LEFT4DEAD_GROUPS_H

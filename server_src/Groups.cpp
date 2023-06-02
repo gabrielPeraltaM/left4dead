@@ -17,3 +17,7 @@ Groups::~Groups() {
         delete group.second;
     }
 }
+
+GroupMatch *Groups::get_group(int code) {
+    return groups.at(code);
+}

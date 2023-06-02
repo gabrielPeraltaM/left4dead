@@ -3,6 +3,9 @@
 //
 
 #include "ClientHandler.h"
+#include "Login.h"
+#include "ServerProtocol.h"
+#include "Commands.h"
 
 void ClientHandler::run() {
     ServerProtocol protocol;
@@ -21,6 +24,8 @@ void ClientHandler::run() {
         protocol.send_join_fail(sk);
     }
     Match match = matches.join(match_code);
+    Commands commands(sk, match);
+    commands.run();
     is_alive = false;
 }
 
