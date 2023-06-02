@@ -8,7 +8,7 @@ using namespace SDL2pp;
 
 int main() try {
     std::string background_src = RESOURCE_PATH "/backgrounds/War1/Pale/War.png";
-    Game game(3, background_src);
+    Game game(1, background_src);
     game.StartGame();
 	return 0;
 } catch (std::exception& e) {

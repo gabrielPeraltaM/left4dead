@@ -21,15 +21,20 @@ private:
     SDL sdl = SDL(SDL_INIT_VIDEO);
     SDL_DisplayMode DM = SDL_DisplayMode();
     Window window = Window("Left4Dead", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    Renderer renderer = Renderer(window, -1, SDL_RENDERER_ACCELERATED);
     int width = 800;
     int height = 600;
 
     // Background
-    Texture* background;
+    Texture* background = nullptr;
     int mapScrollingOffset = 0;
     int enemyScrollingOffset = 0;
 
-    const int difficulty = 3; // 1 = easy, 2 = medium, 3 = hard
+    // Initialization
+    void loadData();
+    void loadBackground(std::string &background_src);
+
+    const int difficulty = 1; // 1 = easy, 2 = medium, 3 = hard
 
     // Game storage
     std::vector<Player> players;
@@ -39,20 +44,17 @@ private:
     std::unordered_map<std::string, CharacterData> data;
 
     // Game functions
-    void addPlayer();
+    void addPlayer(int16_t x, int16_t y);
     void addZombie(int16_t x, int16_t y);
     void spawnZombie();
-    void drawBackground(Renderer &renderer);
-    void drawZombies(Renderer &renderer);
-    void drawPlayers(Renderer &renderer);
+    void drawBackground();
+    void drawZombies();
+    void drawPlayers();
     void playerAction(Player &player);
-    void loadTextures(Renderer &renderer);
+    void loadTextures();
 public:
     Game(int difficulty, std::string &background_src);
     void StartGame();
-
-    void loadData();
-    void loadBackground(std::string &background_src, Renderer &renderer);
 };
 
 

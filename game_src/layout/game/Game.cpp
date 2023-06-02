@@ -17,28 +17,18 @@
 #include "game_src/characters_src/characterTextures/players/P90Textures.h"
 
 void Game::StartGame() {
-    Renderer renderer = Renderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    // Load the textures
-    std::string background_src = RESOURCE_PATH "/backgrounds/War1/Bright/War.png";
-    loadBackground(background_src, renderer);
-
-    loadTextures(renderer);
-    loadData();
-
     // Get the screen size
     SDL_GetCurrentDisplayMode(0, &DM);
     width = DM.w;
     height = DM.h;
 
     // Add the players
-    addPlayer();
+    addPlayer(300, 900);
+
+    addPlayer(100, 900);
 
     // Add the initial zombies
     spawnZombie();
-
-    // Present changes
-    renderer.Present();
 
     // Game loop
     SDL_Event event;
@@ -64,14 +54,11 @@ void Game::StartGame() {
         renderer.Clear();
 
         // Draw the background
-        drawBackground(renderer);
+        drawBackground();
 
         // Draw the characters
-
-        // Get the sdl ticks
-        drawPlayers(renderer);
-        drawZombies(renderer);
-
+        drawPlayers();
+        drawZombies();
 
         renderer.Present();
         SDL_Delay(1000 / 60);
@@ -79,7 +66,7 @@ void Game::StartGame() {
 
 }
 
-void Game::drawPlayers(Renderer &renderer) {
+void Game::drawPlayers() {
     for (auto &player: players) {
 
         Texture *sprite = player.getCurrentSprite();
@@ -123,7 +110,7 @@ void Game::drawPlayers(Renderer &renderer) {
     }
 }
 
-void Game::drawZombies(Renderer & renderer) {
+void Game::drawZombies() {
     for (auto &enemy: enemies) {
         Texture *sprite = enemy.getCurrentSprite();
         enemy.scrollRight(enemyScrollingOffset);
@@ -149,8 +136,8 @@ void Game::drawZombies(Renderer & renderer) {
     enemyScrollingOffset = 0;
 }
 
-void Game::addPlayer() {
-    IDF player(500, 900, data["IDF"], playerTextures["IDF"]);
+void Game::addPlayer(int16_t x, int16_t y) {
+    IDF player(x, y, data["IDF"], playerTextures["IDF"]);
     players.push_back(player);
 }
 
@@ -161,7 +148,7 @@ void Game::addZombie(int16_t x, int16_t y) {
 
 // Draw to backgrounds to simulate parallax / scrolling effect when player
 // gets close to the border
-void Game::drawBackground(Renderer &renderer) {
+void Game::drawBackground() {
     Rect srcRect = Rect(0, 0, width, height);
     Rect dstRect = Rect(-mapScrollingOffset, 0, width, height);
     // Draw the background
@@ -225,11 +212,13 @@ void Game::spawnZombie() {
 }
 
 Game::Game(int difficulty, std::string &background_src)
-        : difficulty(difficulty) {}
+        : difficulty(difficulty) {
+    loadBackground(background_src);
+    loadTextures();
+    loadData();
+}
 
-void Game::loadTextures(Renderer &renderer) {
-    // Load the players textures
-
+void Game::loadTextures() {
     // IDF
     IDFTextures idf(renderer);
     playerTextures.emplace("IDF", idf);
@@ -260,6 +249,6 @@ void Game::loadData() {
     // TODO: Add the rest of the zombies
 
 }
-void Game::loadBackground(std::string &background_src, Renderer &renderer) {
+void Game::loadBackground(std::string &background_src) {
     background = new Texture(renderer, background_src);
 }
