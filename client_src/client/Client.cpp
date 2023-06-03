@@ -13,13 +13,12 @@ void Client::start() {
   std::string line;
 
   // First action
-  std::getline(std::cin, line);
-  bool was_closed = parser.parseFirstAction(line);
-
+  //std::getline(std::cin, line);
+  //bool was_closed = parser.parseFirstAction(line);
   game.StartGame();
 
   // Next actions
-  while (!was_closed && std::getline(std::cin, line)) {
-    was_closed = parser.parseNextAction(line);
-  }
+  //while (!was_closed && std::getline(std::cin, line)) {
+  //  was_closed = parser.parseNextAction(line);
+  //}
 }

@@ -2,6 +2,7 @@
 #include <exception>
 #include <iostream>
 #include "client_src/client/Client.h"
+#include <SDL2pp/SDL2pp.hh>
 
 int main(int argc, char *argv[]) {
   if (argc != 3) {

@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Resources
-add_definitions(-DRESOURCE_PATH= "${PROJECT_SOURCE_DIR}/resources")
+add_definitions(-DRESOURCE_PATH="${PROJECT_SOURCE_DIR}/resources")
 
 # define targets
 add_executable(cliente
@@ -76,7 +76,7 @@ add_executable(cliente
         common_src/resolvererror.cpp
         common_src/resolver.h
         common_src/resolver.cpp
-        )
+        client_src/layout/game/GameRenderer.cpp client_src/layout/game/GameRenderer.h client_src/layout/game/GameProtocol.cpp client_src/layout/game/GameProtocol.h)
 
 target_link_libraries(cliente PUBLIC SDL2pp::SDL2pp)
 
