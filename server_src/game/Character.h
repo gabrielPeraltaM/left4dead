@@ -17,9 +17,9 @@ class Character {
 
     bool collision(Character *other, int move_x, int move_y);
 
-    int get_pos_x();
+    int get_pos_x() const;
 
-    int get_pos_y();
+    int get_pos_y() const;
 
    private:
     double distance(Character *other, int new_pos_x, int new_pos_y);

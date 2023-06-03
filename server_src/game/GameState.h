@@ -8,18 +8,17 @@
 #include "Map.h"
 #include "../State.h"
 #include "../Action.h"
+#include <memory>
 
 class GameState {
     Map map;
 
    public:
-    GameState(const int limit_x, const int limit_y);
-
-    ~GameState();
+    GameState(int limit_x, int limit_y);
 
     void add_character(int id, int collision_range);
 
-    State update(Action action);
+    std::shared_ptr<State> update(Action action);
 };
 
 #endif  // LEFT4DEAD_GAME_STATE_H

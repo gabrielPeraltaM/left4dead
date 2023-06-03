@@ -21,11 +21,11 @@ bool Character::collision(Character *other, int move_x, int move_y) {
     return distance < this->collision_range + other->collision_range;
 }
 
-int Character::get_pos_x() {
+int Character::get_pos_x() const {
     return pos_x;
 }
 
-int Character::get_pos_y() {
+int Character::get_pos_y() const {
     return pos_y;
 }
 
