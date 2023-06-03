@@ -3,9 +3,10 @@
 //
 
 #include "Map.h"
+#include "../StateMove.h"
 
-Map::Map(const int limit_x, const int limit_y) : limit_x(limit_x),
-                                                 limit_y(limit_y) {}
+Map::Map(int limit_x, int limit_y) : limit_x(limit_x),
+                                     limit_y(limit_y) {}
 
 Map::~Map() {
     for (auto character : characters) {
@@ -19,24 +20,26 @@ void Map::add_character(int id, int collision_range) {
     characters.at(id) = character;
 }
 
-void Map::move_character(int id, int x, int y) {
+std::shared_ptr<State> Map::move_character(int id, int move_x, int move_y) {
     auto *character = characters.at(id);
-    if (limit_collision(character, x, y)) {
-      return;
+    if (limit_collision(character, move_x, move_y)) {
+        return std::make_shared<StateMove>(id, 0, 0);
     }
     bool collision = false;
     for (auto other : characters) {
         if (other.first == id) {
             continue;
         }
-        collision = other.second->collision(character, x, y);
+        collision = character->collision(other.second, move_x, move_y);
     }
     if (not collision) {
-        character->move(x, y);
+        character->move(move_x, move_y);
+        return std::make_shared<StateMove>(id, move_x, move_y);
     }
+    return std::make_shared<StateMove>(id, 0, 0);
 }
 
-bool Map::limit_collision(Character *character, int move_x, int move_y) {
+bool Map::limit_collision(Character *character, int move_x, int move_y) const {
     if ((character->get_pos_x() + move_x) < 0 || (character->get_pos_x() + move_x) >= limit_x) {
         return true;
     }

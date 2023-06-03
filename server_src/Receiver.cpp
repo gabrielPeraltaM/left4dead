@@ -4,8 +4,8 @@
 
 #include "Receiver.h"
 
-Receiver::Receiver(Socket &sk, Match &match) : sk(sk),
-                                               match(match) {
+Receiver::Receiver(ServerProtocol &protocol, Match &match) : protocol(protocol),
+                                                             match(match) {
 }
 
 void Receiver::run() {

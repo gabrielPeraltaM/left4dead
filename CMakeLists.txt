@@ -102,8 +102,7 @@ add_executable(server server_src/main.cpp
         server_src/Players.cpp server_src/game/Character.cpp server_src/game/Map.cpp server_src/ActionMove.cpp server_src/StateMove.cpp server_src/game/GameState.cpp server_src/Login.cpp server_src/ServerProtocol.cpp server_src/Receiver.cpp server_src/Sender.cpp server_src/Commands.cpp)
 target_link_libraries(server SDL2pp::SDL2pp)
 
-#[[
-add_executable(left4dead server_src/main.cpp
+add_executable(server server_src/main.cpp
                         server_src/server.cpp
                         common_src/liberror.cpp
                         common_src/resolvererror.cpp
@@ -122,6 +121,5 @@ add_executable(left4dead server_src/main.cpp
                         server_src/StateQueue.cpp
                         server_src/Player.cpp
                         server_src/Groups.cpp
-                        server_src/Players.cpp)
-target_link_libraries(left4dead SDL2pp::SDL2pp)
-]]
+                        server_src/Players.cpp server_src/game/Character.cpp server_src/game/Map.cpp server_src/ActionMove.cpp server_src/StateMove.cpp server_src/game/GameState.cpp server_src/Login.cpp server_src/ServerProtocol.cpp server_src/Receiver.cpp server_src/Sender.cpp server_src/Commands.cpp)
+target_link_libraries(server SDL2pp::SDL2pp)

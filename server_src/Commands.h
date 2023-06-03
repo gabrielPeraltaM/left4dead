@@ -5,10 +5,10 @@
 #ifndef LEFT4DEAD_COMMANDS_H
 #define LEFT4DEAD_COMMANDS_H
 
-#include "../common_src/socket.h"
 #include "Match.h"
 #include "Sender.h"
 #include "Receiver.h"
+#include "ServerProtocol.h"
 
 class Commands {
     Match &match;
@@ -16,7 +16,7 @@ class Commands {
     Receiver receiver;
 
    public:
-    Commands(Socket &sk, Match &match);
+    Commands(ServerProtocol &protocol, Match &match);
 
     ~Commands();
 

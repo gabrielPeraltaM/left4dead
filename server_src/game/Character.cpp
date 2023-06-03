@@ -11,26 +11,26 @@ Character::Character(int pos_x,
                                             pos_y(pos_y),
                                             collision_range(collision_range) {}
 
-void Character::move(int x, int y) {
-    pos_x += x;
-    pos_y += y;
+void Character::move(int move_x, int move_y) {
+    pos_x += move_x;
+    pos_y += move_y;
 }
 
 bool Character::collision(Character *other, int move_x, int move_y) {
-    auto distance = this->distance(move_x, move_y);
+    auto distance = this->distance(other, pos_x + move_x, pos_y + move_y);
     return distance < this->collision_range + other->collision_range;
 }
 
-int Character::get_pos_x() {
+int Character::get_pos_x() const {
     return pos_x;
 }
 
-int Character::get_pos_y() {
+int Character::get_pos_y() const {
     return pos_y;
 }
 
-double Character::distance(int move_x, int move_y) {
-    int distance_x = pos_x - move_x;
-    int distance_y = pos_y - move_y;
+double Character::distance(Character *other, int new_pos_x, int new_pos_y) {
+    int distance_x = other->pos_x - new_pos_x;
+    int distance_y = other->pos_y - new_pos_y;
     return sqrt((distance_x * distance_x) + (distance_y * distance_y));
 }

@@ -6,15 +6,15 @@
 #define LEFT4DEAD_RECEIVER_H
 
 #include "../common_src/thread.h"
-#include "../common_src/socket.h"
+#include "ServerProtocol.h"
 #include "Match.h"
 
 class Receiver : public Thread {
-    Socket &sk;
+    ServerProtocol &protocol;
     Match &match;
 
    public:
-    Receiver(Socket &sk, Match &match);
+    Receiver(ServerProtocol &protocol, Match &match);
 
     void run() override;
 };

@@ -7,6 +7,8 @@
 
 #include <map>
 #include "Character.h"
+#include "../server_src/State.h"
+#include <memory>
 
 class Map {
     const int limit_x;
@@ -14,16 +16,16 @@ class Map {
     std::map<int, Character*> characters;
 
    public:
-    Map(const int limit_x, const int limit_y);
+    Map(int limit_x, int limit_y);
 
     ~Map();
 
     void add_character(int id, int collision_range);
 
-    void move_character(int id, int x, int y);
+    std::shared_ptr<State> move_character(int id, int move_x, int move_y);
 
    private:
-    bool limit_collision(Character *character, int move_x, int move_y);
+    bool limit_collision(Character *character, int move_x, int move_y) const;
 };
 
 #endif  // LEFT4DEAD_MAP_H

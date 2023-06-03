@@ -6,15 +6,15 @@
 #define LEFT4DEAD_SENDER_H
 
 #include "../common_src/thread.h"
-#include "../common_src/socket.h"
+#include "ServerProtocol.h"
 #include "Match.h"
 
 class Sender : public Thread {
-    Socket &sk;
+    ServerProtocol &protocol;
     Match &match;
 
    public:
-    Sender(Socket &sk, Match &match);
+    Sender(ServerProtocol &protocol, Match &match);
 
     void run() override;
 };

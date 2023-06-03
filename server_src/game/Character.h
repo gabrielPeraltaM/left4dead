@@ -13,16 +13,16 @@ class Character {
    public:
     Character(int pos_x, int pos_y, int collision_range);
 
-    void move(int x, int y);
+    void move(int move_x, int move_y);
 
     bool collision(Character *other, int move_x, int move_y);
 
-    int get_pos_x();
+    int get_pos_x() const;
 
-    int get_pos_y();
+    int get_pos_y() const;
 
    private:
-    double distance(int move_x, int move_y);
+    double distance(Character *other, int new_pos_x, int new_pos_y);
 };
 
 #endif  // LEFT4DEAD_CHARACTER_H
