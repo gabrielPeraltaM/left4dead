@@ -4,8 +4,8 @@
 
 #include "Map.h"
 
-Map::Map(const int limit_x, const int limit_y) : limit_x(limit_x),
-                                                 limit_y(limit_y) {}
+Map::Map(int limit_x, int limit_y) : limit_x(limit_x),
+                                     limit_y(limit_y) {}
 
 Map::~Map() {
     for (auto character : characters) {
@@ -19,9 +19,9 @@ void Map::add_character(int id, int collision_range) {
     characters.at(id) = character;
 }
 
-void Map::move_character(int id, int x, int y) {
+void Map::move_character(int id, int move_x, int move_y) {
     auto *character = characters.at(id);
-    if (limit_collision(character, x, y)) {
+    if (limit_collision(character, move_x, move_y)) {
       return;
     }
     bool collision = false;
@@ -29,10 +29,10 @@ void Map::move_character(int id, int x, int y) {
         if (other.first == id) {
             continue;
         }
-        collision = other.second->collision(character, x, y);
+        collision = character->collision(other.second, move_x, move_y);
     }
     if (not collision) {
-        character->move(x, y);
+        character->move(move_x, move_y);
     }
 }
 

@@ -81,8 +81,7 @@ add_executable(cliente
 target_link_libraries(cliente PUBLIC SDL2pp::SDL2pp)
 
 
-#[[
-add_executable(left4dead server_src/main.cpp
+add_executable(server server_src/main.cpp
                         server_src/server.cpp
                         common_src/liberror.cpp
                         common_src/resolvererror.cpp
@@ -102,5 +101,4 @@ add_executable(left4dead server_src/main.cpp
                         server_src/Player.cpp
                         server_src/Groups.cpp
                         server_src/Players.cpp)
-target_link_libraries(left4dead SDL2pp::SDL2pp)
-]]
+target_link_libraries(server SDL2pp::SDL2pp)
