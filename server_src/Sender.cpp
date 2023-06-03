@@ -4,8 +4,8 @@
 
 #include "Sender.h"
 
-Sender::Sender(Socket &sk, Match &match) : match(match),
-                                           sk(sk) {
+Sender::Sender(ServerProtocol &protocol, Match &match) : protocol(protocol),
+                                                         match(match) {
 }
 
 void Sender::run() {

@@ -13,7 +13,9 @@
 #define JOIN_SUCCESSFUL 0
 #define JOIN_FAILURE 1
 
-Login ServerProtocol::receive_login(Socket &sk) {
+ServerProtocol::ServerProtocol(Socket sk) : sk(std::move(sk)){}
+
+Login ServerProtocol::receive_login() {
     uint8_t action;
     bool was_closed;
     int s;
@@ -52,7 +54,7 @@ Login ServerProtocol::receive_login(Socket &sk) {
     return {"", (-1)};
 }
 
-void ServerProtocol::send_match_code(Socket &sk, int match_code) {
+void ServerProtocol::send_match_code(int match_code) {
     auto code = (uint32_t)match_code;
     code = htonl(code);
     bool was_closed;
@@ -63,15 +65,15 @@ void ServerProtocol::send_match_code(Socket &sk, int match_code) {
     }
 }
 
-void ServerProtocol::send_join_successful(Socket &sk) {
-    send_byte(sk, JOIN_SUCCESSFUL);
+void ServerProtocol::send_join_successful() {
+    send_byte(JOIN_SUCCESSFUL);
 }
 
-void ServerProtocol::send_join_fail(Socket &sk) {
-    send_byte(sk, JOIN_FAILURE);
+void ServerProtocol::send_join_fail() {
+    send_byte(JOIN_FAILURE);
 }
 
-void ServerProtocol::send_byte(Socket &sk, uint8_t byte) {
+void ServerProtocol::send_byte(uint8_t byte) {
     bool was_closed;
     int s;
     s = sk.sendall(&byte, sizeof(byte), &was_closed);

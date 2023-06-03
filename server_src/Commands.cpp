@@ -4,17 +4,17 @@
 
 #include "Commands.h"
 
-Commands::Commands(Socket &sk, Match &match) : match(match),
-                                               sender(sk, match),
-                                               receiver(sk, match) {
-  sender.start();
+Commands::Commands(ServerProtocol &protocol, Match &match) : match(match),
+                                                             sender(protocol, match),
+                                                             receiver(protocol, match) {
+    sender.start();
 }
 
 Commands::~Commands() {
-  match.finish();
-  sender.join();
+    match.finish();
+    sender.join();
 }
 
 void Commands::run() {
-  receiver.run();
+    receiver.run();
 }

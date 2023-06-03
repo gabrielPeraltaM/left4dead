@@ -7,17 +7,18 @@
 
 #include "../common_src/thread.h"
 #include "../common_src/socket.h"
+#include "ServerProtocol.h"
 #include "./Matches.h"
 #include <atomic>
 
 class ClientHandler : public Thread {
-    Socket sk;
+    ServerProtocol protocol;
     Matches &matches;
     std::atomic<bool> is_alive;
     std::atomic<bool> keep_talking;
 
 public:
-    ClientHandler(Socket sk, Matches &matches) : sk(std::move(sk)),
+    ClientHandler(Socket sk, Matches &matches) : protocol(std::move(sk)),
                                                  matches(matches),
                                                  is_alive(true),
                                                  keep_talking(true) {
