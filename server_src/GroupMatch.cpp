@@ -13,6 +13,9 @@ GroupMatch::~GroupMatch() {
     }
 }
 
+void GroupMatch::run() {
+}
+
 Match GroupMatch::add_player() {
     auto *state = new StateQueue;
     states.push_back(state);

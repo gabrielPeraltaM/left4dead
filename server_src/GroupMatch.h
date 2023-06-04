@@ -8,8 +8,9 @@
 #include <string>
 #include <vector>
 #include "Match.h"
+#include "../common_src/thread.h"
 
-class GroupMatch {
+class GroupMatch : public Thread {
     const std::string name;
     ActionQueue actions;
     std::vector<StateQueue*> states;
@@ -17,7 +18,9 @@ class GroupMatch {
 public:
     explicit GroupMatch(std::string name);
 
-    ~GroupMatch();
+    ~GroupMatch() override;
+
+    void run() override;
 
     Match add_player();
 };
