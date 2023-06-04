@@ -3,7 +3,6 @@
 //
 
 #include "Map.h"
-#include "../StateMove.h"
 
 Map::Map(int limit_x, int limit_y) : limit_x(limit_x),
                                      limit_y(limit_y) {}
@@ -23,7 +22,7 @@ void Map::add_character(int id, int collision_range) {
 std::shared_ptr<State> Map::move_character(int id, int move_x, int move_y) {
     auto *character = characters.at(id);
     if (limit_collision(character, move_x, move_y)) {
-        return std::make_shared<StateMove>(id, 0, 0);
+        return std::make_shared<State>(id, 0, 0);
     }
     bool collision = false;
     for (auto other : characters) {
@@ -34,9 +33,9 @@ std::shared_ptr<State> Map::move_character(int id, int move_x, int move_y) {
     }
     if (not collision) {
         character->move(move_x, move_y);
-        return std::make_shared<StateMove>(id, move_x, move_y);
+        return std::make_shared<State>(id, move_x, move_y);
     }
-    return std::make_shared<StateMove>(id, 0, 0);
+    return std::make_shared<State>(id, 0, 0);
 }
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {

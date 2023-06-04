@@ -98,5 +98,5 @@ add_executable(server server_src/main.cpp
                         server_src/State.h
                         server_src/StateQueue.cpp
         server_src/Groups.cpp
-        server_src/game/Character.cpp server_src/game/Map.cpp server_src/ActionMove.cpp server_src/StateMove.cpp server_src/game/GameState.cpp server_src/Login.cpp server_src/ServerProtocol.cpp server_src/Receiver.cpp server_src/Sender.cpp server_src/Commands.cpp)
+        server_src/game/Character.cpp server_src/game/Map.cpp server_src/ActionMove.cpp server_src/game/GameState.cpp server_src/Login.cpp server_src/ServerProtocol.cpp server_src/Receiver.cpp server_src/Sender.cpp server_src/Commands.cpp)
 target_link_libraries(server SDL2pp::SDL2pp)
