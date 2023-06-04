@@ -3,7 +3,18 @@
 //
 
 #include "GroupMatch.h"
+#include <utility>
 
-void GroupMatch::add_player(Player *player) {
-    players.push_back(player);
+GroupMatch::GroupMatch(std::string name) : name(std::move(name)) {}
+
+GroupMatch::~GroupMatch() {
+    for (auto *state : states) {
+        delete state;
+    }
+}
+
+Match GroupMatch::add_player() {
+    auto *state = new StateQueue;
+    states.push_back(state);
+    return {actions, state};
 }

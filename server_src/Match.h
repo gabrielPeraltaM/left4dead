@@ -5,29 +5,21 @@
 #ifndef MATCH_H
 #define MATCH_H
 
-#include "./GroupMatch.h"
-#include "./Player.h"
+#include "ActionQueue.h"
+#include "StateQueue.h"
 #include <atomic>
 
 class Match {
-    const GroupMatch *group;
-    const Player *player;
+    ActionQueue &actions;
+    StateQueue *state;
     std::atomic<bool> finished;
 
 public:
-    Match(GroupMatch *group, Player *player) : group(group),
-                                               player(player),
-                                               finished(false) {
-    }
-
-    Match(Match&& other) noexcept;
+    Match(ActionQueue &actions, StateQueue *state);
 
     void finish();
 
     bool is_finished();
-
-    Match(const Match&) = delete;
-    Match& operator=(const Match&) = delete;
 };
 
 #endif //MATCH_H
