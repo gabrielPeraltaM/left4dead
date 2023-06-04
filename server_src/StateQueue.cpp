@@ -4,7 +4,7 @@
 
 #include "StateQueue.h"
 
-bool StateQueue::try_push(State *state) {
+bool StateQueue::try_push(const std::shared_ptr<State>& state) {
     std::unique_lock<std::mutex> lock(m);
     if (closed) {
         return false;
@@ -16,17 +16,17 @@ bool StateQueue::try_push(State *state) {
     return true;
 }
 
-bool StateQueue::try_pop(State *state) {
+bool StateQueue::try_pop(std::shared_ptr<State>& state) {
     std::unique_lock<std::mutex> lock(m);
     if (q.empty() || closed) {
         return false;
     }
-    *state = *q.front();
+    state = q.front();
     q.pop();
     return true;
 }
 
-void StateQueue::push(State *state) {
+void StateQueue::push(const std::shared_ptr<State>& state) {
     if (closed) {
         return;
     }
@@ -37,7 +37,7 @@ void StateQueue::push(State *state) {
     q.push(state);
 }
 
-State *StateQueue::pop() {
+std::shared_ptr<State> StateQueue::pop() {
     std::unique_lock<std::mutex> lock(m);
     while (q.empty()) {
         if (closed) {
@@ -45,7 +45,7 @@ State *StateQueue::pop() {
         }
         not_empty.wait(lock);
     }
-    State *state = q.front();
+    std::shared_ptr<State> state = q.front();
     q.pop();
     return state;
 }

@@ -9,21 +9,22 @@
 #include "./Action.h"
 #include <mutex>
 #include <condition_variable>
+#include <memory>
 
 class ActionQueue {
-    std::queue<Action*> q;
+    std::queue<std::shared_ptr<Action>> q;
     std::mutex m;
     std::condition_variable not_empty;
     bool closed = false;
 
 public:
-    bool try_push(Action *action);
+    bool try_push(const std::shared_ptr<Action>& action);
 
-    bool try_pop(Action *action);
+    bool try_pop(std::shared_ptr<Action>& action);
 
-    void push(Action *action);
+    void push(const std::shared_ptr<Action>& action);
 
-    Action* pop();
+    std::shared_ptr<Action> pop();
 
     void close();
 };
