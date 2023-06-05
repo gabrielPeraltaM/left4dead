@@ -21,7 +21,6 @@ enum OPCODES : uint8_t {
 class Protocol {
  private:
   Socket peer;
-
  public:
   Protocol(const char *hostname, const char *port);
   ~Protocol() = default;
@@ -30,16 +29,6 @@ class Protocol {
                   bool *was_closed);
   // - join: 0x02 <code>
   uint8_t join(uint32_t code, bool *was_closed);
-  // - broadcast: 0x03 <msg len> <msg>
-  void broadcast(uint16_t msg_len, const char *msg, bool *was_closed);
-  // - move: 0x05 <player id> <directionX> <directionY>
-  void move(uint8_t player_id, int8_t directionX, int8_t directionY,
-            bool *was_closed);
-  // - shoot: 0x06 <player id> <directionX> <directionY>
-  void shoot(uint8_t player_id, int8_t directionX, int8_t directionY,
-             bool *was_closed);
-  // - read: <n>
-  std::string read_one(bool *was_closed);
   // - leave
   void leave(bool *was_closed);
 };

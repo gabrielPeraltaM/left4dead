@@ -62,8 +62,6 @@ add_executable(cliente
         client_src/layout/game/GameStorage.h
         client_src/client/Client.cpp
         client_src/client/Client.h
-        client_src/client/ActionsParser.cpp
-        client_src/client/ActionsParser.h
         client_src/client/Protocol.cpp
         client_src/client/Protocol.h
         common_src/socket.h
@@ -79,28 +77,6 @@ add_executable(cliente
         client_src/layout/game/GameRenderer.cpp client_src/layout/game/GameRenderer.h client_src/layout/game/GameProtocol.cpp client_src/layout/game/GameProtocol.h)
 
 target_link_libraries(cliente PUBLIC SDL2pp::SDL2pp)
-
-add_executable(server server_src/main.cpp
-        server_src/server.cpp
-        common_src/liberror.cpp
-        common_src/resolvererror.cpp
-        common_src/resolver.cpp
-        common_src/socket.cpp
-        server_src/Acceptor.cpp
-        server_src/ClientHandler.cpp
-        server_src/Matches.cpp
-        server_src/Match.cpp
-        common_src/thread.cpp
-        common_src/protocol.cpp
-        server_src/GroupMatch.cpp
-        server_src/ActionQueue.cpp
-        server_src/Action.h
-        server_src/State.h
-        server_src/StateQueue.cpp
-        server_src/Player.cpp
-        server_src/Groups.cpp
-        server_src/Players.cpp server_src/game/Character.cpp server_src/game/Map.cpp server_src/ActionMove.cpp server_src/StateMove.cpp server_src/game/GameState.cpp server_src/Login.cpp server_src/ServerProtocol.cpp server_src/Receiver.cpp server_src/Sender.cpp server_src/Commands.cpp)
-target_link_libraries(server SDL2pp::SDL2pp)
 
 add_executable(server server_src/main.cpp
                         server_src/server.cpp
