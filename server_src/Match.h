@@ -8,6 +8,7 @@
 #include "ActionQueue.h"
 #include "StateQueue.h"
 #include <atomic>
+#include <memory>
 
 class Match {
     ActionQueue &actions;
@@ -16,6 +17,10 @@ class Match {
 
 public:
     Match(ActionQueue &actions, StateQueue *state);
+
+    void send_action(const std::shared_ptr<Action>& action);
+
+    std::shared_ptr<State> receive_state();
 
     void finish();
 

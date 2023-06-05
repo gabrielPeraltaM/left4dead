@@ -9,11 +9,14 @@
 #include <vector>
 #include "Match.h"
 #include "../common_src/thread.h"
+#include "./game/GameState.h"
 
 class GroupMatch : public Thread {
     const std::string name;
+    GameState game;
+    int players;
     ActionQueue actions;
-    std::vector<StateQueue*> states;
+    std::vector<StateQueue*> player_states;
 
 public:
     explicit GroupMatch(std::string name);
