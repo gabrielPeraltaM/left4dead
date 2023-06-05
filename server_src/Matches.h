@@ -6,14 +6,12 @@
 #define MATCHES_H
 
 #include "./Match.h"
-#include "./Players.h"
 #include "./Groups.h"
 #include <mutex>
 
 class Matches {
     int created = 0;
     Groups groups;
-    Players players;
     std::mutex m;
 
 public:

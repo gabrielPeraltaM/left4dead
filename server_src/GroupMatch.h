@@ -6,18 +6,26 @@
 #define LEFT4DEAD_GROUP_MATCH_H
 
 #include <string>
-#include <utility>
 #include <vector>
-#include "./Player.h"
+#include "Match.h"
+#include "../common_src/thread.h"
+#include "./game/GameState.h"
 
-class GroupMatch {
+class GroupMatch : public Thread {
     const std::string name;
-    std::vector<Player*> players;
+    GameState game;
+    int players;
+    ActionQueue actions;
+    std::vector<StateQueue*> player_states;
 
 public:
-    explicit GroupMatch(std::string name) : name(std::move(name)) {}
+    explicit GroupMatch(std::string name);
 
-    void add_player(Player *player);
+    ~GroupMatch() override;
+
+    void run() override;
+
+    Match add_player();
 };
 
 #endif //LEFT4DEAD_GROUP_MATCH_H

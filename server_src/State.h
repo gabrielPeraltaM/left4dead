@@ -5,16 +5,15 @@
 #ifndef LEFT4DEAD_STATE_H
 #define LEFT4DEAD_STATE_H
 
-#include "ServerProtocol.h"
-
 class State{
-   protected:
+public:
     int player_id;
+    int move_x;
+    int move_y;
 
-    explicit State(int player_id) : player_id(player_id) {}
-
-   public:
-    virtual void send_state(ServerProtocol &protocol) = 0;
+    State(int player_id, int move_x, int move_y) : player_id(player_id),
+                                                   move_x(move_x),
+                                                   move_y(move_y) {}
 };
 
 #endif //LEFT4DEAD_STATE_H

@@ -20,7 +20,5 @@ int Matches::create(std::string name) {
 
 Match Matches::join(int match_code) {
     GroupMatch *group = groups.get_group(match_code);
-    Player *player = players.create_player();
-    group->add_player(player);
-    return {group, player};
+    return group->add_player();
 }

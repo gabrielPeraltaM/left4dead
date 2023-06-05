@@ -4,7 +4,7 @@
 
 #include "ActionQueue.h"
 
-bool ActionQueue::try_push(Action *action) {
+bool ActionQueue::try_push(const std::shared_ptr<Action>& action) {
     std::unique_lock<std::mutex> lock(m);
     if (closed) {
         return false;
@@ -16,17 +16,17 @@ bool ActionQueue::try_push(Action *action) {
     return true;
 }
 
-bool ActionQueue::try_pop(Action *action) {
+bool ActionQueue::try_pop(std::shared_ptr<Action>& action) {
     std::unique_lock<std::mutex> lock(m);
     if (q.empty() || closed) {
         return false;
     }
-    *action = *q.front();
+    action = q.front();
     q.pop();
     return true;
 }
 
-void ActionQueue::push(Action *action) {
+void ActionQueue::push(const std::shared_ptr<Action>& action) {
     if (closed) {
         return;
     }
@@ -37,7 +37,7 @@ void ActionQueue::push(Action *action) {
     q.push(action);
 }
 
-Action *ActionQueue::pop() {
+std::shared_ptr<Action> ActionQueue::pop() {
     std::unique_lock<std::mutex> lock(m);
     while (q.empty()) {
         if (closed) {
@@ -45,7 +45,7 @@ Action *ActionQueue::pop() {
         }
         not_empty.wait(lock);
     }
-    Action *action = q.front();
+    std::shared_ptr<Action> action = q.front();
     q.pop();
     return action;
 }

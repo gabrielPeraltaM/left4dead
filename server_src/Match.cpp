@@ -4,10 +4,16 @@
 
 #include "Match.h"
 
-Match::Match(Match &&other) noexcept {
-    this->group = other.group;
-    this->player = other.player;
-    this->finished = other.is_finished();
+Match::Match(ActionQueue &actions, StateQueue *state) : actions(actions),
+                                                        state(state),
+                                                        finished(false) {}
+
+void Match::send_action(const std::shared_ptr<Action>& action) {
+    actions.push(action);
+}
+
+std::shared_ptr<State> Match::receive_state() {
+    return state->pop();
 }
 
 void Match::finish() {
