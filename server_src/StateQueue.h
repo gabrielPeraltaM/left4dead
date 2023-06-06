@@ -27,6 +27,8 @@ public:
     std::shared_ptr<State> pop();
 
     void close();
+
+    bool was_closed() const;
 };
 
 #endif //LEFT4DEAD_STATE_QUEUE_H

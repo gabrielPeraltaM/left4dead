@@ -58,3 +58,7 @@ void StateQueue::close() {
     closed = true;
     not_empty.notify_all();
 }
+
+bool StateQueue::was_closed() const {
+    return closed;
+}

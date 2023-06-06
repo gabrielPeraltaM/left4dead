@@ -12,11 +12,11 @@
 
 class Match {
     ActionQueue &actions;
-    StateQueue *state;
+    StateQueue *states;
     std::atomic<bool> finished;
 
 public:
-    Match(ActionQueue &actions, StateQueue *state);
+    Match(ActionQueue &actions, StateQueue *states);
 
     void send_action(const std::shared_ptr<Action>& action);
 

@@ -15,6 +15,7 @@ class GroupMatch : public Thread {
     const std::string name;
     GameState game;
     int players;
+    bool finished;
     ActionQueue actions;
     std::vector<StateQueue*> player_states;
 
@@ -26,6 +27,9 @@ public:
     void run() override;
 
     Match add_player();
+
+private:
+    void handle_game();
 };
 
 #endif //LEFT4DEAD_GROUP_MATCH_H

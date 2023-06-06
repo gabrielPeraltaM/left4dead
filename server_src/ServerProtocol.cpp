@@ -13,11 +13,14 @@
 #define JOIN_SUCCESSFUL 0
 #define JOIN_FAILURE 1
 
-ServerProtocol::ServerProtocol(Socket sk) : sk(std::move(sk)){}
+// change this
+#define SEND_POSITION 4
+
+ServerProtocol::ServerProtocol(Socket sk) : sk(std::move(sk)),
+                                            was_closed(false) {}
 
 Login ServerProtocol::receive_login() {
     uint8_t action;
-    bool was_closed;
     int s;
     s = sk.recvall(&action, sizeof(action), &was_closed);
     if (s == 0) {
@@ -57,7 +60,6 @@ Login ServerProtocol::receive_login() {
 void ServerProtocol::send_match_code(int match_code) {
     auto code = (uint32_t)match_code;
     code = htonl(code);
-    bool was_closed;
     int s;
     s = sk.sendall(&code, sizeof(code), &was_closed);
     if (s == 0) {
@@ -73,8 +75,30 @@ void ServerProtocol::send_join_fail() {
     send_byte(JOIN_FAILURE);
 }
 
+std::shared_ptr<Action> ServerProtocol::receive_action() {
+    uint8_t action;
+    int s;
+    s = sk.recvall(&action, sizeof(action), &was_closed);
+    if (s == 0) {
+        return nullptr;
+    }
+    return nullptr; // change this
+}
+
+void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
+    uint8_t action = SEND_POSITION;
+    int s;
+    s = sk.sendall(&action, sizeof(action), &was_closed);
+    if (s == 0) {
+        return;
+    }
+}
+
+bool ServerProtocol::closed() const {
+    return was_closed;
+}
+
 void ServerProtocol::send_byte(uint8_t byte) {
-    bool was_closed;
     int s;
     s = sk.sendall(&byte, sizeof(byte), &was_closed);
     if (s == 0) {

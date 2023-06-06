@@ -7,9 +7,13 @@
 
 #include "./Login.h"
 #include "../common_src/socket.h"
+#include "Action.h"
+#include "State.h"
+#include <memory>
 
 class ServerProtocol {
     Socket sk;
+    bool was_closed; // maybe it should be atomic
 
 public:
     explicit ServerProtocol(Socket sk);
@@ -21,6 +25,12 @@ public:
     void send_join_successful();
 
     void send_join_fail();
+
+    std::shared_ptr<Action> receive_action();
+
+    void send_state(const std::shared_ptr<State>& state);
+
+    bool closed() const;
 
 private:
     void send_byte(uint8_t byte);
