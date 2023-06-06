@@ -56,6 +56,9 @@ class Game {
   void playerAction(Player &player);
   void loadTextures();
 
+  // Protocol
+
+
  public:
   Game(int difficulty, std::string &background_src);
   void StartGame();

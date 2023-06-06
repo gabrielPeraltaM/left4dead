@@ -62,8 +62,6 @@ add_executable(cliente
         client_src/layout/game/GameStorage.h
         client_src/client/Client.cpp
         client_src/client/Client.h
-        client_src/client/ActionsParser.cpp
-        client_src/client/ActionsParser.h
         client_src/client/Protocol.cpp
         client_src/client/Protocol.h
         common_src/socket.h
