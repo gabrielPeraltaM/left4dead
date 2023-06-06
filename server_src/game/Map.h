@@ -13,6 +13,7 @@
 class Map {
     const int limit_x;
     const int limit_y;
+    int players;
     std::map<int, Character*> characters;
 
    public:
@@ -26,6 +27,8 @@ class Map {
 
    private:
     bool limit_collision(Character *character, int move_x, int move_y) const;
+
+    void calculate_position(int &pos_x, int &pos_y) const;
 };
 
 #endif  // LEFT4DEAD_MAP_H

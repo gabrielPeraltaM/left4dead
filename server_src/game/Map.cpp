@@ -4,8 +4,14 @@
 
 #include "Map.h"
 
+#define POS_X_ONE 10
+#define POS_Y_ONE 10
+#define POS_X_TWO 10
+#define POS_Y_TWO 80
+
 Map::Map(int limit_x, int limit_y) : limit_x(limit_x),
-                                     limit_y(limit_y) {}
+                                     limit_y(limit_y),
+                                     players(0) {}
 
 Map::~Map() {
     for (auto character : characters) {
@@ -15,8 +21,12 @@ Map::~Map() {
 
 void Map::add_character(int id, int collision_range) {
     // change this
-    auto *character = new Character(0, 0, collision_range);
+    int pos_x = 0;
+    int pos_y = 0;
+    calculate_position(pos_x, pos_y);
+    auto *character = new Character(pos_x, pos_y, collision_range);
     characters.at(id) = character;
+    ++players;
 }
 
 std::shared_ptr<State> Map::move_character(int id, int move_x, int move_y) {
@@ -46,4 +56,16 @@ bool Map::limit_collision(Character *character, int move_x, int move_y) const {
         return true;
     }
     return false;
+}
+
+void Map::calculate_position(int &pos_x, int &pos_y) const {
+    if (players == 0) {
+        pos_x = POS_X_ONE;
+        pos_y = POS_Y_ONE;
+        return;
+    }
+    if (players == 1) {
+        pos_x = POS_X_TWO;
+        pos_y = POS_Y_TWO;
+    }
 }
