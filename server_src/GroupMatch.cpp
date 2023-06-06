@@ -23,7 +23,7 @@ GroupMatch::~GroupMatch() {
 void GroupMatch::run() {
     while (not finished) { // change this
         handle_game();
-        std::chrono::milliseconds tic(20);
+        std::chrono::milliseconds tic(1000/60);
         std::this_thread::sleep_for(tic);
     }
 }
