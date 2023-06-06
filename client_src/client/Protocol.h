@@ -6,14 +6,13 @@
 #include "common_src/socket.h"
 
 enum OPCODES : uint8_t {
-    CREATE = 0x01,
-    JOIN = 0x02,
-    MOVE = 0x05,
-    SHOOT = 0x06,
-    ATTACK = 0x07,
-    SERVER_MOVE = 0x08,
-    SERVER_SHOOT = 0x09,
-    SERVER_ATTACK = 0x0A,
+    MOVE_UP = 0x05,
+    MOVE_DOWN = 0X06,
+    MOVE_LEFT = 0X07,
+    MOVE_RIGHT = 0X08,
+    SHOOT = 0x09,
+    ATTACK = 0x0A,
+    RELOAD = 0X0B
 };
 
 class Protocol {
