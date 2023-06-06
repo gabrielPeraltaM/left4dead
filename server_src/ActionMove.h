@@ -15,7 +15,7 @@ class ActionMove : public Action {
     int move_y;
 
    public:
-    ActionMove(int player_id, int move_x, int move_y);
+    ActionMove(int move_x, int move_y);
 
     std::shared_ptr<State> execute(Map &map) override;
 };

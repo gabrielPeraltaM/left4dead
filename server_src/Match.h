@@ -14,9 +14,10 @@ class Match {
     ActionQueue &actions;
     StateQueue *states;
     std::atomic<bool> finished;
+    int player_id;
 
 public:
-    Match(ActionQueue &actions, StateQueue *states);
+    Match(ActionQueue &actions, StateQueue *states, int player_id);
 
     void send_action(const std::shared_ptr<Action>& action);
 
@@ -25,6 +26,8 @@ public:
     void finish();
 
     bool is_finished();
+
+    int get_player_id() const;
 };
 
 #endif //MATCH_H

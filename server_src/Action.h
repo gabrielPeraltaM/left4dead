@@ -10,12 +10,8 @@
 #include <memory>
 
 class Action {
-   protected:
-    int player_id;
-
    public:
-    explicit Action(int player_id) : player_id(player_id) {}
-
+    int player_id = -1;
     virtual std::shared_ptr<State> execute(Map &map) = 0;
 };
 

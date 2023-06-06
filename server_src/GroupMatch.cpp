@@ -6,12 +6,11 @@
 #include <utility>
 #include <memory>
 
-#define LIMIT_X 100
-#define LIMIT_Y 100
+#define LIMIT_Y 700
 #define PLAYER_COLLISION_RANGE 10
 
 GroupMatch::GroupMatch(std::string name) : name(std::move(name)),
-                                           game(LIMIT_X, LIMIT_Y),
+                                           game(LIMIT_Y),
                                            players(0),
                                            finished(false) {}
 
@@ -33,7 +32,7 @@ Match GroupMatch::add_player() {
     auto *state = new StateQueue;
     player_states.push_back(state);
     game.add_character(++players, PLAYER_COLLISION_RANGE);
-    return {actions, state};
+    return {actions, state, players};
 }
 
 void GroupMatch::handle_game() {

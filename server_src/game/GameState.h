@@ -14,7 +14,7 @@ class GameState {
     Map map;
 
    public:
-    GameState(int limit_x, int limit_y);
+    GameState(int limit_y);
 
     void add_character(int id, int collision_range);
 

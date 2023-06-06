@@ -15,6 +15,7 @@ void Receiver::run() {
             match.finish();
             return;
         }
+        action->player_id = match.get_player_id();
         match.send_action(action);
     }
 }

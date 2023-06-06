@@ -4,7 +4,7 @@
 
 #include "GameState.h"
 
-GameState::GameState(int limit_x, int limit_y) : map(limit_x, limit_y) {}
+GameState::GameState(int limit_y) : map(limit_y) {}
 
 void GameState::add_character(int id, int collision_range) {
     // change this

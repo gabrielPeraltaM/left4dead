@@ -4,9 +4,10 @@
 
 #include "Match.h"
 
-Match::Match(ActionQueue &actions, StateQueue *states) : actions(actions),
+Match::Match(ActionQueue &actions, StateQueue *states, int player_id) : actions(actions),
                                                          states(states),
-                                                         finished(false) {}
+                                                         finished(false),
+                                                         player_id(player_id) {}
 
 void Match::send_action(const std::shared_ptr<Action>& action) {
     actions.push(action);
@@ -23,4 +24,8 @@ void Match::finish() {
 
 bool Match::is_finished() {
     return finished;
+}
+
+int Match::get_player_id() const {
+    return player_id;
 }

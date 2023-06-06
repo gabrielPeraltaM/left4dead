@@ -11,13 +11,12 @@
 #include <memory>
 
 class Map {
-    const int limit_x;
     const int limit_y;
     int players;
     std::map<int, Character*> characters;
 
    public:
-    Map(int limit_x, int limit_y);
+    explicit Map(int limit_y);
 
     ~Map();
 
