@@ -8,20 +8,24 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <list>
 
+#include "Receiver.h"
 #include "client_src/characters_src/character/enemies/Enemy.h"
 #include "client_src/characters_src/character/players/Player.h"
 #include "client_src/characters_src/characterData/CharacterData.h"
 #include "client_src/characters_src/characterTextures/CharacterTexture.h"
 #include "client_src/characters_src/characterTextures/enemies/EnemyTexture.h"
 #include "client_src/characters_src/characterTextures/players/PlayerTexture.h"
+#include "client_src/client/Protocol.h"
+#include "common_src/protocol.h"
 using namespace SDL2pp;
 
 class Game {
  private:
   // SDL variables
   SDL_DisplayMode DM = SDL_DisplayMode();
-  Window window = Window("Left4Dead", SDL_WINDOWPOS_UNDEFINED,
-                         SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_MAXIMIZED);
+  Window window =
+      Window("Left4Dead", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800,
+             600, SDL_WINDOW_MAXIMIZED);
   Renderer renderer = Renderer(window, -1, SDL_RENDERER_ACCELERATED);
   int width = 800;
   int height = 600;
@@ -46,7 +50,7 @@ class Game {
   std::unordered_map<std::string, CharacterData> data;
 
   // Game functions
-  void addPlayer(int16_t x, int16_t y);
+  void addPlayer(int16_t x, int16_t y, int playerId);
   void addZombie(int16_t x, int16_t y);
   void spawnZombie();
   void drawBackground();
@@ -57,10 +61,15 @@ class Game {
   void loadTextures();
 
   // Protocol
-
+  Protocol &protocol;
+  uint32_t gameId;
+  int playerId;
+  bool &was_closed;
+  Receiver receiver = Receiver(&protocol, was_closed, players);
 
  public:
-  Game(int difficulty, std::string &background_src);
+  Game(int difficulty, std::string &background_src, Protocol &protocol,
+       uint32_t gameId, int playerId, bool &was_closed);
   void StartGame();
 };
 

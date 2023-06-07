@@ -12,6 +12,8 @@ class Client {
  private:
   Protocol protocol;
   bool was_closed = false;
+  int playerId;
+  uint32_t gameId;
  public:
   Client(const char *hostname, const char *port);
   ~Client() = default;

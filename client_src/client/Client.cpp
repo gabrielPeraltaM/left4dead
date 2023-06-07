@@ -6,23 +6,20 @@
 
 #define CREATE "create"
 #define JOIN "join"
-#define BROADCAST "broadcast"
-#define READ "read"
-#define LEAVE "leave"
 
 Client::Client(const char *hostname, const char *port) : protocol(hostname, port) { }
 
 void Client::start(int difficulty, std::string background_src) {
-  std::string message = "create 0";
-  uint32_t gameId = parseFirstAction(message);
-  Game game(difficulty, background_src);
+  std::string action;
+  std::getline(std::cin, action);
+  parseFirstAction(action);
+  Game game(difficulty, background_src, protocol, gameId, playerId, was_closed);
 }
 
 uint32_t Client::parseFirstAction(const std::string &message) {
   std::stringstream ss(message);
   std::string command;
   ss >> command;
-  uint32_t gameId;
 
   if (command == CREATE) {
     std::string scenario_name;

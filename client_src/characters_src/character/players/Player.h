@@ -11,8 +11,9 @@
 
 class Player : public Character {
 protected:
+ int playerId;
 public:
-    Player(int16_t posX, int16_t posY, CharacterData const &data, CharacterTexture &textures);
+    Player(int16_t posX, int16_t posY, int playerId, CharacterData const &data, CharacterTexture &textures);
     void shoot();
     void reload();
     void update();

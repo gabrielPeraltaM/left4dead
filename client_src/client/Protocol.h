@@ -28,6 +28,8 @@ class Protocol {
   uint8_t join(uint32_t code, bool *was_closed);
   // - leave
   void leave(bool *was_closed);
+  // - receive_status
+  std::string receive_status(bool *was_closed);
 };
 
 #endif  // PROTOCOL_H

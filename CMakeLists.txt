@@ -36,8 +36,6 @@ add_executable(cliente
         client_src/characters_src/character/players/Player.h
         client_src/characters_src/character/enemies/Enemy.cpp
         client_src/characters_src/character/enemies/Enemy.h
-        client_src/characters_src/character/players/IDF.cpp
-        client_src/characters_src/character/players/IDF.h
         client_src/characters_src/character/enemies/Zombie.cpp
         client_src/characters_src/character/enemies/Zombie.h
         client_src/characters_src/character/enemies/Jumper.cpp
@@ -49,8 +47,6 @@ add_executable(cliente
         client_src/characters_src/character/enemies/Venom.cpp
         client_src/characters_src/character/enemies/Venom.h
         client_src/characters_src/characterTextures/players/P90Textures.h
-        client_src/characters_src/character/players/P90.cpp
-        client_src/characters_src/character/players/P90.h
         client_src/characters_src/characterTextures/players/PlayerTexture.h
         client_src/characters_src/characterTextures/enemies/EnemyTexture.h
         client_src/characters_src/characterTextures/players/ScoutTextures.h
@@ -74,7 +70,7 @@ add_executable(cliente
         common_src/resolvererror.cpp
         common_src/resolver.h
         common_src/resolver.cpp
-        client_src/layout/game/GameRenderer.cpp client_src/layout/game/GameRenderer.h client_src/layout/game/GameProtocol.cpp client_src/layout/game/GameProtocol.h)
+        client_src/layout/game/GameRenderer.cpp client_src/layout/game/GameRenderer.h client_src/layout/game/GameProtocol.cpp client_src/layout/game/GameProtocol.h client_src/layout/game/Receiver.h client_src/layout/game/Receiver.cpp)
 
 target_link_libraries(cliente PUBLIC SDL2pp::SDL2pp)
 

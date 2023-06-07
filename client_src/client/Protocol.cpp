@@ -11,7 +11,7 @@ Protocol::Protocol(const char *hostname, const char *port)
 uint32_t Protocol::create(uint16_t scenario_len, const char *scenario_name,
                           bool *was_closed) {
   // Send opcode
-  const uint8_t opcode = CREATE;
+  const uint8_t opcode = 0x01;
   peer.sendall(&opcode, 1, was_closed);
   if (*was_closed) throw std::runtime_error("Connection closed");
 
@@ -33,7 +33,7 @@ uint32_t Protocol::create(uint16_t scenario_len, const char *scenario_name,
 
 uint8_t Protocol::join(uint32_t code, bool *was_closed) {
   // Send opcode
-  const uint8_t opcode = JOIN;
+  const uint8_t opcode = 0x02;
   peer.sendall(&opcode, 1, was_closed);
   if (*was_closed) throw std::runtime_error("Connection closed");
 
@@ -53,4 +53,11 @@ void Protocol::leave(bool *was_closed) {
   peer.shutdown(SHUT_RDWR);
   peer.close();
   *was_closed = true;
+}
+std::string Protocol::receive_status(bool *was_closed) {
+  // Receive status
+  uint8_t status;
+  peer.recvall(&status, 1, was_closed);
+
+  return std::string();
 }

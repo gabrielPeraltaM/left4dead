@@ -7,8 +7,6 @@
 #include <cstdio>
 
 #include "client_src/characters_src/character/enemies/Zombie.h"
-#include "client_src/characters_src/character/players/IDF.h"
-#include "client_src/characters_src/character/players/P90.h"
 #include "client_src/characters_src/characterData/enemies/ZombieData.h"
 #include "client_src/characters_src/characterData/players/IDFData.h"
 #include "client_src/characters_src/characterData/players/P90Data.h"
@@ -26,10 +24,7 @@ void Game::StartGame() {
 
   // Add the initial zombies
   spawnZombie();
-  addPlayer(200, 800);
-
-  // Add the initial player
-  Player player = Player(500, 800, data["P90"], playerTextures["P90"]);
+  addPlayer(200, 800, playerId);
 
   // Game loop
   SDL_Event event;
@@ -50,7 +45,7 @@ void Game::StartGame() {
       }
     }
 
-    playerAction(player);
+    playerAction(players[playerId]);
     // Clear screen
     renderer.Clear();
 
@@ -58,7 +53,6 @@ void Game::StartGame() {
     drawBackground();
 
     // Draw the characters
-    drawPlayer(player);
     drawOtherPlayers();
     drawZombies();
 
@@ -117,8 +111,8 @@ void Game::drawZombies() {
   enemyScrollingOffset = 0;
 }
 
-void Game::addPlayer(int16_t x, int16_t y) {
-  IDF other_player(x, y, data["IDF"], playerTextures["IDF"]);
+void Game::addPlayer(int16_t x, int16_t y, int id) {
+  Player other_player(x, y, id, data["IDF"], playerTextures["IDF"]);
   players.push_back(other_player);
 }
 
@@ -192,8 +186,13 @@ void Game::spawnZombie() {
   }
 }
 
-Game::Game(int difficulty, std::string &background_src)
-    : difficulty(difficulty) {
+Game::Game(int difficulty, std::string &background_src, Protocol &protocol,
+           uint32_t gameId, int playerId, bool &was_closed)
+    : difficulty(difficulty),
+      protocol(protocol),
+      gameId(gameId),
+      was_closed(was_closed),
+      playerId(playerId) {
   loadData();
   loadTextures();
   loadBackground(background_src);
@@ -256,8 +255,8 @@ void Game::drawPlayer(Player &player) {
     player.scrollRight(diff);
   }
 
-  Rect dstrect(x, y, player.getFrameWidth(), player.getFrameHeight());
-  SDL_RenderCopyEx(renderer.Get(), sprite->Get(), &srcrect, &dstrect, 0,
+  Rect dsrect(x, y, player.getFrameWidth(), player.getFrameHeight());
+  SDL_RenderCopyEx(renderer.Get(), sprite->Get(), &srcrect, &dsrect, 0,
                    nullptr, player.getFlip());
   // draw a blue rect around the player
   renderer.SetDrawColor(0, 0, 255, 255);

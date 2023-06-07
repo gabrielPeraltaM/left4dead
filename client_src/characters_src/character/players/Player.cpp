@@ -6,7 +6,7 @@
 
 #include "client_src/characters_src/characterStatus/players/PlayerStatus.h"
 
-Player::Player(int16_t posX, int16_t posY, CharacterData const &data, CharacterTexture &textures) : Character(data, textures) {
+Player::Player(int16_t posX, int16_t posY, int playerId, CharacterData const &data, CharacterTexture &textures) : playerId(playerId), Character(data, textures) {
     status.x = posX;
     status.y = posY;
 }
