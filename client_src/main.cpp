@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 
   try {
     Client client(hostname, port);
-    client.start();
+    client.start(2, RESOURCE_PATH "backgrounds/War1/Pale/War.png");
     return 0;
   } catch (std::exception &e) {
     std::cerr << e.what() << std::endl;

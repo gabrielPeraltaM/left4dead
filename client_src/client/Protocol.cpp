@@ -54,10 +54,19 @@ void Protocol::leave(bool *was_closed) {
   peer.close();
   *was_closed = true;
 }
-std::string Protocol::receive_status(bool *was_closed) {
-  // Receive status
-  uint8_t status;
-  peer.recvall(&status, 1, was_closed);
+uint8_t Protocol::receive_action(bool *was_closed) {
+  // Receive action
+  uint8_t action;
+  peer.recvall(&action, 1, was_closed);
+  if (*was_closed) throw std::runtime_error("Connection closed");
 
-  return std::string();
+  return action;
+}
+int Protocol::receive_player(bool *was_closed) {
+  // Receive player id
+  uint8_t player_id;
+  peer.recvall(&player_id, 1, was_closed);
+  if (*was_closed) throw std::runtime_error("Connection closed");
+
+  return player_id;
 }
