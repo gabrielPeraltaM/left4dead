@@ -4,6 +4,7 @@
 
 #include "./ServerProtocol.h"
 #include "../common_src/liberror.h"
+#include "ActionMove.h"
 #include <arpa/inet.h>
 #include <utility>
 
@@ -12,6 +13,8 @@
 
 #define JOIN_SUCCESSFUL 0
 #define JOIN_FAILURE 1
+
+#define MOVE_SIZE 5
 
 // change this
 #define SEND_POSITION 4
@@ -92,7 +95,23 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
     if (s == 0) {
         return nullptr;
     }
-    return nullptr; // change this
+    switch (action) {
+        case MOVE_UP:
+            return std::make_shared<ActionMove>(0, MOVE_SIZE);
+
+        case MOVE_DOWN:
+            return std::make_shared<ActionMove>(0, -MOVE_SIZE);
+
+        case MOVE_LEFT:
+            return std::make_shared<ActionMove>(-MOVE_SIZE, 0);
+
+        case MOVE_RIGHT:
+            return std::make_shared<ActionMove>(MOVE_SIZE, 0);
+
+        default:
+            // change this
+            return nullptr;
+    }
 }
 
 void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
