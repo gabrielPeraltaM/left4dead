@@ -70,3 +70,39 @@ int Protocol::receive_player(bool *was_closed) {
 
   return player_id;
 }
+
+void Protocol::moveUp(bool *was_closed) {
+  uint8_t opcode = MOVE_UP;
+  peer.sendall(&opcode, 1, was_closed);
+}
+
+void Protocol::moveDown(bool *was_closed) {
+  uint8_t opcode = MOVE_DOWN;
+  peer.sendall(&opcode, 1, was_closed);
+}
+
+void Protocol::moveLeft(bool *was_closed) {
+  uint8_t opcode = MOVE_LEFT;
+  peer.sendall(&opcode, 1, was_closed);
+}
+
+void Protocol::moveRight(bool *was_closed) {
+  uint8_t opcode = MOVE_RIGHT;
+  peer.sendall(&opcode, 1, was_closed);
+}
+
+
+void Protocol::attack(bool *was_closed) {
+  uint8_t opcode = ATTACK;
+  peer.sendall(&opcode, 1, was_closed);
+}
+
+void Protocol::shoot(bool *was_closed) {
+  uint8_t opcode = SHOOT;
+  peer.sendall(&opcode, 1, was_closed);
+}
+
+void Protocol::reload(bool *was_closed) {
+  uint8_t opcode = RELOAD;
+  peer.sendall(&opcode, 1, was_closed);
+}

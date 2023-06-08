@@ -4,7 +4,9 @@
 
 #include "Receiver.h"
 
-Receiver::Receiver(Protocol *protocol, bool &was_closed, std::vector<Player> &players) : protocol(protocol), was_closed(was_closed), players(players)  {}
+Receiver::Receiver(Protocol *protocol, bool &was_closed,
+                   std::vector<Player> &players)
+    : protocol(protocol), was_closed(was_closed), players(players) {}
 
 void Receiver::run() {
   uint8_t action;
@@ -13,11 +15,33 @@ void Receiver::run() {
     playerId = protocol->receive_player(&was_closed);
     std::cout << "Player: " << playerId << std::endl;
 
-
     action = protocol->receive_action(&was_closed);
     std::cout << "Action: " << (int)action << std::endl;
 
-    /* Aca checkeo que mandaste y hago lo que corresponda */
-     //* players[playerId].shoot();
+    switch (action) {
+      case OPCODES::MOVE_UP:
+        players[playerId].walk(0, -1);
+        break;
+      case OPCODES::MOVE_DOWN:
+        players[playerId].walk(0, 1);
+        break;
+      case OPCODES::MOVE_LEFT:
+        players[playerId].walk(-1, 0);
+        break;
+      case OPCODES::MOVE_RIGHT:
+        players[playerId].walk(1, 0);
+        break;
+      case OPCODES::ATTACK:
+        players[playerId].attack();
+        break;
+      case OPCODES::SHOOT:
+        players[playerId].shoot();
+        break;
+      case OPCODES::RELOAD:
+        players[playerId].reload();
+        break;
+      default:
+        break;
+    }
   }
 }

@@ -14,6 +14,7 @@ void Client::start(int difficulty, std::string background_src) {
   std::getline(std::cin, action);
   parseFirstAction(action);
   Game game(difficulty, background_src, protocol, gameId, playerId, was_closed);
+  game.StartGame();
 }
 
 uint32_t Client::parseFirstAction(const std::string &message) {

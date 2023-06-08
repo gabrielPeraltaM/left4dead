@@ -139,7 +139,7 @@ void Game::playerAction(Player &player) {
   int x = 0, y = 0;
 
   if (state[SDL_SCANCODE_LCTRL]) {
-    player.attack();
+    protocol.attack(&was_closed);
     return;
   }
 
@@ -154,28 +154,26 @@ void Game::playerAction(Player &player) {
   }
 
   if (state[SDL_SCANCODE_W]) {
-    y = -1;
+    protocol.moveUp(&was_closed);
+    return;
   } else if (state[SDL_SCANCODE_S]) {
-    y = 1;
+    protocol.moveDown(&was_closed);
+        return;
   }
   if (state[SDL_SCANCODE_A]) {
-    x = -1;
-  }
-  if (state[SDL_SCANCODE_D]) {
-    x = 1;
-  }
-
-  if (x == 0 && y == 0) {
-    player.idle();
-    return;
+        protocol.moveLeft(&was_closed);
+        return;
+          } else if (state[SDL_SCANCODE_D]) {
+        protocol.moveRight(&was_closed);
+        return;
   }
 
   // Check if the player is running by pressing shift
-  if (state[SDL_SCANCODE_LSHIFT]) {
+  /*if (state[SDL_SCANCODE_LSHIFT]) {
     player.run(x, y);
   } else {
     player.walk(x, y);
-  }
+  }*/
 }
 
 void Game::spawnZombie() {

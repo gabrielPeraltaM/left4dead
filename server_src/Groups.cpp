@@ -7,7 +7,7 @@
 
 GroupMatch *Groups::create_group(int match_code, std::string name) {
     auto *group = new GroupMatch(std::move(name));
-    groups.at(match_code) = group;
+    groups[match_code] = group;
     group->start();
     return group;
 }
