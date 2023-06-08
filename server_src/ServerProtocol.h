@@ -26,6 +26,8 @@ public:
 
     void send_join_fail();
 
+    void send_player_id(int player_id);
+
     std::shared_ptr<Action> receive_action();
 
     void send_state(const std::shared_ptr<State>& state);

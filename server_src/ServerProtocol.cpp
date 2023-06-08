@@ -86,6 +86,10 @@ void ServerProtocol::send_join_fail() {
     send_byte(JOIN_FAILURE);
 }
 
+void ServerProtocol::send_player_id(int player_id) {
+    send_byte((uint8_t)player_id);
+}
+
 std::shared_ptr<Action> ServerProtocol::receive_action() {
     uint8_t action;
     int s;
