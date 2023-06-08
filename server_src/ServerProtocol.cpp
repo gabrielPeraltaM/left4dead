@@ -16,10 +16,8 @@
 
 #define MOVE_SIZE 5
 
-// change this
-#define SEND_POSITION 4
-
 enum OPCODES : uint8_t {
+    IDLE = 0x04,
     MOVE_UP = 0x05,
     MOVE_DOWN = 0X06,
     MOVE_LEFT = 0X07,
@@ -115,12 +113,32 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 }
 
 void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
-    uint8_t action = SEND_POSITION;
+    uint8_t action;
+    // change this
+    int move_x = state->move_x;
+    int move_y = state->move_y;
+    if (move_x != 0) {
+        if (move_x > 0) {
+            action = MOVE_RIGHT;
+        } else {
+            action = MOVE_LEFT;
+        }
+    } else if (move_y != 0) {
+        if (move_y > 0) {
+            action = MOVE_UP;
+        } else {
+            action = MOVE_DOWN;
+        }
+    } else {
+        action = IDLE;
+    }
     int s;
     s = sk.sendall(&action, sizeof(action), &was_closed);
     if (s == 0) {
         return;
     }
+    uint8_t player_id = state->player_id;
+    send_byte(player_id);
 }
 
 bool ServerProtocol::closed() const {
