@@ -6,6 +6,7 @@
 #include "common_src/socket.h"
 
 enum OPCODES : uint8_t {
+  IDLE = 0x04,
   MOVE_UP = 0x05,
   MOVE_DOWN = 0X06,
   MOVE_LEFT = 0X07,
@@ -32,6 +33,8 @@ class Protocol {
                   bool *was_closed);
   // - join: 0x02 <code>
   uint8_t join(uint32_t code, bool *was_closed);
+  // - get_playerId
+  uint8_t get_playerId(bool *was_closed);
   // - leave
   void leave(bool *was_closed);
   // - receive_player

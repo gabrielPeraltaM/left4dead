@@ -13,6 +13,8 @@ void Client::start(int difficulty, std::string background_src) {
   std::string action;
   std::getline(std::cin, action);
   parseFirstAction(action);
+  playerId = protocol.get_playerId(&was_closed);
+  playerId--;
   Game game(difficulty, background_src, protocol, gameId, playerId, was_closed);
   game.StartGame();
 }

@@ -106,3 +106,9 @@ void Protocol::reload(bool *was_closed) {
   uint8_t opcode = RELOAD;
   peer.sendall(&opcode, 1, was_closed);
 }
+uint8_t Protocol::get_playerId(bool *was_closed) {
+  uint8_t playerId;
+  peer.recvall(&playerId, 1, was_closed);
+  if (*was_closed) throw std::runtime_error("Connection closed");
+  return playerId;
+}

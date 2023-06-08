@@ -24,7 +24,7 @@ void Map::add_character(int id, int collision_range) {
     int pos_y = 0;
     calculate_position(pos_x, pos_y);
     auto *character = new Character(pos_x, pos_y, collision_range);
-    characters.at(id) = character;
+    characters[id] = character;
     ++players;
 }
 

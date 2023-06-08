@@ -70,6 +70,7 @@ class Game {
  public:
   Game(int difficulty, std::string &background_src, Protocol &protocol,
        uint32_t gameId, int playerId, bool &was_closed);
+  ~Game();
   void StartGame();
 };
 

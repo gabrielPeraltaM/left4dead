@@ -144,12 +144,12 @@ void Game::playerAction(Player &player) {
   }
 
   if (state[SDL_SCANCODE_SPACE]) {
-    player.shoot();
+    protocol.attack(&was_closed);
     return;
   }
 
   if (state[SDL_SCANCODE_R]) {
-    player.reload();
+    protocol.reload(&was_closed);
     return;
   }
 
@@ -158,14 +158,14 @@ void Game::playerAction(Player &player) {
     return;
   } else if (state[SDL_SCANCODE_S]) {
     protocol.moveDown(&was_closed);
-        return;
+    return;
   }
   if (state[SDL_SCANCODE_A]) {
-        protocol.moveLeft(&was_closed);
-        return;
-          } else if (state[SDL_SCANCODE_D]) {
-        protocol.moveRight(&was_closed);
-        return;
+    protocol.moveLeft(&was_closed);
+    return;
+  } else if (state[SDL_SCANCODE_D]) {
+    protocol.moveRight(&was_closed);
+    return;
   }
 
   // Check if the player is running by pressing shift
@@ -194,6 +194,7 @@ Game::Game(int difficulty, std::string &background_src, Protocol &protocol,
   loadData();
   loadTextures();
   loadBackground(background_src);
+  receiver.start();
 }
 
 void Game::loadTextures() {
@@ -254,11 +255,21 @@ void Game::drawPlayer(Player &player) {
   }
 
   Rect dsrect(x, y, player.getFrameWidth(), player.getFrameHeight());
-  SDL_RenderCopyEx(renderer.Get(), sprite->Get(), &srcrect, &dsrect, 0,
-                   nullptr, player.getFlip());
+  SDL_RenderCopyEx(renderer.Get(), sprite->Get(), &srcrect, &dsrect, 0, nullptr,
+                   player.getFlip());
   // draw a blue rect around the player
   renderer.SetDrawColor(0, 0, 255, 255);
   renderer.DrawRect(Rect(player.getPosX() + player.getBorderLeft(),
                          player.getPosY() + player.getBorderTop(),
                          player.getWidth(), player.getHeight()));
+}
+Game::~Game() {
+  delete background;
+  for (auto &player : players) {
+    player.destroy();
+  }
+  for (auto &enemy : enemies) {
+    enemy.destroy();
+  }
+  receiver.join();
 }
