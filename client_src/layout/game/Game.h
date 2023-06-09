@@ -8,6 +8,9 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <list>
 
+#include "GameProtocol.h"
+#include "GameRenderer.h"
+#include "GameStorage.h"
 #include "Receiver.h"
 #include "client_src/characters_src/character/enemies/Enemy.h"
 #include "client_src/characters_src/character/players/Player.h"
@@ -17,6 +20,7 @@
 #include "client_src/characters_src/characterTextures/players/PlayerTexture.h"
 #include "client_src/client/Protocol.h"
 #include "common_src/protocol.h"
+
 using namespace SDL2pp;
 
 class Game {
@@ -27,45 +31,27 @@ class Game {
       Window("Left4Dead", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800,
              600, SDL_WINDOW_MAXIMIZED);
   Renderer renderer = Renderer(window, -1, SDL_RENDERER_ACCELERATED);
-  int width = 800;
-  int height = 600;
+  int width;
+  int height;
 
-  // Background
-  Texture *background = nullptr;
-  int mapScrollingOffset = 0;
-  int enemyScrollingOffset = 0;
-
-  // Initialization
-  void loadData();
-  void loadBackground(std::string &background_src);
-
-  const int difficulty = 1;  // 1 = easy, 2 = medium, 3 = hard
+  const int difficulty = 2;  // 1 = easy, 2 = medium, 3 = hard
 
   // Game storage
-  std::vector<Player> players;
-  std::list<Enemy> enemies;
-  std::unordered_map<std::string, PlayerTexture> playerTextures;
-  std::unordered_map<std::string, EnemyTexture>
-      enemyTextures;  // Los strings van a ser enums
-  std::unordered_map<std::string, CharacterData> data;
+  GameStorage gameStorage = GameStorage(renderer);
 
   // Game functions
-  void addPlayer(int16_t x, int16_t y, int playerId);
-  void addZombie(int16_t x, int16_t y);
-  void spawnZombie();
-  void drawBackground();
-  void drawZombies();
-  void drawOtherPlayers();
-  void drawPlayer(Player &player);
-  void playerAction(Player &player);
-  void loadTextures();
+  void playerAction();
 
   // Protocol
   Protocol &protocol;
   uint32_t gameId;
   int playerId;
   bool &was_closed;
-  Receiver receiver = Receiver(&protocol, was_closed, players);
+  Receiver receiver = Receiver(&protocol, was_closed, gameStorage.getPlayers());
+
+  // Components
+  std::string background_src;
+  GameRenderer gameRenderer = GameRenderer(renderer, width, height, background_src, gameStorage);
 
  public:
   Game(int difficulty, std::string &background_src, Protocol &protocol,

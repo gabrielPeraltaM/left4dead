@@ -36,8 +36,6 @@ public:
     void takeDamage(int damage);
     void spawn();
     void destroy();
-    void scrollLeft(int amount);
-    void scrollRight(int amount);
     int getAnimationFrame() const {
         return animationFrame;
     }

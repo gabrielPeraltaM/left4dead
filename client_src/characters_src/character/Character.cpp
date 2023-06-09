@@ -3,6 +3,7 @@
 //
 
 #include "Character.h"
+#include <algorithm>
 
 Character::Character(CharacterData const &data, CharacterTexture &textures) : data(data), textures(textures), currentSprite(textures.idle) {}
 
@@ -13,14 +14,14 @@ void Character::walk(int x, int y) {
       resetAnimationFrame();
     }
     status.state = State::WALK;
-    status.x += x * data.speed;
-    status.y += y * data.speed;
     setCurrentSprite(textures.walk);
     if (x < 0) {
-        status.flip = true;
+      status.flip = true;
     } else if (x > 0) {
-        status.flip = false;
+      status.flip = false;
     }
+    status.x += x * data.speed;
+    status.y += y * data.speed;
 }
 
 void Character::die() {
@@ -97,11 +98,4 @@ void Character::setCurrentSprite(Texture *sprite) {
 }
 Texture *Character::getCurrentSprite() const {
         return currentSprite;
-}
-
-void Character::scrollLeft(int amount) {
-        status.x += amount;
-}
-void Character::scrollRight(int amount) {
-        status.x -= amount;
 }

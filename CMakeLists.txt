@@ -50,8 +50,6 @@ add_executable(cliente
         client_src/characters_src/characterTextures/players/PlayerTexture.h
         client_src/characters_src/characterTextures/enemies/EnemyTexture.h
         client_src/characters_src/characterTextures/players/ScoutTextures.h
-        client_src/layout/game/GameInterface.cpp
-        client_src/layout/game/GameInterface.h
         client_src/layout/game/GameStatus.cpp
         client_src/layout/game/GameStatus.h
         client_src/layout/game/GameStorage.cpp
@@ -70,7 +68,7 @@ add_executable(cliente
         common_src/resolvererror.cpp
         common_src/resolver.h
         common_src/resolver.cpp
-        client_src/layout/game/GameRenderer.cpp client_src/layout/game/GameRenderer.h client_src/layout/game/GameProtocol.cpp client_src/layout/game/GameProtocol.h client_src/layout/game/Receiver.h client_src/layout/game/Receiver.cpp)
+        client_src/layout/game/GameRenderer.cpp client_src/layout/game/GameRenderer.h client_src/layout/game/GameProtocol.cpp client_src/layout/game/GameProtocol.h client_src/layout/game/Receiver.h client_src/layout/game/Receiver.cpp client_src/characters_src/characterTextures/enemies/JumperTextures.h)
 
 target_link_libraries(cliente PUBLIC SDL2pp::SDL2pp)
 

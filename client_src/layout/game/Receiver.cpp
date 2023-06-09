@@ -17,7 +17,6 @@ void Receiver::run() {
     playerId = protocol->receive_player(&was_closed);
     playerId--;
 
-
     switch (action) {
       case OPCODES::IDLE:
         players[playerId].idle();
