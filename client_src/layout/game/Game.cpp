@@ -22,9 +22,6 @@ void Game::StartGame() {
   width = DM.w;
   height = DM.h;
 
-  std::cout << "Width: " << width << std::endl;
-  std::cout << "Height: " << height << std::endl;
-
   // Set the window size
   window.SetSize(width, height);
 
@@ -131,8 +128,9 @@ void Game::addZombie(int16_t x, int16_t y) {
 // Draw to backgrounds to simulate parallax / scrolling effect when player
 // gets close to the border
 void Game::drawBackground() {
+  int yOffset = height - background->GetHeight();
   Rect srcRect = Rect(0, 0, width, height);
-  Rect dstRect = Rect(-mapScrollingOffset, 0, width, height);
+  Rect dstRect = Rect(-mapScrollingOffset, yOffset, width, height);
   // Draw the background
   renderer.Copy(*background, srcRect, dstRect);
 

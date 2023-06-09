@@ -5,9 +5,9 @@
 #include "Map.h"
 
 #define POS_X_ONE 200
-#define POS_Y_ONE 300
-#define POS_X_TWO 400
-#define POS_Y_TWO 300
+#define POS_Y_ONE 800
+#define POS_X_TWO 600
+#define POS_Y_TWO 800
 
 Map::Map(int limit_y) : limit_y(limit_y),
                                      players(0) {}

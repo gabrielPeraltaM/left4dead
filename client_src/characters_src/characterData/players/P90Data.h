@@ -13,7 +13,7 @@ struct P90Data : CharacterData {
     int burst = 10;
     P90Data() {
         health = 150;
-        speed = 3;
+        speed = 5;
         damage = 50;
         attackSpeed = 10;
         attackRange = 20;
