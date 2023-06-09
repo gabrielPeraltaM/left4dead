@@ -5,9 +5,9 @@
 #include "Map.h"
 
 #define POS_X_ONE 200
-#define POS_Y_ONE 800
-#define POS_X_TWO 300
-#define POS_Y_TWO 800
+#define POS_Y_ONE 300
+#define POS_X_TWO 400
+#define POS_Y_TWO 300
 
 Map::Map(int limit_y) : limit_y(limit_y),
                                      players(0) {}
@@ -48,7 +48,7 @@ std::shared_ptr<State> Map::move_character(int id, int move_x, int move_y) {
 }
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {
-    if ((character->get_pos_y() + move_y) < 1080 || (character->get_pos_y() + move_y) >= limit_y) {
+    if ((character->get_pos_y() + move_y) < 0 || (character->get_pos_y() + move_y) >= limit_y) {
         return true;
     }
     return false;
