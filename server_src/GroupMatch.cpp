@@ -41,11 +41,18 @@ void GroupMatch::handle_game() {
     if (actions.try_pop(action)) {
         std::shared_ptr<State> state = game.update(action);
         for (auto *player_state: player_states) {
+            // this check may be unnecessary
             if (player_state->was_closed()) {
-                ++missing_players;
+                //++missing_players;
                 continue;
             }
             player_state->push(state);
+        }
+    }
+    // change this
+    for (auto *player_state: player_states) {
+        if (player_state->was_closed()) {
+            ++missing_players;
         }
     }
     if (missing_players == players) {

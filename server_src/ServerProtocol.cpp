@@ -19,12 +19,12 @@
 enum OPCODES : uint8_t {
     IDLE = 0x04,
     MOVE_UP = 0x05,
-    MOVE_DOWN = 0X06,
-    MOVE_LEFT = 0X07,
-    MOVE_RIGHT = 0X08,
+    MOVE_DOWN = 0x06,
+    MOVE_LEFT = 0x07,
+    MOVE_RIGHT = 0x08,
     SHOOT = 0x09,
     ATTACK = 0x0A,
-    RELOAD = 0X0B
+    RELOAD = 0x0B
 };
 
 ServerProtocol::ServerProtocol(Socket sk) : sk(std::move(sk)),
