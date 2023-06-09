@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <mutex>
 #include "Match.h"
 #include "../common_src/thread.h"
 #include "./game/GameState.h"
@@ -18,6 +19,7 @@ class GroupMatch : public Thread {
     bool finished;
     ActionQueue actions;
     std::vector<StateQueue*> player_states;
+    std::mutex m;
 
 public:
     explicit GroupMatch(std::string name);

@@ -29,6 +29,7 @@ void GroupMatch::run() {
 }
 
 Match GroupMatch::add_player() {
+    std::lock_guard<std::mutex> lock(m);
     auto *state = new StateQueue;
     player_states.push_back(state);
     game.add_character(++players, PLAYER_COLLISION_RANGE);
@@ -36,6 +37,7 @@ Match GroupMatch::add_player() {
 }
 
 void GroupMatch::handle_game() {
+    std::lock_guard<std::mutex> lock(m);
     int missing_players = 0;
     std::shared_ptr<Action> action;
     if (actions.try_pop(action)) {
