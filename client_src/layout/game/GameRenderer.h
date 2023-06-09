@@ -20,15 +20,17 @@ class GameRenderer {
   Texture background = Texture(renderer, background_src);
   int mapScrollingOffset = 0;
   GameStorage &gameStorage;
+  int playerId;
  public:
   GameRenderer(Renderer &renderer, int width, int height,
-               std::string &background_src, GameStorage &gameStorage);
+               std::string &background_src, GameStorage &gameStorage, int playerId);
   void setSize(int width, int height);
   void render();
   void renderInterface();
   void renderBackground();
   void renderPlayers();
   void renderEnemies();
+  void getMapOffset();
   ~GameRenderer() = default;
 };
 

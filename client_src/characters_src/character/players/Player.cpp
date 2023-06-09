@@ -48,3 +48,6 @@ void Player::reload() {
 void Player::update() {
     //setCurrentSprite(textures.update);
 }
+int Player::getPlayerId() const {
+    return playerId;
+}

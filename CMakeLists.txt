@@ -50,8 +50,6 @@ add_executable(cliente
         client_src/characters_src/characterTextures/players/PlayerTexture.h
         client_src/characters_src/characterTextures/enemies/EnemyTexture.h
         client_src/characters_src/characterTextures/players/ScoutTextures.h
-        client_src/layout/game/GameStatus.cpp
-        client_src/layout/game/GameStatus.h
         client_src/layout/game/GameStorage.cpp
         client_src/layout/game/GameStorage.h
         client_src/client/Client.cpp

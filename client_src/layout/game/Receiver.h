@@ -18,7 +18,6 @@ class Receiver : public Thread {
 
  public:
   Receiver(Protocol *protocol, bool &was_closed, std::vector<Player> &players);
-  ~Receiver() = default;
   void run() override;
 };
 

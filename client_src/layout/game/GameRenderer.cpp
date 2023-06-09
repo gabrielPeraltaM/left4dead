@@ -6,14 +6,16 @@
 
 GameRenderer::GameRenderer(Renderer& renderer, int width, int height,
                            std::string& background_src,
-                           GameStorage& gameStorage)
+                           GameStorage& gameStorage, int playerId)
     : renderer(renderer),
       width(width),
       height(height),
       background_src(background_src),
-      gameStorage(gameStorage) {}
+      gameStorage(gameStorage),
+      playerId(playerId) {}
 
 void GameRenderer::render() {
+  getMapOffset();
   renderBackground();
   renderPlayers();
   renderEnemies();
@@ -23,28 +25,30 @@ void GameRenderer::render() {
 void GameRenderer::renderInterface() {
   int gapX = width * 0.05;
   int gapY = height * 0.05;
-  int alpha = 100;
+  Uint8 alpha = 100;
+  int frameWidth = 100 * (width / 800);
+  int frameHeight = 8 * (height / 300);
 
   // Render a red rectangle representing the health at top left corner
   renderer.SetDrawColor(255, 0, 0, alpha);
-  renderer.FillRect(Rect(gapX, gapY, 100, 10));
+  renderer.FillRect(Rect(gapX, gapY, frameWidth, frameHeight));
   // Render a black border around the health bar
   renderer.SetDrawColor(0, 0, 0, alpha);
-  renderer.DrawRect(Rect(gapX, gapY, 100, 10));
+  renderer.DrawRect(Rect(gapX, gapY, frameWidth, frameHeight));
 
   // Render a blue rectangle representing the stamina below the health bar
   renderer.SetDrawColor(0, 0, 255, alpha);
-  renderer.FillRect(Rect(gapX, gapY + 20, 100, 10));
+  renderer.FillRect(Rect(gapX, gapY + 2 * frameHeight, frameWidth, frameHeight));
   // Render a black border around the stamina bar
   renderer.SetDrawColor(0, 0, 0, alpha);
-  renderer.DrawRect(Rect(gapX, gapY + 20, 100, 10));
+  renderer.DrawRect(Rect(gapX, gapY + 2 * frameHeight, frameWidth, frameHeight));
 
   // Render a green rectangle representing the ammo below the stamina bar
   renderer.SetDrawColor(0, 255, 0, alpha);
-  renderer.FillRect(Rect(gapX, gapY + 40, 100, 10));
+  renderer.FillRect(Rect(gapX, gapY + 4 * frameHeight, frameWidth, frameHeight));
   // Render a black border around the ammo bar
   renderer.SetDrawColor(0, 0, 0, alpha);
-  renderer.DrawRect(Rect(gapX, gapY + 40, 100, 10));
+  renderer.DrawRect(Rect(gapX, gapY + 4 * frameHeight, frameWidth, frameHeight));
 }
 void GameRenderer::renderBackground() {
   Rect srcRect = Rect(0, 0, width, height);
@@ -84,7 +88,17 @@ void GameRenderer::renderEnemies() {
                      nullptr, enemy.getFlip());
   }
 }
-void GameRenderer::setSize(int width, int height) {
-  this->width = width;
-  this->height = height;
+void GameRenderer::setSize(int newWidth, int newHeight) {
+  width = newWidth;
+  height = newHeight;
+}
+void GameRenderer::getMapOffset() {
+  return ;
+  std::cout << "playerID: " << playerId << "\n";
+  Player& player = gameStorage.getPlayers()[playerId];
+  int playerX = player.getPosX();
+  return ;
+  if (playerX < 0.01 * width) {
+    mapScrollingOffset = 0.1 * width - playerX;
+  }
 }

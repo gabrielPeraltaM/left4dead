@@ -18,6 +18,7 @@ public:
     void reload();
     void update();
     void attack() override;
+    int getPlayerId() const;
 };
 
 
