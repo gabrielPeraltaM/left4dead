@@ -66,6 +66,7 @@ void Game::StartGame() {
 }
 
 void Game::drawOtherPlayers() {
+  int id = 1;
   for (auto &player : players) {
     Texture *sprite = player.getCurrentSprite();
     player.scrollRight(enemyScrollingOffset);
@@ -149,7 +150,7 @@ void Game::playerAction(Player &player) {
   }
 
   if (state[SDL_SCANCODE_SPACE]) {
-    protocol.attack(&was_closed);
+    protocol.shoot(&was_closed);
     return;
   }
 

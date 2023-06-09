@@ -110,6 +110,7 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
         case MOVE_RIGHT:
             return std::make_shared<ActionMove>(MOVE_SIZE, 0);
 
+
         default:
             // change this
             return nullptr;
