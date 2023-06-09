@@ -22,9 +22,16 @@ void Game::StartGame() {
   width = DM.w;
   height = DM.h;
 
+  std::cout << "Width: " << width << std::endl;
+  std::cout << "Height: " << height << std::endl;
+
+  // Set the window size
+  window.SetSize(width, height);
+
   // Add the initial zombies
   spawnZombie();
-  addPlayer(200, 800, playerId);
+  addPlayer(200, 800, 0);
+  addPlayer(600, 800, 1);
 
   // Game loop
   SDL_Event event;

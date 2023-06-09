@@ -12,12 +12,11 @@ void Receiver::run() {
   uint8_t action;
   int playerId;
   while (!was_closed) {
+    action = protocol->receive_action(&was_closed);
+
     playerId = protocol->receive_player(&was_closed);
     playerId--;
-    std::cout << "Player: " << playerId << std::endl;
 
-    action = protocol->receive_action(&was_closed);
-    std::cout << "Action: " << (int)action << std::endl;
 
     switch (action) {
       case OPCODES::IDLE:
