@@ -25,3 +25,7 @@ Referencia a documentación técnica
 
 ## Manual del proyecto
 En un pdf aparte
+
+## Imágenes del juego
+
+## Diagrama de Robustez
