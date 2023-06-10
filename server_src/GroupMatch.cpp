@@ -7,7 +7,7 @@
 #include <memory>
 
 #define LIMIT_Y 700
-#define PLAYER_COLLISION_RANGE 30
+#define PLAYER_COLLISION_RANGE 22
 
 GroupMatch::GroupMatch(std::string name) : name(std::move(name)),
                                            game(LIMIT_Y),
@@ -43,11 +43,6 @@ void GroupMatch::handle_game() {
     if (actions.try_pop(action)) {
         std::shared_ptr<State> state = game.update(action);
         for (auto *player_state: player_states) {
-            // this check may be unnecessary
-            if (player_state->was_closed()) {
-                //++missing_players;
-                continue;
-            }
             player_state->push(state);
         }
     }

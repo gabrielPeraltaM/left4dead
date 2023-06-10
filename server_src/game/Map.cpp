@@ -4,14 +4,13 @@
 
 #include "Map.h"
 
-
 #define POS_X_ONE 200
 #define POS_Y_ONE 800
 #define POS_X_TWO 600
 #define POS_Y_TWO 800
 
 Map::Map(int limit_y) : limit_y(limit_y),
-                                     players(0) {}
+                        players(0) {}
 
 Map::~Map() {
     for (auto character : characters) {
@@ -48,8 +47,12 @@ std::shared_ptr<State> Map::move_character(int id, int move_x, int move_y) {
     return std::make_shared<State>(id, 0, 0);
 }
 
+void Map::shoot(int player_id) {
+    auto *character = characters.at(player_id);
+}
+
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {
-    if (character->get_pos_y() + move_y <= limit_y || character->get_pos_y() + move_y >= 1080) {
+    if (character->get_pos_y() + move_y <= limit_y || character->get_pos_y() + move_y >= 805) {
         return true;
     }
     return false;

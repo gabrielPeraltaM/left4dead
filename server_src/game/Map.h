@@ -6,14 +6,15 @@
 #define LEFT4DEAD_MAP_H
 
 #include <map>
+#include <memory>
 #include "Character.h"
 #include "../server_src/State.h"
-#include <memory>
 
 class Map {
     const int limit_y;
     int players;
     std::map<int, Character*> characters;
+    std::map<int, Character*> zombies;
 
    public:
     explicit Map(int limit_y);
@@ -23,6 +24,8 @@ class Map {
     void add_character(int id, int collision_range);
 
     std::shared_ptr<State> move_character(int id, int move_x, int move_y);
+
+    void shoot(int player_id);
 
    private:
     bool limit_collision(Character *character, int move_x, int move_y) const;
