@@ -30,6 +30,7 @@ En un pdf aparte
 
 ## Diagrama de Robustez
 
+## Par
 1) Robustez y validate
 2) Features
 3) Código
