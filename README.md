@@ -23,7 +23,7 @@ make
 ## Manual de Usuario
 Referencia a documentación técnica
 
-## Manual del proyecto
+## Manual del proyecto y docu técnica
 En un pdf aparte
 
 ## Imágenes del juego
