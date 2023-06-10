@@ -29,3 +29,11 @@ En un pdf aparte
 ## Imágenes del juego
 
 ## Diagrama de Robustez
+
+1) Robustez y validate
+2) Features
+3) Código
+4) Documentación
+5) Jugabilidad
+6) Algo extra
+7) Performance
