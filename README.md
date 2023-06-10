@@ -18,3 +18,10 @@ cmake ..
 make
 ./runTests
 ```
+## Features
+
+## Manual de Usuario
+Referencia a documentación técnica
+
+## Manual del proyecto
+En un pdf aparte
