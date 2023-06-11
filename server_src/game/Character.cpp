@@ -5,17 +5,19 @@
 #include "Character.h"
 #include <cmath>
 
-#define MAX_ZOMBIES 128
+#define CHARACTER_LIFE 100
+#define DEFAULT_DAMAGE 4
+#define MAX_SHOOTING_RANGE 1920
 #define RIGHT 1
 #define LEFT 2
 
 Character::Character(int pos_x,
                      int pos_y,
-                     int collision_range) : pos_x(pos_x),
+                     int collision_range) : life(CHARACTER_LIFE),
+                                            pos_x(pos_x),
                                             pos_y(pos_y),
                                             collision_range(collision_range),
-                                            orientation(RIGHT),
-                                            zombies_ids(MAX_ZOMBIES) {}
+                                            orientation(RIGHT) {}
 
 void Character::move(int move_x, int move_y) {
     pos_x += move_x;
@@ -33,12 +35,15 @@ bool Character::collision(Character *other, int move_x, int move_y) const {
 }
 
 void Character::shoot(std::map<int, Character*>& enemies) {
+    Character *enemy;
     if (orientation == RIGHT) {
-        find_enemies_right(enemies);
+        enemy = find_enemies_right(enemies);
     } else {
-        find_enemies_left(enemies);
+        enemy = find_enemies_left(enemies);
     }
-    // find the nearest enemy
+    if (enemy && enemy->life > 0) {
+        enemy->life -= DEFAULT_DAMAGE;
+    }
 }
 
 int Character::get_pos_x() const {
@@ -55,26 +60,34 @@ double Character::distance(Character *other, int new_pos_x, int new_pos_y) {
     return sqrt((distance_x * distance_x) + (distance_y * distance_y));
 }
 
-void Character::find_enemies_left(std::map<int, Character *> &enemies) {
-    int pos = 0;
+Character *Character::find_enemies_left(std::map<int, Character *> &enemies) const {
+    int closest_zombie_pos = -1;
+    Character *closest_zombie = nullptr;
     for (auto character : enemies) {
         auto *enemy = character.second;
         if (enemy->pos_x < this->pos_x &&
         this->pos_y < (enemy->pos_y + enemy->collision_range) &&
-        this->pos_y > (enemy->pos_y - enemy->collision_range)) {
-                zombies_ids[pos++] = character.first;
+        this->pos_y > (enemy->pos_y - enemy->collision_range) &&
+        enemy->pos_x > closest_zombie_pos) {
+            closest_zombie_pos = enemy->pos_x;
+            closest_zombie = enemy;
         }
     }
+    return closest_zombie;
 }
 
-void Character::find_enemies_right(std::map<int, Character *> &enemies) {
-    int pos = 0;
+Character *Character::find_enemies_right(std::map<int, Character *> &enemies) const {
+    int closest_zombie_pos = MAX_SHOOTING_RANGE;
+    Character *closest_zombie = nullptr;
     for (auto character : enemies) {
         auto *enemy = character.second;
         if (enemy->pos_x > this->pos_x &&
             this->pos_y < (enemy->pos_y + enemy->collision_range) &&
-            this->pos_y > (enemy->pos_y - enemy->collision_range)) {
-            zombies_ids[pos++] = character.first;
+            this->pos_y > (enemy->pos_y - enemy->collision_range) &&
+            enemy->pos_x < closest_zombie_pos) {
+            closest_zombie_pos = enemy->pos_x;
+            closest_zombie = enemy;
         }
     }
+    return closest_zombie;
 }

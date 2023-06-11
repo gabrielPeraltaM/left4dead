@@ -9,11 +9,11 @@
 #include <vector>
 
 class Character {
+    int life;
     int pos_x;
     int pos_y;
     int collision_range;
     int orientation;
-    std::vector<int> zombies_ids;
 
    public:
     Character(int pos_x, int pos_y, int collision_range);
@@ -31,9 +31,9 @@ class Character {
    private:
     static double distance(Character *other, int new_pos_x, int new_pos_y);
 
-    void find_enemies_left(std::map<int, Character*> &enemies);
+    Character *find_enemies_left(std::map<int, Character*> &enemies) const;
 
-    void find_enemies_right(std::map<int, Character*> &enemies);
+    Character *find_enemies_right(std::map<int, Character*> &enemies) const;
 };
 
 #endif  // LEFT4DEAD_CHARACTER_H
