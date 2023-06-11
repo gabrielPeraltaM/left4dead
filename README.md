@@ -18,3 +18,23 @@ cmake ..
 make
 ./runTests
 ```
+## Features
+
+## Manual de Usuario
+Referencia a documentación técnica
+
+## Manual del proyecto y docu técnica
+En un pdf aparte
+
+## Imágenes del juego
+
+## Diagrama de Robustez
+
+## Parámetros
+1) Robustez y validate
+2) Features
+3) Código
+4) Documentación
+5) Jugabilidad
+6) Algo extra
+7) Performance
