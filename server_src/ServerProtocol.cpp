@@ -137,6 +137,9 @@ void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
     } else {
         action = IDLE;
     }
+    /* Si podes mandame primero el playerId y despues
+     * el action. Y que empieze en 0 el playerID
+     */
     int s;
     s = sk.sendall(&action, sizeof(action), &was_closed);
     if (s == 0) {

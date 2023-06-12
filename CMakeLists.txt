@@ -11,64 +11,33 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Resources
 add_definitions(-DRESOURCE_PATH="${PROJECT_SOURCE_DIR}/resources")
 
-# define targets
-add_executable(cliente
-        client_src/main.cpp
-        client_src/layout/game/Game.cpp
-        client_src/layout/game/Game.h
-        client_src/characters_src/characterData/CharacterData.h
-        client_src/characters_src/characterData/players/IDFData.h
-        client_src/characters_src/characterData/players/P90Data.h
-        client_src/characters_src/characterData/players/ScoutData.h
-        client_src/characters_src/characterData/enemies/ZombieData.h
-        client_src/characters_src/characterData/enemies/JumperData.h
-        client_src/characters_src/characterData/enemies/SpearData.h
-        client_src/characters_src/characterData/enemies/VenomData.h
-        client_src/characters_src/characterData/enemies/WitchData.h
-        client_src/characters_src/characterTextures/CharacterTexture.h
-        client_src/characters_src/characterTextures/players/IDFTextures.h
-        client_src/characters_src/characterTextures/enemies/ZombieTextures.h
-        client_src/characters_src/characterStatus/players/PlayerStatus.h
-        client_src/characters_src/characterStatus/CharacterStatus.h
-        client_src/characters_src/character/Character.cpp
-        client_src/characters_src/character/Character.h
-        client_src/characters_src/character/players/Player.cpp
-        client_src/characters_src/character/players/Player.h
-        client_src/characters_src/character/enemies/Enemy.cpp
-        client_src/characters_src/character/enemies/Enemy.h
-        client_src/characters_src/character/enemies/Zombie.cpp
-        client_src/characters_src/character/enemies/Zombie.h
-        client_src/characters_src/character/enemies/Jumper.cpp
-        client_src/characters_src/character/enemies/Jumper.h
-        client_src/characters_src/character/enemies/Witch.cpp
-        client_src/characters_src/character/enemies/Witch.h
-        client_src/characters_src/character/enemies/Spear.cpp
-        client_src/characters_src/character/enemies/Spear.h
-        client_src/characters_src/character/enemies/Venom.cpp
-        client_src/characters_src/character/enemies/Venom.h
-        client_src/characters_src/characterTextures/players/P90Textures.h
-        client_src/characters_src/characterTextures/players/PlayerTexture.h
-        client_src/characters_src/characterTextures/enemies/EnemyTexture.h
-        client_src/characters_src/characterTextures/players/ScoutTextures.h
-        client_src/layout/game/GameStorage.cpp
-        client_src/layout/game/GameStorage.h
-        client_src/client/Client.cpp
-        client_src/client/Client.h
-        client_src/client/Protocol.cpp
-        client_src/client/Protocol.h
-        common_src/socket.h
-        common_src/socket.cpp
-        common_src/thread.h
-        common_src/thread.cpp
-        common_src/liberror.h
-        common_src/liberror.cpp
-        common_src/resolvererror.h
-        common_src/resolvererror.cpp
-        common_src/resolver.h
-        common_src/resolver.cpp
-        client_src/layout/game/GameRenderer.cpp client_src/layout/game/GameRenderer.h client_src/layout/game/GameProtocol.cpp client_src/layout/game/GameProtocol.h client_src/layout/game/Receiver.h client_src/layout/game/Receiver.cpp client_src/characters_src/characterTextures/enemies/JumperTextures.h)
+# Client
 
-target_link_libraries(cliente PUBLIC SDL2pp::SDL2pp)
+add_executable(client
+        client/main.cpp
+        client/game/Game.cpp
+        client/game/GameRenderer/GameRenderer.cpp
+        common_src/thread.cpp
+        common_src/socket.cpp
+        common_src/liberror.cpp
+        common_src/resolver.cpp
+        common_src/resolvererror.cpp
+        client/characters/Character.cpp
+        common_src/actions.h
+        client/Client.cpp
+        client/game/GameProtocol/Receiver.cpp
+        client/game/GameProtocol/Receiver.h
+        client/game/GameRenderer/BackgroundRenderer.cpp
+        client/game/GameRenderer/BackgroundRenderer.h
+        client/game/GameRenderer/UIRenderer.cpp
+        client/game/GameRenderer/UIRenderer.h
+        client/game/GameProtocol/Sender.cpp
+        client/game/GameProtocol/Sender.h
+        client/game/GameRenderer/PlayerRenderer.cpp
+        client/game/GameRenderer/PlayerRenderer.h)
+target_link_libraries(client PUBLIC SDL2pp::SDL2pp)
+
+# Server
 
 add_executable(server server_src/main.cpp
                         server_src/server.cpp
