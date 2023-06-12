@@ -43,7 +43,6 @@ void PlayerRenderer::render(int it) {
   for (auto &character : characters) {
     int x = character.getCameraX();
     int y = character.getCameraY();
-    std::cout << " - y: " << y << std::endl;
 
     std::string character_type = character.getType();
     std::string action = character.getAction();

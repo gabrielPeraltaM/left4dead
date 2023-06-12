@@ -45,7 +45,6 @@ void BackgroundRenderer::render() {
       character.setCameraX(character.getPosX() -
                            cameraOffset * SCREEN_WIDTH / camera.w);
     }
-    std::cout << character.getPosY();
     character.setCameraY(character.getPosY());
   }
 }
