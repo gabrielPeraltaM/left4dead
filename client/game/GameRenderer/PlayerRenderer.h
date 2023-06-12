@@ -22,6 +22,7 @@ private:
 public:
     PlayerRenderer(std::vector<Character> &characters, Renderer &renderer);
     void render(int it);
+    ~PlayerRenderer();
 
 };
 

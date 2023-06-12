@@ -32,6 +32,7 @@ private:
 public:
     BackgroundRenderer(Renderer &renderer, std::vector<Character> &characters, int playerId);
     void render();
+    ~BackgroundRenderer();
 };
 
 

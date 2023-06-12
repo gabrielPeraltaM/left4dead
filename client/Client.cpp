@@ -7,14 +7,14 @@
 #include "Client.h"
 #include "client/game/Game.h"
 
-#define JOIN 0X01
-#define CREATE 0X02
+#define CREATE 0X01
+#define JOIN 0X02
 
 Client::Client(const char *hostname, const char *port) : peer(hostname, port) {}
 
 void Client::startGame() {
     getFirstAction();
-    uint8_t playerId = getPlayerId();
+    uint8_t playerId = getPlayerId() -1;
     Game game(peer, playerId);
     game.start();
 }
@@ -32,8 +32,10 @@ void Client::getFirstAction() {
     if (command == "join") {
         int gameId = std::stoi(argument);
         joinGame(gameId);
+        std::cout << "Joined game with id: " << gameId << std::endl;
     } else if (command == "create") {
-        createGame(argument);
+        uint32_t gameId = createGame(argument);
+        std::cout << "Game created with id: " << gameId << std::endl;
     } else {
         throw std::runtime_error("Invalid command");
     }

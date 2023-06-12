@@ -24,6 +24,7 @@ void Receiver::run() {
         }
         // Receive id
         socket.recvall(&playerId, sizeof(playerId), &was_closed);
+        playerId--;
         if (was_closed) {
             running = false;
             break;

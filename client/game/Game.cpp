@@ -4,6 +4,8 @@
 
 #include "Game.h"
 
+#include <sys/socket.h>
+
 void Game::start() {
   SDL sdl = SDL(SDL_INIT_VIDEO);
   SDL_SetRenderDrawBlendMode(renderer.Get(), SDL_BLENDMODE_BLEND);
@@ -41,6 +43,7 @@ void Game::start() {
         switch (event.key.keysym.sym) {
           case SDLK_ESCAPE:
             running = false;
+            break;
         }
       } else if (event.type == SDL_WINDOWEVENT) {
         switch (event.window.event) {
@@ -58,12 +61,12 @@ void Game::start() {
     // Delay
     SDL_Delay(1000 / 60);
   }
+  SDL_Quit();
 }
 
 Game::~Game() {
-  gameRenderer.join();
-  receiver.join();
-  sender.join();
+  socket.shutdown(SHUT_RDWR);
+  socket.close();
 }
 
 Game::Game(Socket &socket, int playerId) : socket(socket), playerId(playerId) {}

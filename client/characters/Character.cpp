@@ -51,7 +51,7 @@ int Character::getPosX() const {
 }
 
 int Character::getPosY() const {
-    return posY * SCREEN_HEIGHT / 1080;
+    return posY;
 }
 
 int Character::getId() const {

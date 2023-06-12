@@ -11,6 +11,9 @@ void Sender::run() {
     bool was_closed = false;
     uint8_t action;
     while (running) {
+        // Delay
+        SDL_Delay(1000 / 60);
+
         state = SDL_GetKeyboardState(nullptr);
 
         if (state[SDL_SCANCODE_R]) {
@@ -48,8 +51,8 @@ void Sender::run() {
 
         switch (direction) {
             case 0:
-                action = IDLE;
-                socket.sendall(&action, 1, &was_closed);
+                //action = IDLE;
+                //socket.sendall(&action, 1, &was_closed);
                 break;
             case 1:
                 action = MOVE_LEFT;
@@ -86,7 +89,5 @@ void Sender::run() {
             default:
                 break;
         }
-        // Delay
-        SDL_Delay(1000 / 60);
     }
 }
