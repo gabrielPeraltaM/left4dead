@@ -11,9 +11,13 @@ Character::Character(int posX, int posY, int id, const char *type) : posX(posX),
                                                                       type(type) {}
 
 void Character::move(int x, int y) {
+    if (posX == x && posY == y) {
+        setStatus(IDLE);
+        return;
+    }
     setStatus(MOVE_UP);
-    posX += x * 5;
-    posY += y * 5;
+    posX = x;
+    posY = y;
 
     if (x > 0) {
         flip = false;

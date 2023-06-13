@@ -3,8 +3,12 @@
 //
 
 #include "Receiver.h"
-#include "common_src/actions.h"
+
+#include <netinet/in.h>
+
 #include <string>
+
+#include "common_src/actions.h"
 
 Receiver::Receiver(Socket &socket, bool &running, std::vector<Character> &characters) : socket(socket),
                                                                                         running(running),
@@ -14,8 +18,6 @@ Receiver::Receiver(Socket &socket, bool &running, std::vector<Character> &charac
 void Receiver::run() {
     uint16_t state[12];
     bool was_closed = false;
-    int playerId;
-
 
     while (running) {
         // Receive action
@@ -24,11 +26,14 @@ void Receiver::run() {
             running = false;
             break;
         }
-        std::cout << "Received state" << std::endl;
-        for (int i=0; i<12/3; i+=3) {
-            std::cout << "Player " << state[i] << " x: " << state[i+1] << " y: " << state[i+2] << std::endl;
-            Character &character = characters.at(state[i]);
-            character.move(state[i+1], state[i+2]);
+        std::cout << "---------" << std::endl;
+        for (int i=0; i<12; i+=3) {
+            uint16_t playerId =ntohs(state[i]);
+            uint16_t x = ntohs(state[i+1]);
+            uint16_t y = ntohs(state[i+2]);
+            std::cout << "Player " << playerId << " is at " << x << ", " << y << std::endl;
+            Character &character = characters.at(playerId);
+            character.move(x, y);
         }
     }
 }
