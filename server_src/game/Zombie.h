@@ -7,7 +7,7 @@
 
 #include "Character.h"
 
-class Zombie : private Character {
+class Zombie : public Character {
     int move_x;
     int move_y;
     Character *target;

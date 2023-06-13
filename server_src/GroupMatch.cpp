@@ -42,7 +42,6 @@ void GroupMatch::handle_game() {
     std::shared_ptr<Action> action;
     if (actions.try_pop(action)) {
         game.receive_action(action);
-
     }
     std::shared_ptr<State> state = game.update();
     for (auto *player_state: player_states) {

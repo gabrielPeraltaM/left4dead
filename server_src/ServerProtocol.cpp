@@ -118,36 +118,18 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 }
 
 void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
-    /*
-    uint8_t action;
-    // change this
-    int move_x = state->move_x;
-    int move_y = state->move_y;
-    if (move_x != 0) {
-        if (move_x > 0) {
-            action = MOVE_RIGHT;
-        } else {
-            action = MOVE_LEFT;
-        }
-    } else if (move_y != 0) {
-        if (move_y > 0) {
-            action = MOVE_UP;
-        } else {
-            action = MOVE_DOWN;
-        }
-    } else {
-        action = IDLE;
-    }*/
-    /* Si podes mandame primero el playerId y despues
-     * el action. Y que empieze en 0 el playerID
-     */
-    /*int s;
-    s = sk.sendall(&action, sizeof(action), &was_closed);
-    if (s == 0) {
-        return;
+    uint8_t buf[12];
+    int pos = 0;
+    for (auto element : state->elements) {
+        int character_id = element.first;
+        auto *character = element.second;
+        buf[pos++] = (uint8_t)character_id;
+        buf[pos++] = (uint8_t)character->get_pos_x();
+        buf[pos] = (uint8_t)character->get_pos_y();
     }
-    uint8_t player_id = state->player_id;
-    send_byte(player_id);*/
+    if (sk.sendall(&buf, 12, &was_closed) == 0) {
+        throw LibError(EPIPE, "The client was disconnected");
+    }
 }
 
 bool ServerProtocol::closed() const {

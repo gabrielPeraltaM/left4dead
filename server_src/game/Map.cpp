@@ -9,12 +9,25 @@
 #define POS_X_TWO 600
 #define POS_Y_TWO 800
 
+#define ZOMBIE1_POS_X 400
+#define ZOMBIE1_POS_Y 400
+#define ZOMBIE2_POS_X 400
+#define ZOMBIE2_POS_Y 400
+
+
 Map::Map(int limit_y) : limit_y(limit_y),
-                        players(0) {}
+                        players(0) {
+    auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y);
+    auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y);
+    zombies[5] = zombie1;
+    zombies[6] = zombie2;
+    elements[5] = zombie1;
+    elements[6] = zombie2;
+}
 
 Map::~Map() {
-    for (auto character : characters) {
-        delete character.second;
+    for (auto element : elements) {
+        delete element.second;
     }
 }
 
@@ -43,6 +56,9 @@ void Map::move_character(int id, int move_x, int move_y) {
     }
     if (not collision) {
         character->move(move_x, move_y);
+    }
+    for (auto zombie : zombies) {
+        zombie.second->check_target(character);
     }
 }
 
