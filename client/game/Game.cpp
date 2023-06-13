@@ -61,6 +61,7 @@ void Game::start() {
     // Delay
     SDL_Delay(1000 / 60);
   }
+
   SDL_Quit();
 }
 
