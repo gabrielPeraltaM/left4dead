@@ -12,7 +12,7 @@
 class Action {
    public:
     int player_id = -1;
-    virtual std::shared_ptr<State> execute(Map &map) = 0;
+    virtual void execute(Map &map) = 0;
 };
 
 #endif //LEFT4DEAD_ACTION_H

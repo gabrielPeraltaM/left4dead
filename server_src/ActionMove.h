@@ -17,7 +17,7 @@ class ActionMove : public Action {
    public:
     ActionMove(int move_x, int move_y);
 
-    std::shared_ptr<State> execute(Map &map) override;
+    void execute(Map &map) override;
 };
 
 #endif  // LEFT4DEAD_ACTION_MOVE_H

@@ -118,6 +118,7 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 }
 
 void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
+    /*
     uint8_t action;
     // change this
     int move_x = state->move_x;
@@ -136,17 +137,17 @@ void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
         }
     } else {
         action = IDLE;
-    }
+    }*/
     /* Si podes mandame primero el playerId y despues
      * el action. Y que empieze en 0 el playerID
      */
-    int s;
+    /*int s;
     s = sk.sendall(&action, sizeof(action), &was_closed);
     if (s == 0) {
         return;
     }
     uint8_t player_id = state->player_id;
-    send_byte(player_id);
+    send_byte(player_id);*/
 }
 
 bool ServerProtocol::closed() const {

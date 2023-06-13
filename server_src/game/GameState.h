@@ -18,7 +18,9 @@ class GameState {
 
     void add_character(int id, int collision_range);
 
-    std::shared_ptr<State> update(const std::shared_ptr<Action>& action);
+    void receive_action(const std::shared_ptr<Action>& action);
+
+    std::shared_ptr<State> update();
 };
 
 #endif  // LEFT4DEAD_GAME_STATE_H

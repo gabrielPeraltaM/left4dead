@@ -25,13 +25,14 @@ void Map::add_character(int id, int collision_range) {
     calculate_position(pos_x, pos_y);
     auto *character = new Character(pos_x, pos_y, collision_range);
     characters[id] = character;
+    elements[id] = character;
     ++players;
 }
 
-std::shared_ptr<State> Map::move_character(int id, int move_x, int move_y) {
+void Map::move_character(int id, int move_x, int move_y) {
     auto *character = characters.at(id);
     if (limit_collision(character, move_x, move_y)) {
-        return std::make_shared<State>(id, 0, 0);
+        return;
     }
     bool collision = false;
     for (auto other : characters) {
@@ -42,13 +43,19 @@ std::shared_ptr<State> Map::move_character(int id, int move_x, int move_y) {
     }
     if (not collision) {
         character->move(move_x, move_y);
-        return std::make_shared<State>(id, move_x, move_y);
     }
-    return std::make_shared<State>(id, 0, 0);
 }
 
 void Map::shoot(int player_id) {
     auto *character = characters.at(player_id);
+}
+
+std::shared_ptr<State> Map::update() {
+    for (auto zombie : zombies) {
+        // need to initialize the zombies in the elements
+        zombie.second->interact();
+    }
+    return std::make_shared<State>(elements);
 }
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {

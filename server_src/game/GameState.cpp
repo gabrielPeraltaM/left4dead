@@ -11,6 +11,10 @@ void GameState::add_character(int id, int collision_range) {
     map.add_character(id, collision_range);
 }
 
-std::shared_ptr<State> GameState::update(const std::shared_ptr<Action>& action) {
-    return action->execute(map);
+void GameState::receive_action(const std::shared_ptr<Action> &action) {
+    action->execute(map);
+}
+
+std::shared_ptr<State> GameState::update() {
+    return map.update();
 }

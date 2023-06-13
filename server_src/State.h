@@ -5,15 +5,14 @@
 #ifndef LEFT4DEAD_STATE_H
 #define LEFT4DEAD_STATE_H
 
+#include <map>
+#include "./game/Character.h"
+
 class State{
 public:
-    int player_id;
-    int move_x;
-    int move_y;
+    std::map<int, Character*> &elements;
 
-    State(int player_id, int move_x, int move_y) : player_id(player_id),
-                                                   move_x(move_x),
-                                                   move_y(move_y) {}
+    explicit State(std::map<int, Character*> &elements);
 };
 
 #endif //LEFT4DEAD_STATE_H
