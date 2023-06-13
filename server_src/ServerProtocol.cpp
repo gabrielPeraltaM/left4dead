@@ -118,19 +118,14 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 }
 
 void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
-    uint16_t buf[12];
+    uint8_t buf[12];
     int pos = 0;
     for (auto element : state->elements) {
-        auto character_id = (uint16_t)element.first;
+        int character_id = element.first;
         auto *character = element.second;
-        character_id = htons(character_id);
-        auto pos_x = (uint16_t)character->get_pos_x();
-        auto pos_y = (uint16_t)character->get_pos_y();
-        pos_x = htons(pos_x);
-        pos_y = htons(pos_y);
-        buf[pos++] = character_id;
-        buf[pos++] = pos_x;
-        buf[pos] = pos_y;
+        buf[pos++] = (uint8_t)character_id;
+        buf[pos++] = (uint8_t)character->get_pos_x();
+        buf[pos] = (uint8_t)character->get_pos_y();
     }
     if (sk.sendall(&buf, 12, &was_closed) == 0) {
         throw LibError(EPIPE, "The client was disconnected");

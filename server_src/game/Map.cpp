@@ -5,24 +5,24 @@
 #include "Map.h"
 
 #define POS_X_ONE 200
-#define POS_Y_ONE 800
-#define POS_X_TWO 600
-#define POS_Y_TWO 800
+#define POS_Y_ONE 900
+#define POS_X_TWO 350
+#define POS_Y_TWO 900
 
-#define ZOMBIE1_POS_X 400
-#define ZOMBIE1_POS_Y 400
-#define ZOMBIE2_POS_X 400
-#define ZOMBIE2_POS_Y 400
+#define ZOMBIE1_POS_X 800
+#define ZOMBIE1_POS_Y 900
+#define ZOMBIE2_POS_X 900
+#define ZOMBIE2_POS_Y 900
 
 
 Map::Map(int limit_y) : limit_y(limit_y),
                         players(0) {
     auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y);
     auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y);
-    zombies[5] = zombie1;
-    zombies[6] = zombie2;
-    elements[5] = zombie1;
-    elements[6] = zombie2;
+    zombies[2] = zombie1;
+    zombies[3] = zombie2;
+    elements[2] = zombie1;
+    elements[3] = zombie2;
 }
 
 Map::~Map() {
@@ -75,7 +75,7 @@ std::shared_ptr<State> Map::update() {
 }
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {
-    if (character->get_pos_y() + move_y <= limit_y || character->get_pos_y() + move_y >= 805) {
+    if (character->get_pos_y() + move_y <= limit_y || character->get_pos_y() + move_y >= 1080) {
         return true;
     }
     return false;

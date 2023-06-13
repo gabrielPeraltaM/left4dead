@@ -14,7 +14,7 @@ Client::Client(const char *hostname, const char *port) : peer(hostname, port) {}
 
 void Client::startGame() {
     getFirstAction();
-    uint8_t playerId = getPlayerId() -1;
+    uint8_t playerId = getPlayerId();
     Game game(peer, playerId);
     game.start();
 }

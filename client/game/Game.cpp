@@ -23,10 +23,10 @@ void Game::start() {
   characters.push_back(player2);
 
   // Add initial zombies
-  Character zombie = Character(500, 950, 2, "Zombie", 96);
+  Character zombie = Character(800, 900, 2, "Zombie", 96);
   characters.push_back(zombie);
 
-  Character zombie2 = Character(900, 950, 3, "Jumper", 96);
+  Character zombie2 = Character(900, 900, 3, "Jumper", 96);
   characters.push_back(zombie2);
 
   // Game loop
