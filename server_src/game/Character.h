@@ -9,43 +9,35 @@
 #include <vector>
 
 class Character {
+protected:
     int life;
     bool dead;
     int pos_x;
     int pos_y;
-    int moving_x;
-    int moving_y;
-    Character *target;
     int collision_range;
     int orientation;
 
-   public:
+public:
     Character(int pos_x, int pos_y, int collision_range);
 
     void move(int move_x, int move_y);
 
     bool collision(Character *other, int move_x, int move_y) const;
 
-    void update_move(); // zombies
-
-    void interact(); // zombies
-
     void shoot(std::map<int, Character*>& enemies);
 
-    bool is_dead() const;
+    void receive_damage(int damage);
 
-    void check_target(Character *other);
+    bool is_dead() const;
 
     int get_pos_x() const;
 
     int get_pos_y() const;
 
-   private:
+    int get_collision_range() const;
+
+private:
     static double distance(Character *other, int new_pos_x, int new_pos_y);
-
-    double distance_from(Character *other) const;
-
-    bool target_collision();
 
     Character *find_enemies_left(std::map<int, Character*> &enemies) const;
 

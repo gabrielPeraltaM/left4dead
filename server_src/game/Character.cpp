@@ -18,9 +18,6 @@ Character::Character(int pos_x,
                                             dead(false),
                                             pos_x(pos_x),
                                             pos_y(pos_y),
-                                            moving_x(0),
-                                            moving_y(0),
-                                            target(nullptr),
                                             collision_range(collision_range),
                                             orientation(RIGHT) {}
 
@@ -39,28 +36,6 @@ bool Character::collision(Character *other, int move_x, int move_y) const {
     return distance < this->collision_range + other->collision_range;
 }
 
-void Character::update_move() {
-    int distance_x = this->pos_x - target->pos_x;
-    int distance_y = this->pos_y - target->pos_y;
-    double distance = sqrt((distance_x * distance_x) + (distance_y * distance_y));
-    double dir_x = distance_x / distance;
-    double dir_y = distance_y / distance;
-    lround(dir_x);
-    lround(dir_y);
-    moving_x = (int)dir_x;
-    moving_y = (int)dir_y;
-}
-
-void Character::interact() {
-    // need to verify the life of the target
-    if (target && target_collision()) {
-        target->life -= DEFAULT_DAMAGE;
-        return;
-    }
-    pos_x += moving_x;
-    pos_y += moving_y;
-}
-
 void Character::shoot(std::map<int, Character*>& enemies) {
     Character *enemy;
     if (orientation == RIGHT) {
@@ -68,24 +43,23 @@ void Character::shoot(std::map<int, Character*>& enemies) {
     } else {
         enemy = find_enemies_left(enemies);
     }
-    if (enemy && enemy->life > 0) {
-        enemy->life -= DEFAULT_DAMAGE;
+    if (enemy) {
+        enemy->receive_damage(DEFAULT_DAMAGE);
+    }
+}
+
+void Character::receive_damage(int damage) {
+    if (dead) {
+        return;
+    }
+    life -= damage;
+    if (life <= 0) {
+        dead = true;
     }
 }
 
 bool Character::is_dead() const {
     return dead;
-}
-
-void Character::check_target(Character *other) {
-    if (other == target) {
-        update_move();
-        return;
-    }
-    if ((!target || target->dead) && distance_from(other) < PERCEPTION_RANGE) {
-        target = other;
-        update_move();
-    }
 }
 
 int Character::get_pos_x() const {
@@ -96,23 +70,14 @@ int Character::get_pos_y() const {
     return pos_y;
 }
 
+int Character::get_collision_range() const {
+    return collision_range;
+}
+
 double Character::distance(Character *other, int new_pos_x, int new_pos_y) {
     int distance_x = other->pos_x - new_pos_x;
     int distance_y = other->pos_y - new_pos_y;
     return sqrt((distance_x * distance_x) + (distance_y * distance_y));
-}
-
-double Character::distance_from(Character *other) const {
-    int distance_x = this->pos_x - other->pos_x;
-    int distance_y = this->pos_y - other->pos_y;
-    return sqrt((distance_x * distance_x) + (distance_y * distance_y));
-}
-
-bool Character::target_collision() {
-    int distance_x = this->pos_x - target->pos_x;
-    int distance_y = this->pos_y - target->pos_y;
-    double distance = sqrt((distance_x * distance_x) + (distance_y * distance_y));
-    return distance < this->collision_range + target->collision_range;
 }
 
 Character *Character::find_enemies_left(std::map<int, Character *> &enemies) const {
