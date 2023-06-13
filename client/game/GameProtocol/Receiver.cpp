@@ -10,32 +10,32 @@
 
 #include "common_src/actions.h"
 
-Receiver::Receiver(Socket &socket, bool &running, std::vector<Character> &characters) : socket(socket),
-                                                                                        running(running),
-                                                                                        characters(characters) {
-}
+Receiver::Receiver(Socket &socket, bool &running,
+                   std::vector<Character> &characters)
+    : socket(socket), running(running), characters(characters) {}
 
 void Receiver::run() {
-    uint16_t state[12];
-    bool was_closed = false;
+  uint16_t state[12];
+  bool was_closed = false;
 
-    while (running) {
-        // Receive action
-        socket.recvall(&state, sizeof(state), &was_closed);
-        if (was_closed) {
-            running = false;
-            break;
-        }
-        std::cout << "---------" << std::endl;
-        for (int i=0; i<12; i+=3) {
-            uint16_t playerId =ntohs(state[i]);
-            uint16_t x = ntohs(state[i+1]);
-            uint16_t y = ntohs(state[i+2]);
-            std::cout << "Player " << playerId << " is at " << x << ", " << y << std::endl;
-            Character &character = characters.at(playerId);
-            character.move(x, y);
-        }
+  while (running) {
+    // Receive action
+    socket.recvall(&state, sizeof(state), &was_closed);
+    if (was_closed) {
+      running = false;
+      break;
     }
+    std::cout << "---------" << std::endl;
+    for (int i = 0; i <= sizeof(state) - 3; i += sizeof(state) / 3) {
+      uint16_t playerId = ntohs(state[i]);
+      uint16_t x = ntohs(state[i + 1]);
+      uint16_t y = ntohs(state[i + 2]);
+      std::cout << "Player " << playerId << " is at " << x << ", " << y
+                << std::endl;
+      Character &character = characters.at(playerId);
+      character.move(x, y);
+    }
+  }
 }
 
 /*
