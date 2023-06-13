@@ -27,7 +27,7 @@ void Receiver::run() {
             break;
         }
         std::cout << "---------" << std::endl;
-        for (int i=0; i<12; i+=3) {
+        for (int i=0; i<sizeof(state); i+=sizeof(state)/3) {
             uint16_t playerId =ntohs(state[i]);
             uint16_t x = ntohs(state[i+1]);
             uint16_t y = ntohs(state[i+2]);
