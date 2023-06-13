@@ -16,14 +16,15 @@ void Character::move(int x, int y) {
         return;
     }
     setStatus(MOVE_UP);
+    if (posX - x > 0) {
+        flip = false;
+    } else if (posX - x < 0) {
+        flip = true;
+    }
     posX = x;
     posY = y;
 
-    if (x > 0) {
-        flip = false;
-    } else if (x < 0) {
-        flip = true;
-    }
+
 }
 
 void Character::attack() {
