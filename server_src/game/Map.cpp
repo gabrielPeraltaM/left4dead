@@ -15,17 +15,12 @@
 #define ZOMBIE2_POS_X 900
 #define ZOMBIE2_POS_Y 900
 
-#define COLLISION_RANGE_PROVISIONAL 22
-
 Map::Map(int limit_y) : limit_y(limit_y),
                         players(0) {
-    auto *player2 = new Survivor(POS_X_TWO, POS_Y_TWO);
     auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y);
     auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y);
-    characters[1] = player2;
     zombies[2] = zombie1;
     zombies[3] = zombie2;
-    elements[1] = player2;
     elements[2] = zombie1;
     elements[3] = zombie2;
 }
