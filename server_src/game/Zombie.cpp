@@ -3,8 +3,9 @@
 //
 
 #include "Zombie.h"
-#include <cmath>
 
+#include <cmath>
+#include <iostream>
 #define COLLISION_RANGE 20
 #define PERCEPTION_RANGE 200
 #define ZOMBIE_DAMAGE 4
@@ -18,8 +19,8 @@ void Zombie::update_move() {
     int distance_x = this->pos_x - target->get_pos_x();
     int distance_y = this->pos_y - target->get_pos_y();
     double distance = sqrt((distance_x * distance_x) + (distance_y * distance_y));
-    double dir_x = (distance_x / distance) + 0.5;
-    double dir_y = (distance_y / distance) + 0.5;
+    double dir_x = round(distance_x / distance);
+    double dir_y = round(distance_y / distance);
     move_x = (int)dir_x;
     move_y = (int)dir_y;
 }
@@ -29,8 +30,8 @@ void Zombie::interact() {
         target->receive_damage(ZOMBIE_DAMAGE);
         return;
     }
-    pos_x += move_x;
-    pos_y += move_y;
+    pos_x -= move_x;
+    pos_y -= move_y;
 }
 
 void Zombie::check_target(Character *other) {

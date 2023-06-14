@@ -27,6 +27,9 @@ void Receiver::run() {
     }
     for (int i = 0; i < 12; i+=3) {
       uint16_t playerId = ntohs(state[i]);
+      if (playerId >= characters.size()) {
+        continue;
+      }
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
       Character &character = characters.at(playerId);
