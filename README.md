@@ -1,6 +1,8 @@
 # left4dead
 TP Grupal de Taller de Programación
 
+## Correr en 1920x1080
+
 Para correr el juego:
 ```
 mkdir build
