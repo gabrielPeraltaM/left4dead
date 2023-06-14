@@ -80,7 +80,7 @@ std::shared_ptr<State> Map::update() {
 }
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {
-    if (character->get_pos_y() + move_y <= limit_y || character->get_pos_y() + move_y >= 1080) {
+    if (character->get_pos_y() + move_y <= limit_y || character->get_pos_y() + move_y >= 920) {
         return true;
     }
     return false;

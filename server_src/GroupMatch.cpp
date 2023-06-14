@@ -6,7 +6,7 @@
 #include <utility>
 #include <memory>
 
-#define LIMIT_Y 700
+#define LIMIT_Y 750
 #define PLAYER_COLLISION_RANGE 22
 
 GroupMatch::GroupMatch(std::string name) : name(std::move(name)),
