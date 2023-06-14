@@ -15,7 +15,7 @@ class Map {
     const int limit_y;
     int players;
     std::map<int, Character*> characters;
-    std::map<int, Zombie*> zombies;
+    std::map<int, Character*> zombies;
     std::map<int, Character*> elements;
 
    public:

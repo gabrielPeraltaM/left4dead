@@ -17,9 +17,15 @@ public:
 
     void update_move();
 
-    void interact();
+    void interact() override;
 
-    void check_target(Character *other);
+    void check_target(Character *other) override;
+
+    bool collision(Character *other, int pos_x, int pos_y) override;
+
+    void move(int move_x, int move_y) override;
+
+    void receive_damage(int damage) override;
 
 private:
     double distance_from(Character *other) const;

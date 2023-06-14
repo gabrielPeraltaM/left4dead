@@ -10,25 +10,13 @@
 
 class Character {
 protected:
-    int life;
-    bool dead;
     int pos_x;
     int pos_y;
     int collision_range;
-    int orientation;
+    bool dead;
 
 public:
     Character(int pos_x, int pos_y, int collision_range);
-
-    void move(int move_x, int move_y);
-
-    bool collision(Character *other, int move_x, int move_y) const;
-
-    void shoot(std::map<int, Character*>& enemies);
-
-    void receive_damage(int damage);
-
-    bool is_dead() const;
 
     int get_pos_x() const;
 
@@ -36,12 +24,20 @@ public:
 
     int get_collision_range() const;
 
-private:
+    virtual void receive_damage(int damage) = 0;
+
+    virtual void interact() = 0;
+
+    virtual void check_target(Character *other) = 0;
+
+    virtual bool collision(Character *other, int pos_x, int pos_y) = 0;
+
+    virtual void move(int move_x, int move_y) = 0;
+
+    bool is_dead() const;
+
+protected:
     static double distance(Character *other, int new_pos_x, int new_pos_y);
-
-    Character *find_enemies_left(std::map<int, Character*> &enemies) const;
-
-    Character *find_enemies_right(std::map<int, Character*> &enemies) const;
 };
 
 #endif  // LEFT4DEAD_CHARACTER_H
