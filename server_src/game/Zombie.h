@@ -27,6 +27,8 @@ public:
 
     void receive_damage(int damage) override;
 
+    void shoot(std::map<int, Character*> &enemies) override;
+
 private:
     double distance_from(Character *other) const;
 

@@ -36,6 +36,8 @@ public:
 
     bool is_dead() const;
 
+    virtual void shoot(std::map<int, Character*> &enemies) = 0;
+
 protected:
     static double distance(Character *other, int new_pos_x, int new_pos_y);
 };

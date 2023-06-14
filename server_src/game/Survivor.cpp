@@ -3,7 +3,6 @@
 //
 
 #include "Survivor.h"
-#include <cmath>
 
 #define SURVIVOR_LIFE 100
 #define DEFAULT_DAMAGE 4

@@ -18,7 +18,7 @@ public:
 
     bool collision(Character *other, int move_x, int move_y) override;
 
-    void shoot(std::map<int, Character*>& enemies);
+    void shoot(std::map<int, Character*>& enemies) override;
 
     void receive_damage(int damage) override;
 

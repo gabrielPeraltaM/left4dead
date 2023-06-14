@@ -69,6 +69,7 @@ void Map::move_character(int id, int move_x, int move_y) {
 
 void Map::shoot(int player_id) {
     auto *character = characters.at(player_id);
+    character->shoot(zombies);
 }
 
 std::shared_ptr<State> Map::update() {

@@ -67,3 +67,5 @@ void Zombie::move(int move_x, int move_y) {
 
 void Zombie::receive_damage(int damage) {
 }
+
+void Zombie::shoot(std::map<int, Character *> &enemies) {}
