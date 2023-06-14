@@ -22,8 +22,6 @@ public:
 
     void receive_damage(int damage) override;
 
-    bool is_dead() const;
-
     void interact() override;
 
     void check_target(Character *other) override;
@@ -32,8 +30,6 @@ private:
     Character *find_enemies_left(std::map<int, Character*> &enemies) const;
 
     Character *find_enemies_right(std::map<int, Character*> &enemies) const;
-
-    bool collision(Character *other, int move_x, int move_y) const;
 };
 
 #endif //LEFT4DEAD_SURVIVOR_H

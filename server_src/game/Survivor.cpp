@@ -26,7 +26,7 @@ void Survivor::move(int move_x, int move_y) {
     }
 }
 
-bool Survivor::collision(Character *other, int move_x, int move_y) const {
+bool Survivor::collision(Character *other, int move_x, int move_y) {
     auto distance = Character::distance(other, pos_x + move_x, pos_y + move_y);
     return distance < this->collision_range + other->get_collision_range();
 }
@@ -51,10 +51,6 @@ void Survivor::receive_damage(int damage) {
     if (life <= 0) {
         dead = true;
     }
-}
-
-bool Survivor::is_dead() const {
-    return dead;
 }
 
 Character *Survivor::find_enemies_left(std::map<int, Character *> &enemies) const {
@@ -93,8 +89,4 @@ void Survivor::interact() {
 }
 
 void Survivor::check_target(Character *other) {
-}
-
-bool Survivor::collision(Character *other, int move_x, int move_y) {
-    return false;
 }
