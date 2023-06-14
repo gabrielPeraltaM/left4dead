@@ -7,6 +7,7 @@
 #include "ActionMove.h"
 #include <arpa/inet.h>
 #include <utility>
+#include <cmath>
 
 #define ACTION_CREATE 1
 #define ACTION_JOIN 2
@@ -24,7 +25,11 @@ enum OPCODES : uint8_t {
     MOVE_RIGHT = 0x08,
     SHOOT = 0x09,
     ATTACK = 0x0A,
-    RELOAD = 0x0B
+    RELOAD = 0x0B,
+    MOVE_UP_LEFT,
+    MOVE_UP_RIGHT,
+    MOVE_DOWN_LEFT,
+    MOVE_DOWN_RIGHT,
 };
 
 ServerProtocol::ServerProtocol(Socket sk) : sk(std::move(sk)),
@@ -110,6 +115,17 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
         case MOVE_RIGHT:
             return std::make_shared<ActionMove>(MOVE_SIZE, 0);
 
+        case MOVE_DOWN_LEFT:
+                return std::make_shared<ActionMove>(-MOVE_SIZE/sqrt(2), -MOVE_SIZE/sqrt(2));
+
+        case MOVE_DOWN_RIGHT:
+                return std::make_shared<ActionMove>(MOVE_SIZE/sqrt(2), -MOVE_SIZE/sqrt(2));
+
+        case MOVE_UP_LEFT:
+                return std::make_shared<ActionMove>(-MOVE_SIZE/sqrt(2), MOVE_SIZE/sqrt(2));
+
+        case MOVE_UP_RIGHT:
+                return std::make_shared<ActionMove>(MOVE_SIZE/sqrt(2), MOVE_SIZE/sqrt(2));
 
         default:
             // change this

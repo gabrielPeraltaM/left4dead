@@ -11,6 +11,7 @@
 
 using namespace SDL2pp;
 extern int SCREEN_WIDTH;
+extern int SCREEN_HEIGHT;
 class BackgroundRenderer {
 private:
     Renderer &renderer;

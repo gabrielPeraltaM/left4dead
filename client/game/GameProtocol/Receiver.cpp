@@ -25,13 +25,10 @@ void Receiver::run() {
       running = false;
       break;
     }
-    std::cout << "---------" << std::endl;
-    for (int i = 0; i <= sizeof(state) - 3; i += sizeof(state) / 3) {
+    for (int i = 0; i < 12; i+=3) {
       uint16_t playerId = ntohs(state[i]);
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
-      std::cout << "Player " << playerId << " is at " << x << ", " << y
-                << std::endl;
       Character &character = characters.at(playerId);
       character.move(x, y);
     }

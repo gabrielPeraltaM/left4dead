@@ -11,20 +11,18 @@ Character::Character(int posX, int posY, int id, const char *type) : posX(posX),
                                                                       type(type) {}
 
 void Character::move(int x, int y) {
-    if (posX == x && posY == y) {
+    if (posX == x && posY == SCREEN_HEIGHT - y + 700) {
         setStatus(IDLE);
         return;
     }
     setStatus(MOVE_UP);
     if (posX - x > 0) {
-        flip = false;
-    } else if (posX - x < 0) {
         flip = true;
+    } else if (posX - x < 0) {
+        flip = false;
     }
     posX = x;
-    posY = y;
-
-
+    posY = SCREEN_HEIGHT - y + 700;
 }
 
 void Character::attack() {
