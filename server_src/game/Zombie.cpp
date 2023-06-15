@@ -26,6 +26,9 @@ void Zombie::update_move() {
 }
 
 void Zombie::interact() {
+    if (dead) {
+        return;
+    }
     if (target && target_collision()) {
         target->receive_damage(ZOMBIE_DAMAGE);
         return;
