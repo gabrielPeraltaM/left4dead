@@ -138,7 +138,7 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 }
 
 void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
-    uint16_t buf[16];
+    uint16_t buf[20];
     int pos = 0;
     for (auto element : state->elements) {
         auto character_id = (uint16_t)element.first;
@@ -146,15 +146,18 @@ void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
         auto pos_x = (uint16_t)character->get_pos_x();
         auto pos_y = (uint16_t)character->get_pos_y();
         auto shooting = (uint16_t)character->get_shooting();
+        auto dead = (uint16_t)character->is_dead();
 
         character_id = htons(character_id);
         pos_x = htons(pos_x);
         pos_y = htons(pos_y);
         shooting = htons(shooting);
+        dead = htons(dead);
         buf[pos++] = character_id;
         buf[pos++] = pos_x;
         buf[pos++] = pos_y;
         buf[pos++] = shooting;
+        buf[pos++] = dead;
         character->stop_shooting();
     }
     if (sk.sendall(&buf, sizeof(buf), &was_closed) == 0) {
