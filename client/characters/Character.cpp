@@ -11,7 +11,7 @@ Character::Character(int posX, int posY, int id, const char *type) : posX(posX),
                                                                       type(type) {}
 
 void Character::move(int x, int y) {
-    if (posX == x && posY == 1080 - y + 700) {
+    if (posX == x && posY == SCREEN_HEIGHT - y + 700) {
         setStatus(IDLE);
         return;
     }
@@ -22,7 +22,7 @@ void Character::move(int x, int y) {
         flip = false;
     }
     posX = x;
-    posY = 1080 - y + 700;
+    posY = SCREEN_HEIGHT - y + 700;
 }
 
 void Character::attack() {
