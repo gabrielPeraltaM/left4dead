@@ -3,6 +3,7 @@
 //
 
 #include "Map.h"
+#include "Survivor.h"
 
 #define POS_X_ONE 200
 #define POS_Y_ONE 900
@@ -14,17 +15,12 @@
 #define ZOMBIE2_POS_X 900
 #define ZOMBIE2_POS_Y 900
 
-#define COLLISION_RANGE_PROVISIONAL 22
-
 Map::Map(int limit_y) : limit_y(limit_y),
                         players(0) {
-    auto *player2 = new Character(POS_X_TWO, POS_Y_TWO, COLLISION_RANGE_PROVISIONAL);
     auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y);
     auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y);
-    characters[1] = player2;
     zombies[2] = zombie1;
     zombies[3] = zombie2;
-    elements[1] = player2;
     elements[2] = zombie1;
     elements[3] = zombie2;
 }
@@ -40,7 +36,7 @@ void Map::add_character(int id, int collision_range) {
     int pos_x = 0;
     int pos_y = 0;
     calculate_position(pos_x, pos_y);
-    auto *character = new Character(pos_x, pos_y, collision_range);
+    auto *character = new Survivor(pos_x, pos_y);
     characters[id] = character;
     elements[id] = character;
     ++players;
@@ -68,6 +64,7 @@ void Map::move_character(int id, int move_x, int move_y) {
 
 void Map::shoot(int player_id) {
     auto *character = characters.at(player_id);
+    character->shoot(zombies);
 }
 
 std::shared_ptr<State> Map::update() {
@@ -79,7 +76,7 @@ std::shared_ptr<State> Map::update() {
 }
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {
-    if (character->get_pos_y() + move_y <= limit_y || character->get_pos_y() + move_y >= 1080) {
+    if (character->get_pos_y() + move_y <= limit_y || character->get_pos_y() + move_y >= 920) {
         return true;
     }
     return false;

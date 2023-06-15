@@ -1,6 +1,8 @@
 # left4dead
 TP Grupal de Taller de Programación
 
+## Correr en 1920x1080
+
 Para correr el juego:
 ```
 mkdir build
@@ -21,6 +23,7 @@ make
 ## Features
 
 ## Manual de Usuario
+Link overleaf: https://www.overleaf.com/1192774991qypxvjbgnwrb
 Referencia a documentación técnica
 
 ## Manual del proyecto y docu técnica

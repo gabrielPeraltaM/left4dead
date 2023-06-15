@@ -57,3 +57,15 @@ bool Zombie::target_collision() {
     double distance = sqrt((distance_x * distance_x) + (distance_y * distance_y));
     return distance < this->collision_range + target->get_collision_range();
 }
+
+bool Zombie::collision(Character *other, int pos_x, int pos_y) {
+    return false;
+}
+
+void Zombie::move(int move_x, int move_y) {
+}
+
+void Zombie::receive_damage(int damage) {
+}
+
+void Zombie::shoot(std::map<int, Character *> &enemies) {}
