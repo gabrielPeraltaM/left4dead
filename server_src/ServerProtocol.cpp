@@ -132,10 +132,7 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
                 return std::make_shared<ActionShoot>();
 
         default:
-            // change this
-                std::cout << (int)action << std::endl;
                 throw LibError(EINVAL, "Invalid action");
-            return nullptr;
     }
 }
 

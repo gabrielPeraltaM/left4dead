@@ -42,5 +42,8 @@ void Character::star_shooting() {
 }
 
 void Character::stop_shooting() {
+    if (state == DEAD) {
+        return;
+    }
     state = IDLE;
 }
