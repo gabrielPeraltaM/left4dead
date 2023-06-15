@@ -5,7 +5,7 @@
 #include "Survivor.h"
 
 #define SURVIVOR_LIFE 100
-#define DEFAULT_DAMAGE 4
+#define DEFAULT_DAMAGE 1
 #define MAX_SHOOTING_RANGE 1920
 #define RIGHT 1
 #define LEFT 2
@@ -31,6 +31,7 @@ bool Survivor::collision(Character *other, int move_x, int move_y) {
 }
 
 void Survivor::shoot(std::map<int, Character*>& enemies) {
+    this->star_shooting();
     Character *enemy;
     if (orientation == RIGHT) {
         enemy = find_enemies_right(enemies);

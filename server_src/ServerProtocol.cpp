@@ -5,6 +5,7 @@
 #include "./ServerProtocol.h"
 #include "../common_src/liberror.h"
 #include "ActionMove.h"
+#include "ActionShoot.h"
 #include <arpa/inet.h>
 #include <utility>
 #include <cmath>
@@ -127,6 +128,9 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
         case MOVE_UP_RIGHT:
                 return std::make_shared<ActionMove>(MOVE_SIZE/sqrt(2), MOVE_SIZE/sqrt(2));
 
+        case SHOOT:
+                return std::make_shared<ActionShoot>();
+
         default:
             // change this
             return nullptr;
@@ -134,20 +138,24 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 }
 
 void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
-    uint16_t buf[12];
+    uint16_t buf[16];
     int pos = 0;
     for (auto element : state->elements) {
         auto character_id = (uint16_t)element.first;
         auto *character = element.second;
         auto pos_x = (uint16_t)character->get_pos_x();
         auto pos_y = (uint16_t)character->get_pos_y();
+        auto shooting = (uint16_t)character->get_shooting();
 
         character_id = htons(character_id);
         pos_x = htons(pos_x);
         pos_y = htons(pos_y);
+        shooting = htons(shooting);
         buf[pos++] = character_id;
         buf[pos++] = pos_x;
         buf[pos++] = pos_y;
+        buf[pos++] = shooting;
+        character->stop_shooting();
     }
     if (sk.sendall(&buf, sizeof(buf), &was_closed) == 0) {
         throw LibError(EPIPE, "The client was disconnected");

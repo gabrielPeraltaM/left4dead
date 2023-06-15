@@ -14,6 +14,7 @@ protected:
     int pos_y;
     int collision_range;
     bool dead;
+    int shooting;
 
 public:
     Character(int pos_x, int pos_y, int collision_range);
@@ -23,6 +24,12 @@ public:
     int get_pos_y() const;
 
     int get_collision_range() const;
+
+    int get_shooting() const;
+
+    void star_shooting();
+
+    void stop_shooting();
 
     virtual void receive_damage(int damage) = 0;
 
