@@ -145,7 +145,7 @@ void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
         auto *character = element.second;
         auto pos_x = (uint16_t)character->get_pos_x();
         auto pos_y = (uint16_t)character->get_pos_y();
-        auto character_state = (uint16_t)character->get_shooting();
+        auto character_state = (uint16_t)character->get_state();
 
         character_id = htons(character_id);
         pos_x = htons(pos_x);
