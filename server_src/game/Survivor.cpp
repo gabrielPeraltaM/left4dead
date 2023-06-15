@@ -3,10 +3,9 @@
 //
 
 #include "Survivor.h"
-#include <iostream>
 
 #define SURVIVOR_LIFE 100
-#define DEFAULT_DAMAGE 50
+#define DEFAULT_DAMAGE 1
 #define MAX_SHOOTING_RANGE 1920
 #define RIGHT 1
 #define LEFT 2
@@ -40,7 +39,6 @@ void Survivor::shoot(std::map<int, Character*>& enemies) {
         enemy = find_enemies_left(enemies);
     }
     if (enemy) {
-        std::cout << "shoot" << std::endl;
         enemy->receive_damage(DEFAULT_DAMAGE);
     }
 }

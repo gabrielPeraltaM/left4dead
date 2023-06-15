@@ -9,11 +9,13 @@
 #define COLLISION_RANGE 20
 #define PERCEPTION_RANGE 200
 #define ZOMBIE_DAMAGE 4
+#define ZOMBIE_LIFE 100
 
 Zombie::Zombie(int pos_x, int pos_y) : Character(pos_x, pos_y, COLLISION_RANGE),
                                        move_x(0),
                                        move_y(0),
-                                       target(nullptr) {}
+                                       target(nullptr),
+                                       life(ZOMBIE_LIFE) {}
 
 void Zombie::update_move() {
     int distance_x = this->pos_x - target->get_pos_x();
@@ -69,6 +71,13 @@ void Zombie::move(int move_x, int move_y) {
 }
 
 void Zombie::receive_damage(int damage) {
+    if (dead) {
+        return;
+    }
+    life -= damage;
+    if (life <= 0) {
+        dead = true;
+    }
 }
 
 void Zombie::shoot(std::map<int, Character *> &enemies) {}
