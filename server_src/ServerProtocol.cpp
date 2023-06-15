@@ -27,7 +27,7 @@ enum OPCODES : uint8_t {
     SHOOTING = 0x09,
     //ATTACK = 0x0A,
     //RELOAD = 0x0B,
-    MOVE_UP_LEFT,
+    MOVE_UP_LEFT = 0x0C,
     MOVE_UP_RIGHT,
     MOVE_DOWN_LEFT,
     MOVE_DOWN_RIGHT,
@@ -133,6 +133,8 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 
         default:
             // change this
+                std::cout << (int)action << std::endl;
+                throw LibError(EINVAL, "Invalid action");
             return nullptr;
     }
 }

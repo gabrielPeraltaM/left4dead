@@ -14,7 +14,7 @@ void Sender::run() {
 
         if (state[SDL_SCANCODE_R]) {
             action = RELOAD;
-            socket.sendall(&action, 1, &was_closed);
+            //socket.sendall(&action, 1, &was_closed);
             continue;
         }
 
@@ -26,7 +26,7 @@ void Sender::run() {
 
         if (state[SDL_SCANCODE_LCTRL]) {
             action = ATTACK;
-            socket.sendall(&action, 1, &was_closed);
+            //socket.sendall(&action, 1, &was_closed);
             continue;
         }
 

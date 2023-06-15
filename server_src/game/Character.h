@@ -12,7 +12,7 @@
 #define RELOAD 11
 #define SHOOT 9
 #define ATTACK 10
-#define DEAD 12
+#define DEAD 17
 
 class Character {
 protected:
