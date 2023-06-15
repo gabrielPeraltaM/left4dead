@@ -58,3 +58,13 @@ add_executable(server server_src/main.cpp
         server_src/Groups.cpp
         server_src/game/Character.cpp server_src/game/Map.cpp server_src/ActionMove.cpp server_src/game/GameState.cpp server_src/Login.cpp server_src/ServerProtocol.cpp server_src/Receiver.cpp server_src/Sender.cpp server_src/Commands.cpp server_src/game/Zombie.cpp server_src/State.cpp)
 target_link_libraries(server SDL2pp::SDL2pp)
+
+# Google test
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)

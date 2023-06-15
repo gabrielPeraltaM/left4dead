@@ -12,11 +12,11 @@ BackgroundRenderer::BackgroundRenderer(Renderer &renderer,
     : renderer(renderer), characters(characters), playerId(playerId) {}
 
 void BackgroundRenderer::render() {
-  camera.x = (characters.at(0).getPosX() - SCREEN_WIDTH / 2) %
+  camera.x = (characters.at(playerId).getPosX() - SCREEN_WIDTH / 2) %
              (LEVEL_WIDTH - camera.w);
-  skyCamera.x = ((characters.at(0).getPosX() - SCREEN_WIDTH / 2) / 3) %
+  skyCamera.x = ((characters.at(playerId).getPosX() - SCREEN_WIDTH / 2) / 3) %
                 (LEVEL_WIDTH - camera.w);
-  housesCamera.x = ((characters.at(0).getPosX() - SCREEN_WIDTH / 2) / 3 * 2) %
+  housesCamera.x = ((characters.at(playerId).getPosX() - SCREEN_WIDTH / 2) / 3 * 2) %
                    (LEVEL_WIDTH - camera.w);
   // Keep camera in bounds
   if (camera.x < 0) {
@@ -24,9 +24,9 @@ void BackgroundRenderer::render() {
     skyCamera.x = 0;
     housesCamera.x = 0;
   }
-  cameraOffset = characters.at(0).getPosX() - SCREEN_WIDTH / 2;
+  cameraOffset = characters.at(playerId).getPosX() - SCREEN_WIDTH / 2;
 
-  if (camera.x == 0 && characters.at(0).getPosX() < SCREEN_WIDTH) {
+  if (camera.x == 0 || cameraOffset < 0) {
     cameraOffset = 0;
   }
 

@@ -1,8 +1,8 @@
 #include "game/Game.h"
 #include "Client.h"
 
-int SCREEN_WIDTH = 1280;
-int SCREEN_HEIGHT = 720;
+int SCREEN_WIDTH = 1920;
+int SCREEN_HEIGHT = 1080;
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
