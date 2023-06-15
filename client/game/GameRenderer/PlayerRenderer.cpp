@@ -3,6 +3,8 @@
 //
 
 #include "PlayerRenderer.h"
+extern int SCREEN_WIDTH;
+extern int SCREEN_HEIGHT;
 
 PlayerRenderer::PlayerRenderer(std::vector<Character> &characters,
                                Renderer &renderer)
@@ -54,7 +56,7 @@ void PlayerRenderer::render(int it) {
     int frame = it % n;
 
     Rect srcRect = {frame * frameSize, 0, frameSize, frameSize};
-    Rect dstRect = {x, y, frameSize, frameSize};
+    Rect dstRect = {x, y, frameSize * SCREEN_WIDTH / 1920, frameSize * SCREEN_HEIGHT / 1080};
 
     renderer.Copy(*texture, srcRect, dstRect, 0, NullOpt, character.getFlip());
   }

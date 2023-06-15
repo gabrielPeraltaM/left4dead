@@ -16,8 +16,9 @@ void BackgroundRenderer::render() {
              (LEVEL_WIDTH - camera.w);
   skyCamera.x = ((characters.at(playerId).getPosX() - SCREEN_WIDTH / 2) / 3) %
                 (LEVEL_WIDTH - camera.w);
-  housesCamera.x = ((characters.at(playerId).getPosX() - SCREEN_WIDTH / 2) / 3 * 2) %
-                   (LEVEL_WIDTH - camera.w);
+  housesCamera.x =
+      ((characters.at(playerId).getPosX() - SCREEN_WIDTH / 2) / 3 * 2) %
+      (LEVEL_WIDTH - camera.w);
   // Keep camera in bounds
   if (camera.x < 0) {
     camera.x = 0;
@@ -42,11 +43,9 @@ void BackgroundRenderer::render() {
       character.setCameraX((character.getPosX() - camera.x) %
                            (LEVEL_WIDTH - camera.w));
     } else {
-      character.setCameraX(character.getPosX() -
-                           cameraOffset * SCREEN_WIDTH / camera.w);
+      character.setCameraX(character.getPosX() - cameraOffset);
     }
     character.setCameraY(character.getPosY());
   }
 }
-BackgroundRenderer::~BackgroundRenderer() {
-}
+BackgroundRenderer::~BackgroundRenderer() {}

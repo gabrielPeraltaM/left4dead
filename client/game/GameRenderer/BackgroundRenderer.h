@@ -25,10 +25,9 @@ private:
     Texture houses = Texture(renderer,
                              RESOURCE_PATH "/background/houses.png");
     const int LEVEL_WIDTH = floor.GetWidth();
-    const int LEVEL_HEIGHT = floor.GetHeight();
-    Rect camera = {0, 0, LEVEL_WIDTH / 2, LEVEL_HEIGHT};
-    Rect skyCamera = {0, 0, LEVEL_WIDTH / 2, LEVEL_HEIGHT};
-    Rect housesCamera = {0, 0, LEVEL_WIDTH / 2, LEVEL_HEIGHT};
+    Rect camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    Rect skyCamera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    Rect housesCamera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
     int cameraOffset = 0;
     const int playerId;
 public:
