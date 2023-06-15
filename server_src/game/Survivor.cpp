@@ -31,7 +31,7 @@ bool Survivor::collision(Character *other, int move_x, int move_y) {
 }
 
 void Survivor::shoot(std::map<int, Character*>& enemies) {
-    this->star_shooting();
+    state = SHOOT;
     Character *enemy;
     if (orientation == RIGHT) {
         enemy = find_enemies_right(enemies);
@@ -44,12 +44,12 @@ void Survivor::shoot(std::map<int, Character*>& enemies) {
 }
 
 void Survivor::receive_damage(int damage) {
-    if (dead) {
+    if (state == DEAD) {
         return;
     }
     life -= damage;
     if (life <= 0) {
-        dead = true;
+        state = DEAD;
     }
 }
 

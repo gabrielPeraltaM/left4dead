@@ -28,7 +28,7 @@ void Zombie::update_move() {
 }
 
 void Zombie::interact() {
-    if (dead) {
+    if (state == DEAD) {
         return;
     }
     if (target && target_collision()) {
@@ -44,7 +44,7 @@ void Zombie::check_target(Character *other) {
         update_move();
         return;
     }
-    if ((!target || target->is_dead()) && distance_from(other) < PERCEPTION_RANGE) {
+    if ((!target || state == DEAD) && distance_from(other) < PERCEPTION_RANGE) {
         target = other;
         update_move();
     }
@@ -71,12 +71,12 @@ void Zombie::move(int move_x, int move_y) {
 }
 
 void Zombie::receive_damage(int damage) {
-    if (dead) {
+    if (state == DEAD) {
         return;
     }
     life -= damage;
     if (life <= 0) {
-        dead = true;
+        state = DEAD;
     }
 }
 

@@ -19,14 +19,14 @@
 #define MOVE_SIZE 5
 
 enum OPCODES : uint8_t {
-    IDLE = 0x04,
+    //IDLE = 0x04,
     MOVE_UP = 0x05,
     MOVE_DOWN = 0x06,
     MOVE_LEFT = 0x07,
     MOVE_RIGHT = 0x08,
-    SHOOT = 0x09,
-    ATTACK = 0x0A,
-    RELOAD = 0x0B,
+    SHOOTING = 0x09,
+    //ATTACK = 0x0A,
+    //RELOAD = 0x0B,
     MOVE_UP_LEFT,
     MOVE_UP_RIGHT,
     MOVE_DOWN_LEFT,
@@ -128,7 +128,7 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
         case MOVE_UP_RIGHT:
                 return std::make_shared<ActionMove>(MOVE_SIZE/sqrt(2), MOVE_SIZE/sqrt(2));
 
-        case SHOOT:
+        case SHOOTING:
                 return std::make_shared<ActionShoot>();
 
         default:
@@ -138,26 +138,23 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 }
 
 void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
-    uint16_t buf[20];
+    uint16_t buf[16];
     int pos = 0;
     for (auto element : state->elements) {
         auto character_id = (uint16_t)element.first;
         auto *character = element.second;
         auto pos_x = (uint16_t)character->get_pos_x();
         auto pos_y = (uint16_t)character->get_pos_y();
-        auto shooting = (uint16_t)character->get_shooting();
-        auto dead = (uint16_t)character->is_dead();
+        auto character_state = (uint16_t)character->get_shooting();
 
         character_id = htons(character_id);
         pos_x = htons(pos_x);
         pos_y = htons(pos_y);
-        shooting = htons(shooting);
-        dead = htons(dead);
+        character_state = htons(character_state);
         buf[pos++] = character_id;
         buf[pos++] = pos_x;
         buf[pos++] = pos_y;
-        buf[pos++] = shooting;
-        buf[pos++] = dead;
+        buf[pos++] = character_state;
         character->stop_shooting();
     }
     if (sk.sendall(&buf, sizeof(buf), &was_closed) == 0) {
