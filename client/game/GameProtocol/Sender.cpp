@@ -1,7 +1,3 @@
-//
-// Created by ignacio on 6/11/23.
-//
-
 #include "Sender.h"
 #include "common_src/actions.h"
 

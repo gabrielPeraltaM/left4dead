@@ -42,7 +42,6 @@ void Client::getFirstAction() {
 }
 
 uint32_t Client::createGame(std::string &scenarioName) {
-    bool was_closed = false;
     // Send opcode
     const uint8_t opcode = CREATE;
     peer.sendall(&opcode, 1, &was_closed);
@@ -62,11 +61,11 @@ uint32_t Client::createGame(std::string &scenarioName) {
     uint32_t response;
     peer.recvall(&response, 4, &was_closed);
     if (was_closed) throw std::runtime_error("Connection closed");
+
     return ntohl(response);
 }
 
 uint8_t Client::joinGame(uint32_t gameId) {
-    bool was_closed = false;
     // Send opcode
     const uint8_t opcode = JOIN;
     peer.sendall(&opcode, 1, &was_closed);
@@ -81,15 +80,15 @@ uint8_t Client::joinGame(uint32_t gameId) {
     uint8_t response;
     peer.recvall(&response, 1, &was_closed);
     if (was_closed) throw std::runtime_error("Connection closed");
-    return response;
 
+    return response;
 }
 
 uint8_t Client::getPlayerId() {
-    bool was_closed = false;
     uint8_t playerId;
 
     peer.recvall(&playerId, 1, &was_closed);
     if (was_closed) throw std::runtime_error("Connection closed");
+
     return playerId;
 }

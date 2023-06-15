@@ -48,9 +48,10 @@ void PlayerRenderer::render(int it) {
     std::string action = character.getAction();
     Texture *texture = textures[character_type + action];
 
-    int n = texture->GetWidth() / 128;
-    int frame = it % n;
+
     int frameSize = character.getFrameSize();
+    int n = texture->GetWidth() / frameSize;
+    int frame = it % n;
 
     Rect srcRect = {frame * frameSize, 0, frameSize, frameSize};
     Rect dstRect = {x, y, frameSize, frameSize};
