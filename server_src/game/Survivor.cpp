@@ -31,7 +31,7 @@ bool Survivor::collision(Character *other, int move_x, int move_y) {
 }
 
 void Survivor::shoot(std::map<int, Character*>& enemies) {
-    state = SHOOT;
+    this->start_shooting();
     Character *enemy;
     if (orientation == RIGHT) {
         enemy = find_enemies_right(enemies);
@@ -44,12 +44,12 @@ void Survivor::shoot(std::map<int, Character*>& enemies) {
 }
 
 void Survivor::receive_damage(int damage) {
-    if (state == DEAD) {
+    if (dead) {
         return;
     }
     life -= damage;
     if (life <= 0) {
-        state = DEAD;
+        dead = true;
     }
 }
 
@@ -60,7 +60,7 @@ Character *Survivor::find_enemies_left(std::map<int, Character *> &enemies) cons
         auto *enemy = character.second;
         if (enemy->get_pos_x() < this->pos_x &&
             this->pos_y < (enemy->get_pos_y() + enemy->get_collision_range()) &&
-            this->pos_y > (enemy->get_pos_y() - enemy->get_collision_range()) &&
+                          this->pos_y > (enemy->get_pos_y() - enemy->get_collision_range()) &&
             enemy->get_pos_x() > closest_zombie_pos) {
             closest_zombie_pos = enemy->get_pos_x();
             closest_zombie = enemy;

@@ -32,21 +32,11 @@ void Receiver::run() {
       }
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
-      uint16_t action = ntohs(state[i+3]);
-
-      switch (action) {
-        case SHOOT:
-                characters.at(playerId).shoot();
-                break;
-        case DIE:
-                characters.at(playerId).die();
-                break;
-        case IDLE:
-                characters.at(playerId).idle();
-                break;
-        default:
-                characters.at(playerId).move(x, y);
-                break;
+      uint16_t shooting = ntohs(state[i + 3]);
+      if (shooting) {
+        characters.at(playerId).shoot();
+      } else {
+        characters.at(playerId).move(x, y);
       }
     }
   }

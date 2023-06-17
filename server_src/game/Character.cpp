@@ -9,7 +9,8 @@ Character::Character(int pos_x, int pos_y,
                      int collision_range) : pos_x(pos_x),
                                             pos_y(pos_y),
                                             collision_range(collision_range),
-                                            state(IDLE) {}
+                                            dead(false),
+                                            shooting(0) {}
 
 int Character::get_pos_x() const {
     return pos_x;
@@ -29,21 +30,18 @@ double Character::distance(Character *other, int new_pos_x, int new_pos_y) {
     return sqrt((distance_x * distance_x) + (distance_y * distance_y));
 }
 
-int Character::get_state() const {
-    return state;
+bool Character::is_dead() const {
+    return dead;
 }
 
 int Character::get_shooting() const {
-    return state;
+    return shooting;
 }
 
-void Character::star_shooting() {
-    state = SHOOT;
+void Character::start_shooting() {
+    shooting = 1;
 }
 
 void Character::stop_shooting() {
-    if (state == DEAD) {
-        return;
-    }
-    state = IDLE;
+    shooting = 0;
 }

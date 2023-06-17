@@ -8,18 +8,13 @@
 #include <map>
 #include <vector>
 
-#define IDLE 0
-#define RELOAD 11
-#define SHOOT 9
-#define ATTACK 10
-#define DEAD 17
-
 class Character {
 protected:
     int pos_x;
     int pos_y;
     int collision_range;
-    int state;
+    bool dead;
+    int shooting;
 
 public:
     Character(int pos_x, int pos_y, int collision_range);
@@ -32,7 +27,7 @@ public:
 
     int get_shooting() const;
 
-    void star_shooting();
+    void start_shooting();
 
     void stop_shooting();
 
@@ -46,7 +41,7 @@ public:
 
     virtual void move(int move_x, int move_y) = 0;
 
-    int get_state() const;
+    bool is_dead() const;
 
     virtual void shoot(std::map<int, Character*> &enemies) = 0;
 

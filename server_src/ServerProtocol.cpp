@@ -19,15 +19,15 @@
 #define MOVE_SIZE 5
 
 enum OPCODES : uint8_t {
-    //IDLE = 0x04,
+    IDLE = 0x04,
     MOVE_UP = 0x05,
     MOVE_DOWN = 0x06,
     MOVE_LEFT = 0x07,
     MOVE_RIGHT = 0x08,
-    SHOOTING = 0x09,
-    //ATTACK = 0x0A,
-    //RELOAD = 0x0B,
-    MOVE_UP_LEFT = 0x0C,
+    SHOOT = 0x09,
+    ATTACK = 0x0A,
+    RELOAD = 0x0B,
+    MOVE_UP_LEFT,
     MOVE_UP_RIGHT,
     MOVE_DOWN_LEFT,
     MOVE_DOWN_RIGHT,
@@ -117,22 +117,23 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
             return std::make_shared<ActionMove>(MOVE_SIZE, 0);
 
         case MOVE_DOWN_LEFT:
-                return std::make_shared<ActionMove>(-MOVE_SIZE/sqrt(2), -MOVE_SIZE/sqrt(2));
+            return std::make_shared<ActionMove>(-MOVE_SIZE/sqrt(2), -MOVE_SIZE/sqrt(2));
 
         case MOVE_DOWN_RIGHT:
-                return std::make_shared<ActionMove>(MOVE_SIZE/sqrt(2), -MOVE_SIZE/sqrt(2));
+            return std::make_shared<ActionMove>(MOVE_SIZE/sqrt(2), -MOVE_SIZE/sqrt(2));
 
         case MOVE_UP_LEFT:
-                return std::make_shared<ActionMove>(-MOVE_SIZE/sqrt(2), MOVE_SIZE/sqrt(2));
+            return std::make_shared<ActionMove>(-MOVE_SIZE/sqrt(2), MOVE_SIZE/sqrt(2));
 
         case MOVE_UP_RIGHT:
-                return std::make_shared<ActionMove>(MOVE_SIZE/sqrt(2), MOVE_SIZE/sqrt(2));
+            return std::make_shared<ActionMove>(MOVE_SIZE/sqrt(2), MOVE_SIZE/sqrt(2));
 
-        case SHOOTING:
-                return std::make_shared<ActionShoot>();
+        case SHOOT:
+            return std::make_shared<ActionShoot>();
 
         default:
-                throw LibError(EINVAL, "Invalid action");
+            // change this
+            return nullptr;
     }
 }
 
@@ -144,16 +145,16 @@ void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
         auto *character = element.second;
         auto pos_x = (uint16_t)character->get_pos_x();
         auto pos_y = (uint16_t)character->get_pos_y();
-        auto character_state = (uint16_t)character->get_state();
+        auto shooting = (uint16_t)character->get_shooting();
 
         character_id = htons(character_id);
         pos_x = htons(pos_x);
         pos_y = htons(pos_y);
-        character_state = htons(character_state);
+        shooting = htons(shooting);
         buf[pos++] = character_id;
         buf[pos++] = pos_x;
         buf[pos++] = pos_y;
-        buf[pos++] = character_state;
+        buf[pos++] = shooting;
         character->stop_shooting();
     }
     if (sk.sendall(&buf, sizeof(buf), &was_closed) == 0) {
