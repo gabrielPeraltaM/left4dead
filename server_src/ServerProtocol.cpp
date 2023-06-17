@@ -12,6 +12,7 @@
 
 #define ACTION_CREATE 1
 #define ACTION_JOIN 2
+#define ACTION_START 3
 
 #define JOIN_SUCCESSFUL 0
 #define JOIN_FAILURE 1
@@ -96,6 +97,35 @@ void ServerProtocol::send_player_id(int player_id) {
     send_byte((uint8_t)player_id);
 }
 
+void ServerProtocol::receive_start(Match &match) {
+    uint8_t start = -1;
+    while (start != ACTION_START) {
+        start = receive_byte();
+    }
+    auto elements = match.receive_state()->elements;
+    uint16_t characters = htons(elements.size());
+    if (sk.sendall(&characters, sizeof(characters), &was_closed) == 0) {
+        throw LibError(EPIPE, "The client was disconnected");
+    }
+    std::vector<uint16_t> buf(characters * 3);
+    int pos = 0;
+    for (auto element : elements) {
+        auto character_id = (uint16_t)element.first;
+        auto *character = element.second;
+        auto pos_x = (uint16_t)character->get_pos_x();
+        auto pos_y = (uint16_t)character->get_pos_y();
+        character_id = htons(character_id);
+        pos_x = htons(pos_x);
+        pos_y = htons(pos_y);
+        buf[pos++] = character_id;
+        buf[pos++] = pos_x;
+        buf[pos++] = pos_y;
+    }
+    if (sk.sendall(buf.data(), sizeof(buf.size()), &was_closed) == 0) {
+        throw LibError(EPIPE, "The client was disconnected");
+    }
+}
+
 std::shared_ptr<Action> ServerProtocol::receive_action() {
     uint8_t action;
     int s;
@@ -167,9 +197,15 @@ bool ServerProtocol::closed() const {
 }
 
 void ServerProtocol::send_byte(uint8_t byte) {
-    int s;
-    s = sk.sendall(&byte, sizeof(byte), &was_closed);
-    if (s == 0) {
+    if (sk.sendall(&byte, sizeof(byte), &was_closed) == 0) {
         throw LibError(EPIPE, "The client was disconnected");
     }
+}
+
+uint8_t ServerProtocol::receive_byte() {
+    uint8_t byte;
+    if (sk.recvall(&byte, sizeof(byte), &was_closed) == 0) {
+        throw LibError(EPIPE, "The client was disconnected");
+    }
+    return byte;
 }

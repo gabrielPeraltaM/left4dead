@@ -7,6 +7,7 @@
 
 #include "./Login.h"
 #include "../common_src/socket.h"
+#include "Match.h"
 #include "Action.h"
 #include "State.h"
 #include <memory>
@@ -28,6 +29,8 @@ public:
 
     void send_player_id(int player_id);
 
+    void receive_start(Match &match);
+
     std::shared_ptr<Action> receive_action();
 
     void send_state(const std::shared_ptr<State>& state);
@@ -36,6 +39,8 @@ public:
 
 private:
     void send_byte(uint8_t byte);
+
+    uint8_t receive_byte();
 };
 
 #endif //PROTOCOL_H
