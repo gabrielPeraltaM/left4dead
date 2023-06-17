@@ -17,6 +17,8 @@ public:
     uint8_t joinGame(uint32_t gameId);
     uint8_t getPlayerId();
     void startGame();
+private:
+    void tentative_start();
 };
 
 

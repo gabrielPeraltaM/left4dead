@@ -3,18 +3,21 @@
 //
 
 #include <sstream>
+#include <string>
 #include <netinet/in.h>
 #include "Client.h"
 #include "client/game/Game.h"
 
 #define CREATE 0X01
 #define JOIN 0X02
+#define START 0X03
 
 Client::Client(const char *hostname, const char *port) : peer(hostname, port) {}
 
 void Client::startGame() {
     getFirstAction();
     uint8_t playerId = getPlayerId();
+    tentative_start();
     Game game(peer, playerId);
     game.start();
 }
@@ -91,4 +94,20 @@ uint8_t Client::getPlayerId() {
     if (was_closed) throw std::runtime_error("Connection closed");
 
     return playerId;
+}
+
+void Client::tentative_start() {
+    std::string action;
+    while (action != "start") {
+        std::cin >> action;
+    }
+    uint8_t start = START;
+    peer.sendall(&start, 1, &was_closed);
+    if (was_closed) throw std::runtime_error("Connection closed");
+    uint16_t characters;
+    peer.recvall(&characters, 2, &was_closed);
+    if (was_closed) throw std::runtime_error("Connection closed");
+    std::vector<uint16_t> buf(characters * 3);
+    peer.recvall(buf.data(), buf.size() * 2, &was_closed);
+    if (was_closed) throw std::runtime_error("Connection closed");
 }

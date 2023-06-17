@@ -121,7 +121,7 @@ void ServerProtocol::receive_start(Match &match) {
         buf[pos++] = pos_x;
         buf[pos++] = pos_y;
     }
-    if (sk.sendall(buf.data(), sizeof(buf.size()), &was_closed) == 0) {
+    if (sk.sendall((const char*)buf.data(), buf.size() * 2, &was_closed) == 0) {
         throw LibError(EPIPE, "The client was disconnected");
     }
 }
