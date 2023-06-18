@@ -25,9 +25,6 @@ void Receiver::run() {
     }
     for (int i = 0; i < 4 * CHARACTER_ATTRIBUTES_AMOUNT; i += CHARACTER_ATTRIBUTES_AMOUNT) {
       uint16_t playerId = ntohs(state[i]);
-      /*if (playerId >= characters.size()) {
-        continue;
-      }*/
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
       uint16_t shooting = ntohs(state[i + 3]);

@@ -37,6 +37,7 @@ class Game {
     GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId);
     Receiver receiver = Receiver(socket, running, characters);
     Sender sender = Sender(socket, running);
+
 public:
     Game(Socket &socket, int playerId);
 

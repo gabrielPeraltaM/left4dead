@@ -54,6 +54,12 @@ void PlayerRenderer::render(int it) {
     int frameSize = character.getFrameSize();
     int n = texture->GetWidth() / frameSize;
     int frame = it % n;
+    if (action == "Dead" && frame == n-1) {
+      character.kill();
+    }
+    if (character.isDead()) {
+      frame = n-1;
+    }
 
     Rect srcRect = {frame * frameSize, 0, frameSize, frameSize};
     Rect dstRect = {x, y, frameSize * SCREEN_WIDTH / 1920, frameSize * SCREEN_HEIGHT / 1080};

@@ -23,7 +23,7 @@ private:
     bool flip = false;
     std::string type = "IDF";
     int frameSize = 128;
-    bool dead;
+    bool dead = false;
 
     void setStatus(actions newStatus);
 public:
@@ -35,6 +35,7 @@ public:
     void attack();
     void hurt();
     void die();
+    void kill();
     void reload();
     void idle();
     void shoot();
@@ -49,6 +50,7 @@ public:
     int getFrameSize() const;
     actions getStatus() const;
     SDL_RendererFlip getFlip() const;
+    bool isDead() const;
     // Setters
     void setCameraX(int posX);
     void setCameraY(int posY);
