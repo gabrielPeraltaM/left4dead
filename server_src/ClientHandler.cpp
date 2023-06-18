@@ -23,7 +23,7 @@ void ClientHandler::run() {
     }
     Match match = matches.join(match_code);
     protocol.send_player_id(match.get_player_id());
-    //protocol.receive_start(match);
+    protocol.receive_start(match);
     Commands commands(protocol, match);
     commands.run();
     is_alive = false;

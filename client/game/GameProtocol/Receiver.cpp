@@ -15,7 +15,7 @@ Receiver::Receiver(Socket &socket, bool &running,
     : socket(socket), running(running), characters(characters) {}
 
 void Receiver::run() {
-  std::vector<uint16_t> state(16); // change this
+  std::vector<uint16_t> state(16); // change this 'n'
   bool was_closed = false;
 
   while (running) {
@@ -27,9 +27,9 @@ void Receiver::run() {
     }
     for (int i = 0; i < 4 * 4; i += 4) {
       uint16_t playerId = ntohs(state[i]);
-      if (playerId >= characters.size()) {
+      /*if (playerId >= characters.size()) {
         continue;
-      }
+      }*/
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
       uint16_t shooting = ntohs(state[i + 3]);
