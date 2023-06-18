@@ -53,6 +53,7 @@ void Survivor::receive_damage(int damage) {
     life -= damage;
     if (life <= 0) {
         dead = true;
+        collision_range = 2;
     }
 }
 
