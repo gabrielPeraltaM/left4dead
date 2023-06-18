@@ -3,8 +3,8 @@
 //
 
 #include "Receiver.h"
-
 #include <netinet/in.h>
+#include <vector>
 
 #include <string>
 
@@ -15,21 +15,21 @@ Receiver::Receiver(Socket &socket, bool &running,
     : socket(socket), running(running), characters(characters) {}
 
 void Receiver::run() {
-  uint16_t state[4 * 4];
+  std::vector<uint16_t> state(16); // change this
   bool was_closed = false;
 
   while (running) {
     // Receive action
-    socket.recvall(&state, sizeof(state), &was_closed);
+    socket.recvall(state.data(), 16 * 2, &was_closed); // change sz
     if (was_closed) {
       running = false;
       break;
     }
     for (int i = 0; i < 4 * 4; i += 4) {
       uint16_t playerId = ntohs(state[i]);
-      /*if (playerId >= characters.size()) {
+      if (playerId >= characters.size()) {
         continue;
-      }*/
+      }
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
       uint16_t shooting = ntohs(state[i + 3]);

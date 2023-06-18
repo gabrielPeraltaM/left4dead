@@ -4,6 +4,7 @@
 
 #include "Map.h"
 #include "Survivor.h"
+#include <arpa/inet.h>
 
 #define POS_X_ONE 200
 #define POS_Y_ONE 900
@@ -72,7 +73,26 @@ std::shared_ptr<State> Map::update() {
         // need to initialize the zombies in the elements
         zombie.second->interact();
     }
-    return std::make_shared<State>(elements);
+    std::vector<uint16_t> buf(elements.size() * 4);
+    int pos = 0;
+    for (auto element : elements) {
+        auto character_id = (uint16_t)element.first;
+        auto *character = element.second;
+        auto pos_x = (uint16_t)character->get_pos_x();
+        auto pos_y = (uint16_t)character->get_pos_y();
+        auto shooting = (uint16_t)character->get_shooting();
+
+        character_id = htons(character_id);
+        pos_x = htons(pos_x);
+        pos_y = htons(pos_y);
+        shooting = htons(shooting);
+        buf[pos++] = character_id;
+        buf[pos++] = pos_x;
+        buf[pos++] = pos_y;
+        buf[pos++] = shooting;
+        character->stop_shooting();
+    }
+    return std::make_shared<State>(std::move(buf), (uint16_t)elements.size());
 }
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {

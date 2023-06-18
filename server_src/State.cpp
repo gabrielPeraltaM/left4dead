@@ -3,5 +3,7 @@
 //
 
 #include "State.h"
+#include <utility>
 
-State::State(std::map<int, Character *> &elements) : elements(elements) {}
+State::State(std::vector<uint16_t> elements, uint16_t characters) :  elements(std::move(elements)),
+                                                                     characters(characters) {}

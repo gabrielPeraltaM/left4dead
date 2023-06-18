@@ -5,14 +5,16 @@
 #ifndef LEFT4DEAD_STATE_H
 #define LEFT4DEAD_STATE_H
 
-#include <map>
+#include <vector>
+#include <cstdint>
 #include "./game/Character.h"
 
 class State{
 public:
-    std::map<int, Character*> &elements;
+    std::vector<uint16_t> elements;
+    uint16_t characters;
 
-    explicit State(std::map<int, Character*> &elements);
+    State(std::vector<uint16_t> elements, uint16_t characters);
 };
 
 #endif //LEFT4DEAD_STATE_H

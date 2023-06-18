@@ -102,26 +102,13 @@ void ServerProtocol::receive_start(Match &match) {
     while (start != ACTION_START) {
         start = receive_byte();
     }
-    auto elements = match.receive_state()->elements;
-    uint16_t characters = htons(elements.size());
+    auto state = match.receive_state();
+    uint16_t characters = htons(state->characters);
     if (sk.sendall(&characters, sizeof(characters), &was_closed) == 0) {
         throw LibError(EPIPE, "The client was disconnected");
     }
-    std::vector<uint16_t> buf(characters * 3);
-    int pos = 0;
-    for (auto element : elements) {
-        auto character_id = (uint16_t)element.first;
-        auto *character = element.second;
-        auto pos_x = (uint16_t)character->get_pos_x();
-        auto pos_y = (uint16_t)character->get_pos_y();
-        character_id = htons(character_id);
-        pos_x = htons(pos_x);
-        pos_y = htons(pos_y);
-        buf[pos++] = character_id;
-        buf[pos++] = pos_x;
-        buf[pos++] = pos_y;
-    }
-    if (sk.sendall((const char*)buf.data(), buf.size() * 2, &was_closed) == 0) {
+    auto elements = state->elements;
+    if (sk.sendall(elements.data(), elements.size() * 2, &was_closed) == 0) {
         throw LibError(EPIPE, "The client was disconnected");
     }
 }
@@ -168,26 +155,7 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 }
 
 void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
-    uint16_t buf[16];
-    int pos = 0;
-    for (auto element : state->elements) {
-        auto character_id = (uint16_t)element.first;
-        auto *character = element.second;
-        auto pos_x = (uint16_t)character->get_pos_x();
-        auto pos_y = (uint16_t)character->get_pos_y();
-        auto shooting = (uint16_t)character->get_shooting();
-
-        character_id = htons(character_id);
-        pos_x = htons(pos_x);
-        pos_y = htons(pos_y);
-        shooting = htons(shooting);
-        buf[pos++] = character_id;
-        buf[pos++] = pos_x;
-        buf[pos++] = pos_y;
-        buf[pos++] = shooting;
-        character->stop_shooting();
-    }
-    if (sk.sendall(&buf, sizeof(buf), &was_closed) == 0) {
+    if (sk.sendall(state->elements.data(), state->elements.size() * 2, &was_closed) == 0) {
         throw LibError(EPIPE, "The client was disconnected");
     }
 }
