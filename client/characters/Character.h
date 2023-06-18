@@ -23,6 +23,7 @@ private:
     bool flip = false;
     std::string type = "IDF";
     int frameSize = 128;
+    bool dead;
 
     void setStatus(actions newStatus);
 public:

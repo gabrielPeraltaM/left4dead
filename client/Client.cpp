@@ -12,6 +12,8 @@
 #define JOIN 0X02
 #define START 0X03
 
+#define CHARACTER_ATTRIBUTES_AMOUNT 5
+
 Client::Client(const char *hostname, const char *port) : peer(hostname, port) {}
 
 void Client::startGame() {
@@ -107,7 +109,7 @@ void Client::tentative_start() {
     uint16_t characters;
     peer.recvall(&characters, 2, &was_closed);
     if (was_closed) throw std::runtime_error("Connection closed");
-    std::vector<uint16_t> buf(characters * 4);
-    peer.recvall(buf.data(), characters * 4 * 2, &was_closed);
+    std::vector<uint16_t> buf(characters * CHARACTER_ATTRIBUTES_AMOUNT);
+    peer.recvall(buf.data(), characters * CHARACTER_ATTRIBUTES_AMOUNT * 2, &was_closed);
     if (was_closed) throw std::runtime_error("Connection closed");
 }

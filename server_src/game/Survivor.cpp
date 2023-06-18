@@ -31,6 +31,9 @@ bool Survivor::collision(Character *other, int move_x, int move_y) {
 }
 
 void Survivor::shoot(std::map<int, Character*>& enemies) {
+    if (dead) {
+        return;
+    }
     this->start_shooting();
     Character *enemy;
     if (orientation == RIGHT) {

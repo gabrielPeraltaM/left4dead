@@ -16,6 +16,8 @@
 #define ZOMBIE2_POS_X 900
 #define ZOMBIE2_POS_Y 900
 
+#define CHARACTER_ATTRIBUTES_AMOUNT 5
+
 Map::Map(int limit_y) : limit_y(limit_y),
                         players(0) {
     auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y);
@@ -45,6 +47,9 @@ void Map::add_character(int id, int collision_range) {
 
 void Map::move_character(int id, int move_x, int move_y) {
     auto *character = characters.at(id);
+    if (character->is_dead()) {
+        return;
+    }
     if (limit_collision(character, move_x, move_y)) {
         return;
     }
@@ -73,7 +78,7 @@ std::shared_ptr<State> Map::update() {
         // need to initialize the zombies in the elements
         zombie.second->interact();
     }
-    std::vector<uint16_t> buf(elements.size() * 4);
+    std::vector<uint16_t> buf(elements.size() * CHARACTER_ATTRIBUTES_AMOUNT);
     int pos = 0;
     for (auto element : elements) {
         auto character_id = (uint16_t)element.first;
@@ -81,15 +86,18 @@ std::shared_ptr<State> Map::update() {
         auto pos_x = (uint16_t)character->get_pos_x();
         auto pos_y = (uint16_t)character->get_pos_y();
         auto shooting = (uint16_t)character->get_shooting();
+        auto dead = (uint16_t)character->is_dead();
 
         character_id = htons(character_id);
         pos_x = htons(pos_x);
         pos_y = htons(pos_y);
         shooting = htons(shooting);
+        dead = htons(dead);
         buf[pos++] = character_id;
         buf[pos++] = pos_x;
         buf[pos++] = pos_y;
         buf[pos++] = shooting;
+        buf[pos++] = dead;
         character->stop_shooting();
     }
     return std::make_shared<State>(std::move(buf), (uint16_t)elements.size());

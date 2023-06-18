@@ -8,7 +8,7 @@ extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 
 Character::Character(int posX, int posY, int id, const char *type)
-    : posX(posX), posY(posY), id(id), type(type) {}
+    : posX(posX), posY(posY), id(id), type(type), dead(false) {}
 
 void Character::move(int x, int y) {
   if (posX == x && posY == y) {
@@ -29,7 +29,13 @@ void Character::attack() { setStatus(ATTACK); }
 
 void Character::hurt() { setStatus(HURT); }
 
-void Character::die() { setStatus(DIE); }
+void Character::die() {
+    if (dead) {
+        return;
+    }
+    setStatus(DIE);
+    dead = true;
+}
 
 void Character::reload() { setStatus(RELOAD); }
 

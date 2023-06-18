@@ -6,26 +6,24 @@
 #include <netinet/in.h>
 #include <vector>
 
-#include <string>
-
-#include "common_src/actions.h"
+#define CHARACTER_ATTRIBUTES_AMOUNT 5
 
 Receiver::Receiver(Socket &socket, bool &running,
                    std::vector<Character> &characters)
     : socket(socket), running(running), characters(characters) {}
 
 void Receiver::run() {
-  std::vector<uint16_t> state(16); // change this 'n'
+  std::vector<uint16_t> state(4 * CHARACTER_ATTRIBUTES_AMOUNT); // change this 'n'
   bool was_closed = false;
 
   while (running) {
     // Receive action
-    socket.recvall(state.data(), 16 * 2, &was_closed); // change sz
+    socket.recvall(state.data(), 4 * CHARACTER_ATTRIBUTES_AMOUNT * 2, &was_closed); // change sz
     if (was_closed) {
       running = false;
       break;
     }
-    for (int i = 0; i < 4 * 4; i += 4) {
+    for (int i = 0; i < 4 * CHARACTER_ATTRIBUTES_AMOUNT; i += CHARACTER_ATTRIBUTES_AMOUNT) {
       uint16_t playerId = ntohs(state[i]);
       /*if (playerId >= characters.size()) {
         continue;
@@ -33,7 +31,10 @@ void Receiver::run() {
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
       uint16_t shooting = ntohs(state[i + 3]);
-      if (shooting) {
+      uint16_t dead = ntohs(state[i + 4]);
+      if (dead) {
+          characters.at(playerId).die();
+      } else if (shooting) {
         characters.at(playerId).shoot();
       } else {
         characters.at(playerId).move(x, y);
