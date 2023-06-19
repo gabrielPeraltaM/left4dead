@@ -3,18 +3,20 @@
 //
 
 #include "Receiver.h"
+
 #include <netinet/in.h>
+
 #include <vector>
 
 #define CHARACTER_ATTRIBUTES_AMOUNT 5
 
 enum States : uint16_t {
-    NOT = 0x04,
-    SHOOTING,
-    ATTACKING,
-    RELOADING,
-    DAMAGING,
-    DEAD,
+  NOT = 0x04,
+  SHOOTING,
+  ATTACKING,
+  RELOADING,
+  DAMAGING,
+  DEAD,
 };
 
 Receiver::Receiver(Socket &socket, bool &running,
@@ -22,28 +24,44 @@ Receiver::Receiver(Socket &socket, bool &running,
     : socket(socket), running(running), characters(characters) {}
 
 void Receiver::run() {
-  std::vector<uint16_t> state(4 * CHARACTER_ATTRIBUTES_AMOUNT); // change this 'n'
+  std::vector<uint16_t> state(4 *
+                              CHARACTER_ATTRIBUTES_AMOUNT);  // change this 'n'
   bool was_closed = false;
 
   while (running) {
     // Receive action
-    socket.recvall(state.data(), 4 * CHARACTER_ATTRIBUTES_AMOUNT * 2, &was_closed); // change sz
+    socket.recvall(state.data(), 4 * CHARACTER_ATTRIBUTES_AMOUNT * 2,
+                   &was_closed);  // change sz
     if (was_closed) {
       running = false;
       break;
     }
-    for (int i = 0; i < 4 * CHARACTER_ATTRIBUTES_AMOUNT; i += CHARACTER_ATTRIBUTES_AMOUNT) {
+    for (int i = 0; i < 4 * CHARACTER_ATTRIBUTES_AMOUNT;
+         i += CHARACTER_ATTRIBUTES_AMOUNT) {
       uint16_t playerId = ntohs(state[i]);
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
       uint16_t character_state = ntohs(state[i + 3]);
-      uint16_t life = ntohs(state[i + 4]);
-      if (character_state == DEAD) {
+      uint16_t health = ntohs(state[i + 4]);
+      switch (character_state) {
+        case DEAD:
           characters.at(playerId).die();
-      } else if (character_state == SHOOTING) {
-        characters.at(playerId).shoot();
-      } else {
-        characters.at(playerId).move(x, y);
+          break;
+        case SHOOTING:
+          characters.at(playerId).shoot();
+          break;
+        case ATTACKING:
+          characters.at(playerId).attack();
+          break;
+        case RELOADING:
+          characters.at(playerId).reload();
+          break;
+        case DAMAGING:
+          characters.at(playerId).hurt();
+          break;
+        default:
+          characters.at(playerId).move(x, y);
+          break;
       }
     }
   }
