@@ -44,7 +44,7 @@ void Character::start_shooting() {
 }
 
 void Character::stop_shooting() {
-    if (state == DEAD) {
+    if (state != SHOOTING) {
         return;
     }
     state = NOT;

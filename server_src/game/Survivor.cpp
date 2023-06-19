@@ -15,10 +15,11 @@
 
 Survivor::Survivor(int pos_x, int pos_y) : Character(SURVIVOR_LIFE, pos_x, pos_y, SURVIVOR_COLLISION_RANGE),
                                            orientation(RIGHT),
-                                           ammo(DEFAULT_SURVIVOR_AMMO) {}
+                                           ammo(DEFAULT_SURVIVOR_AMMO),
+                                           delay(0) {}
 
 void Survivor::move(int move_x, int move_y) {
-    if (state == DEAD) {
+    if (state != NOT) {
         return;
     }
     pos_x += move_x;
@@ -53,17 +54,31 @@ void Survivor::shoot(std::map<int, Character*>& enemies) {
 }
 
 void Survivor::reload() {
-    if ((state != NOT && state != SHOOTING) || ammo == DEFAULT_SURVIVOR_AMMO) {
+    if (state == DEAD ||
+        state == DAMAGING ||
+        state == ATTACKING ||
+        ammo == DEFAULT_SURVIVOR_AMMO) {
         return;
     }
+    if (delay < 40) {
+        ++delay;
+        state = RELOADING;
+        return;
+    }
+    delay = 0;
     ammo = DEFAULT_SURVIVOR_AMMO;
-    state = RELOADING;
+    state = NOT;
 }
 
 void Survivor::attack(std::map<int, Character*>& enemies) {
     if (state == DEAD || state == RELOADING) {
         return;
     }
+    /*if (delay < 4) {
+        ++delay;
+        state = ATTACKING;
+        return;
+    }*/
     for (auto character : enemies) {
         auto *enemy = character.second;
         if ((orientation == RIGHT &&
@@ -73,7 +88,8 @@ void Survivor::attack(std::map<int, Character*>& enemies) {
             enemy->receive_damage(DEFAULT_ATTACK_DAMAGE);
         }
     }
-    state = ATTACKING;
+    //delay = 0;
+    //state = NOT;
 }
 
 void Survivor::receive_damage(int damage) {

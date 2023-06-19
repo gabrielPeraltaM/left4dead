@@ -10,6 +10,7 @@
 class Survivor : public Character {
     int orientation;
     int ammo;
+    int delay;
 
 public:
     Survivor(int pos_x, int pos_y);
