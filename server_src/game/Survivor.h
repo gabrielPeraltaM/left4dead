@@ -8,7 +8,6 @@
 #include "Character.h"
 
 class Survivor : public Character {
-    int life;
     int orientation;
 
 public:

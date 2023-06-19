@@ -10,6 +10,7 @@
 
 class Character {
 protected:
+    int life;
     int pos_x;
     int pos_y;
     int collision_range;
@@ -17,7 +18,9 @@ protected:
     int shooting;
 
 public:
-    Character(int pos_x, int pos_y, int collision_range);
+    Character(int life, int pos_x, int pos_y, int collision_range);
+
+    int get_life() const;
 
     int get_pos_x() const;
 

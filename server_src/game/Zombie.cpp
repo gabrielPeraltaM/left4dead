@@ -3,19 +3,17 @@
 //
 
 #include "Zombie.h"
-
 #include <cmath>
-#include <iostream>
+
 #define COLLISION_RANGE 20
 #define PERCEPTION_RANGE 200
 #define ZOMBIE_DAMAGE 4
 #define ZOMBIE_LIFE 100
 
-Zombie::Zombie(int pos_x, int pos_y) : Character(pos_x, pos_y, COLLISION_RANGE),
+Zombie::Zombie(int pos_x, int pos_y) : Character(ZOMBIE_LIFE, pos_x, pos_y, COLLISION_RANGE),
                                        move_x(0),
                                        move_y(0),
-                                       target(nullptr),
-                                       life(ZOMBIE_LIFE) {}
+                                       target(nullptr) {}
 
 void Zombie::update_move() {
     int distance_x = this->pos_x - target->get_pos_x();

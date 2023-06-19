@@ -81,7 +81,7 @@ case actions::IDLE:
 character.idle();
 break;
 case actions::ATTACK:
-character.attack();
+character.shooting();
 break;
 case actions::HURT:
 character.hurt();

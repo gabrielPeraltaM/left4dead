@@ -5,12 +5,18 @@
 #include "Character.h"
 #include <cmath>
 
-Character::Character(int pos_x, int pos_y,
-                     int collision_range) : pos_x(pos_x),
+Character::Character(int life, int pos_x, int pos_y,
+                     int collision_range) : life(life),
+                                            pos_x(pos_x),
                                             pos_y(pos_y),
                                             collision_range(collision_range),
                                             dead(false),
-                                            shooting(0) {}
+                                            shooting(0) {
+}
+
+int Character::get_life() const {
+    return life;
+}
 
 int Character::get_pos_x() const {
     return pos_x;

@@ -11,8 +11,7 @@
 #define LEFT 2
 #define SURVIVOR_COLLISION_RANGE 22
 
-Survivor::Survivor(int pos_x, int pos_y) : Character(pos_x, pos_y, SURVIVOR_COLLISION_RANGE),
-                                           life(SURVIVOR_LIFE),
+Survivor::Survivor(int pos_x, int pos_y) : Character(SURVIVOR_LIFE, pos_x, pos_y, SURVIVOR_COLLISION_RANGE),
                                            orientation(RIGHT) {}
 
 void Survivor::move(int move_x, int move_y) {

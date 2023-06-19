@@ -11,7 +11,6 @@ class Zombie : public Character {
     int move_x;
     int move_y;
     Character *target;
-    int life;
 
 public:
     Zombie(int pos_x, int pos_y);
