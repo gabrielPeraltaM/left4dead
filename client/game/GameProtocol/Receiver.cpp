@@ -6,7 +6,7 @@
 #include <netinet/in.h>
 #include <vector>
 
-#define CHARACTER_ATTRIBUTES_AMOUNT 4
+#define CHARACTER_ATTRIBUTES_AMOUNT 5
 
 enum States : uint16_t {
     NOT = 0x04,
@@ -37,6 +37,7 @@ void Receiver::run() {
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
       uint16_t character_state = ntohs(state[i + 3]);
+      uint16_t life = ntohs(state[i + 4]);
       if (character_state == DEAD) {
           characters.at(playerId).die();
       } else if (character_state == SHOOTING) {
