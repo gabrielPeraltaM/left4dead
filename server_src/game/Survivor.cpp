@@ -10,9 +10,11 @@
 #define RIGHT 1
 #define LEFT 2
 #define SURVIVOR_COLLISION_RANGE 22
+#define DEFAULT_SURVIVOR_AMMO 10
 
 Survivor::Survivor(int pos_x, int pos_y) : Character(SURVIVOR_LIFE, pos_x, pos_y, SURVIVOR_COLLISION_RANGE),
-                                           orientation(RIGHT) {}
+                                           orientation(RIGHT),
+                                           ammo(DEFAULT_SURVIVOR_AMMO) {}
 
 void Survivor::move(int move_x, int move_y) {
     if (state == DEAD) {
@@ -46,6 +48,14 @@ void Survivor::shoot(std::map<int, Character*>& enemies) {
     if (enemy) {
         enemy->receive_damage(DEFAULT_DAMAGE);
     }
+}
+
+void Survivor::reload() {
+    if (state != NOT && state != SHOOTING) {
+        return;
+    }
+    ammo = DEFAULT_SURVIVOR_AMMO;
+    state = RELOADING;
 }
 
 void Survivor::receive_damage(int damage) {

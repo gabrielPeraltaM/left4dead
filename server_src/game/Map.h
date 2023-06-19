@@ -29,6 +29,8 @@ class Map {
 
     void shoot(int player_id);
 
+    void reload(int player_id);
+
     std::shared_ptr<State> update();
 
    private:

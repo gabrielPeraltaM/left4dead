@@ -9,6 +9,7 @@
 
 class Survivor : public Character {
     int orientation;
+    int ammo;
 
 public:
     Survivor(int pos_x, int pos_y);
@@ -18,6 +19,8 @@ public:
     bool collision(Character *other, int move_x, int move_y) override;
 
     void shoot(std::map<int, Character*>& enemies) override;
+
+    void reload() override;
 
     void receive_damage(int damage) override;
 

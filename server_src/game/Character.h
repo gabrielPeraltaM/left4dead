@@ -54,6 +54,8 @@ public:
 
     virtual void shoot(std::map<int, Character*> &enemies) = 0;
 
+    virtual void reload() = 0;
+
     bool is_dead() const;
 
 protected:

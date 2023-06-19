@@ -79,3 +79,5 @@ void Zombie::receive_damage(int damage) {
 }
 
 void Zombie::shoot(std::map<int, Character *> &enemies) {}
+
+void Zombie::reload() {}

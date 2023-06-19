@@ -6,6 +6,7 @@
 #include "../common_src/liberror.h"
 #include "ActionMove.h"
 #include "ActionShoot.h"
+#include "ActionReload.h"
 #include <arpa/inet.h>
 #include <utility>
 #include <cmath>
@@ -147,6 +148,9 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
 
         case SHOOT:
             return std::make_shared<ActionShoot>();
+
+        case RELOAD:
+            return std::make_shared<ActionReload>();
 
         default:
             // change this

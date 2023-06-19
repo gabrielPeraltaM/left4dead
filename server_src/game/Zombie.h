@@ -29,6 +29,8 @@ public:
 
     void shoot(std::map<int, Character*> &enemies) override;
 
+    void reload() override;
+
 private:
     double distance_from(Character *other) const;
 

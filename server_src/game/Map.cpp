@@ -73,6 +73,12 @@ void Map::shoot(int player_id) {
     character->shoot(zombies);
 }
 
+void Map::reload(int player_id) {
+    //auto *survivor = dynamic_cast<Survivor *>(characters.at(player_id));
+    auto *character = characters.at(player_id);
+    character->reload();
+}
+
 std::shared_ptr<State> Map::update() {
     for (auto zombie : zombies) {
         // need to initialize the zombies in the elements
