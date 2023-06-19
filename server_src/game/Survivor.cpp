@@ -64,6 +64,7 @@ void Survivor::receive_damage(int damage) {
     }
     life -= damage;
     if (life <= 0) {
+        life = 0;
         state = DEAD;
         collision_range = 2;
     }
