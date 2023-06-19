@@ -16,7 +16,7 @@
 #define ZOMBIE2_POS_X 900
 #define ZOMBIE2_POS_Y 900
 
-#define CHARACTER_ATTRIBUTES_AMOUNT 5
+#define CHARACTER_ATTRIBUTES_AMOUNT 4
 
 Map::Map(int limit_y) : limit_y(limit_y),
                         players(0) {
@@ -85,19 +85,16 @@ std::shared_ptr<State> Map::update() {
         auto *character = element.second;
         auto pos_x = (uint16_t)character->get_pos_x();
         auto pos_y = (uint16_t)character->get_pos_y();
-        auto shooting = (uint16_t)character->get_shooting();
-        auto dead = (uint16_t)character->is_dead();
+        auto state = (uint16_t)character->get_state();
 
         character_id = htons(character_id);
         pos_x = htons(pos_x);
         pos_y = htons(pos_y);
-        shooting = htons(shooting);
-        dead = htons(dead);
+        state = htons(state);
         buf[pos++] = character_id;
         buf[pos++] = pos_x;
         buf[pos++] = pos_y;
-        buf[pos++] = shooting;
-        buf[pos++] = dead;
+        buf[pos++] = state;
         character->stop_shooting();
     }
     return std::make_shared<State>(std::move(buf), (uint16_t)elements.size());

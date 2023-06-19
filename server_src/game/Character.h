@@ -8,14 +8,22 @@
 #include <map>
 #include <vector>
 
+enum States : int {
+    NOT = 4,
+    SHOOTING,
+    ATTACKING,
+    RELOADING,
+    DAMAGING,
+    DEAD,
+};
+
 class Character {
 protected:
     int life;
     int pos_x;
     int pos_y;
     int collision_range;
-    bool dead;
-    int shooting;
+    States state;
 
 public:
     Character(int life, int pos_x, int pos_y, int collision_range);
@@ -28,7 +36,7 @@ public:
 
     int get_collision_range() const;
 
-    int get_shooting() const;
+    int get_state() const;
 
     void start_shooting();
 
@@ -44,9 +52,9 @@ public:
 
     virtual void move(int move_x, int move_y) = 0;
 
-    bool is_dead() const;
-
     virtual void shoot(std::map<int, Character*> &enemies) = 0;
+
+    bool is_dead() const;
 
 protected:
     static double distance(Character *other, int new_pos_x, int new_pos_y);

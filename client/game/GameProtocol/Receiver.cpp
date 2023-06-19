@@ -6,7 +6,16 @@
 #include <netinet/in.h>
 #include <vector>
 
-#define CHARACTER_ATTRIBUTES_AMOUNT 5
+#define CHARACTER_ATTRIBUTES_AMOUNT 4
+
+enum States : uint16_t {
+    NOT = 0x04,
+    SHOOTING,
+    ATTACKING,
+    RELOADING,
+    DAMAGING,
+    DEAD,
+};
 
 Receiver::Receiver(Socket &socket, bool &running,
                    std::vector<Character> &characters)
@@ -27,11 +36,10 @@ void Receiver::run() {
       uint16_t playerId = ntohs(state[i]);
       uint16_t x = ntohs(state[i + 1]);
       uint16_t y = ntohs(state[i + 2]);
-      uint16_t shooting = ntohs(state[i + 3]);
-      uint16_t dead = ntohs(state[i + 4]);
-      if (dead) {
+      uint16_t character_state = ntohs(state[i + 3]);
+      if (character_state == DEAD) {
           characters.at(playerId).die();
-      } else if (shooting) {
+      } else if (character_state == SHOOTING) {
         characters.at(playerId).shoot();
       } else {
         characters.at(playerId).move(x, y);

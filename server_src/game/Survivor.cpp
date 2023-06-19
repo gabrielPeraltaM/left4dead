@@ -15,6 +15,9 @@ Survivor::Survivor(int pos_x, int pos_y) : Character(SURVIVOR_LIFE, pos_x, pos_y
                                            orientation(RIGHT) {}
 
 void Survivor::move(int move_x, int move_y) {
+    if (state == DEAD) {
+        return;
+    }
     pos_x += move_x;
     pos_y += move_y;
     if (move_x > 0) {
@@ -30,7 +33,7 @@ bool Survivor::collision(Character *other, int move_x, int move_y) {
 }
 
 void Survivor::shoot(std::map<int, Character*>& enemies) {
-    if (dead) {
+    if (state == DEAD) {
         return;
     }
     this->start_shooting();
@@ -46,12 +49,12 @@ void Survivor::shoot(std::map<int, Character*>& enemies) {
 }
 
 void Survivor::receive_damage(int damage) {
-    if (dead) {
+    if (state == DEAD) {
         return;
     }
     life -= damage;
     if (life <= 0) {
-        dead = true;
+        state = DEAD;
         collision_range = 2;
     }
 }

@@ -26,7 +26,7 @@ void Zombie::update_move() {
 }
 
 void Zombie::interact() {
-    if (dead) {
+    if (state == DEAD) {
         return;
     }
     if (target && target_collision()) {
@@ -69,12 +69,12 @@ void Zombie::move(int move_x, int move_y) {
 }
 
 void Zombie::receive_damage(int damage) {
-    if (dead) {
+    if (state == DEAD) {
         return;
     }
     life -= damage;
     if (life <= 0) {
-        dead = true;
+        state = DEAD;
     }
 }
 
