@@ -16,11 +16,13 @@ public:
 
     void move(int move_x, int move_y) override;
 
-    bool collision(Character *other, int move_x, int move_y) override;
+    bool collision(Character *other, int pos_x, int pos_y) override;
 
     void shoot(std::map<int, Character*>& enemies) override;
 
     void reload() override;
+
+    void attack(std::map<int, Character*>& enemies) override;
 
     void receive_damage(int damage) override;
 

@@ -11,8 +11,8 @@
 #define ZOMBIE_LIFE 100
 
 Zombie::Zombie(int pos_x, int pos_y) : Character(ZOMBIE_LIFE, pos_x, pos_y, COLLISION_RANGE),
-                                       move_x(0),
-                                       move_y(0),
+                                       moving_x(0),
+                                       moving_y(0),
                                        target(nullptr) {}
 
 void Zombie::update_move() {
@@ -21,8 +21,8 @@ void Zombie::update_move() {
     double distance = sqrt((distance_x * distance_x) + (distance_y * distance_y));
     double dir_x = round(distance_x / distance);
     double dir_y = round(distance_y / distance);
-    move_x = (int)dir_x;
-    move_y = (int)dir_y;
+    moving_x = (int)dir_x;
+    moving_y = (int)dir_y;
 }
 
 void Zombie::interact() {
@@ -33,8 +33,8 @@ void Zombie::interact() {
         target->receive_damage(ZOMBIE_DAMAGE);
         return;
     }
-    pos_x -= move_x;
-    pos_y -= move_y;
+    pos_x -= moving_x;
+    pos_y -= moving_y;
 }
 
 void Zombie::check_target(Character *other) {
@@ -82,3 +82,5 @@ void Zombie::receive_damage(int damage) {
 void Zombie::shoot(std::map<int, Character *> &enemies) {}
 
 void Zombie::reload() {}
+
+void Zombie::attack(std::map<int, Character*>& enemies) {}

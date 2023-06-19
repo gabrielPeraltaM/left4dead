@@ -6,6 +6,7 @@
 
 #define SURVIVOR_LIFE 100
 #define DEFAULT_DAMAGE 1
+#define DEFAULT_ATTACK_DAMAGE 2
 #define MAX_SHOOTING_RANGE 1920
 #define RIGHT 1
 #define LEFT 2
@@ -29,8 +30,8 @@ void Survivor::move(int move_x, int move_y) {
     }
 }
 
-bool Survivor::collision(Character *other, int move_x, int move_y) {
-    auto distance = Character::distance(other, pos_x + move_x, pos_y + move_y);
+bool Survivor::collision(Character *other, int pos_x, int pos_y) {
+    auto distance = Character::distance(other, pos_x, pos_y);
     return distance < this->collision_range + other->get_collision_range();
 }
 
@@ -57,6 +58,22 @@ void Survivor::reload() {
     }
     ammo = DEFAULT_SURVIVOR_AMMO;
     state = RELOADING;
+}
+
+void Survivor::attack(std::map<int, Character*>& enemies) {
+    if (state == DEAD || state == RELOADING) {
+        return;
+    }
+    for (auto character : enemies) {
+        auto *enemy = character.second;
+        if ((orientation == RIGHT &&
+            enemy->get_pos_x() > pos_x &&
+            collision(enemy, pos_x, pos_y)) ||
+            (orientation == LEFT && enemy->get_pos_x() < pos_x && collision(enemy, pos_x, pos_y))) {
+            enemy->receive_damage(DEFAULT_ATTACK_DAMAGE);
+        }
+    }
+    state = ATTACKING;
 }
 
 void Survivor::receive_damage(int damage) {

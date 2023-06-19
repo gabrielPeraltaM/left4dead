@@ -31,6 +31,8 @@ class Map {
 
     void reload(int player_id);
 
+    void attack(int player_id);
+
     std::shared_ptr<State> update();
 
    private:

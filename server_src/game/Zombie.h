@@ -8,8 +8,8 @@
 #include "Character.h"
 
 class Zombie : public Character {
-    int move_x;
-    int move_y;
+    int moving_x;
+    int moving_y;
     Character *target;
 
 public:
@@ -30,6 +30,8 @@ public:
     void shoot(std::map<int, Character*> &enemies) override;
 
     void reload() override;
+
+    void attack(std::map<int, Character*>& enemies) override;
 
 private:
     double distance_from(Character *other) const;

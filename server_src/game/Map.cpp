@@ -58,7 +58,9 @@ void Map::move_character(int id, int move_x, int move_y) {
         if (other.first == id) {
             continue;
         }
-        collision = character->collision(other.second, move_x, move_y);
+        collision = character->collision(other.second,
+                                         character->get_pos_x() + move_x,
+                                         character->get_pos_y() + move_y);
     }
     if (not collision) {
         character->move(move_x, move_y);
@@ -77,6 +79,11 @@ void Map::reload(int player_id) {
     //auto *survivor = dynamic_cast<Survivor *>(characters.at(player_id));
     auto *character = characters.at(player_id);
     character->reload();
+}
+
+void Map::attack(int player_id) {
+    auto *character = characters.at(player_id);
+    character->attack(zombies);
 }
 
 std::shared_ptr<State> Map::update() {
@@ -104,7 +111,7 @@ std::shared_ptr<State> Map::update() {
         buf[pos++] = pos_y;
         buf[pos++] = state;
         buf[pos++] = life;
-        character->stop_shooting();
+        character->stop_shooting(); // change this
     }
     return std::make_shared<State>(std::move(buf), (uint16_t)elements.size());
 }
