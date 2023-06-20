@@ -114,7 +114,7 @@ std::shared_ptr<State> Map::update() {
         buf[pos++] = state;
         buf[pos++] = life;
         buf[pos++] = ammo;
-        character->stop_shooting(); // change this
+        character->stop_shooting(zombies); // change this
     }
     return std::make_shared<State>(std::move(buf), (uint16_t)elements.size());
 }
