@@ -92,6 +92,7 @@ void Survivor::attack(std::map<int, Character*>& enemies) {
     //state = NOT;
 }
 
+// coment
 void Survivor::receive_damage(int damage) {
     if (state == DEAD) {
         return;
