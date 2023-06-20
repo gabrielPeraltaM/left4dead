@@ -9,7 +9,6 @@
 
 class Survivor : public Character {
     int orientation;
-    int ammo;
     int delay;
 
 public:

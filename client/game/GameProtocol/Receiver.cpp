@@ -8,7 +8,7 @@
 
 #include <vector>
 
-#define CHARACTER_ATTRIBUTES_AMOUNT 5
+#define CHARACTER_ATTRIBUTES_AMOUNT 6
 
 enum States : uint16_t {
   NOT = 0x04,

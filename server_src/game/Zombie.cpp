@@ -10,7 +10,7 @@
 #define ZOMBIE_DAMAGE 4
 #define ZOMBIE_LIFE 100
 
-Zombie::Zombie(int pos_x, int pos_y) : Character(ZOMBIE_LIFE, pos_x, pos_y, COLLISION_RANGE),
+Zombie::Zombie(int pos_x, int pos_y) : Character(ZOMBIE_LIFE, pos_x, pos_y, COLLISION_RANGE, 0),
                                        moving_x(0),
                                        moving_y(0),
                                        target(nullptr) {}

@@ -24,9 +24,10 @@ protected:
     int pos_y;
     int collision_range;
     States state;
+    int ammo;
 
 public:
-    Character(int life, int pos_x, int pos_y, int collision_range);
+    Character(int life, int pos_x, int pos_y, int collision_range, int ammo);
 
     int get_life() const;
 
@@ -37,6 +38,8 @@ public:
     int get_collision_range() const;
 
     int get_state() const;
+
+    int get_ammo() const;
 
     void start_shooting();
 

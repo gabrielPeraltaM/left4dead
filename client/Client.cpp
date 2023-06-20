@@ -12,7 +12,7 @@
 #define JOIN 0X02
 #define START 0X03
 
-#define CHARACTER_ATTRIBUTES_AMOUNT 5
+#define CHARACTER_ATTRIBUTES_AMOUNT 6
 
 Client::Client(const char *hostname, const char *port) : peer(hostname, port) {}
 
