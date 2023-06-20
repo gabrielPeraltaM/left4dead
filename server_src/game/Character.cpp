@@ -48,9 +48,12 @@ void Character::start_shooting() {
     state = SHOOTING;
 }
 
-void Character::stop_shooting() {
-    if (state != SHOOTING) {
+void Character::stop_shooting(std::map<int, Character*>& enemies) {
+    if (state != SHOOTING && state != ATTACKING) {
         return;
+    }
+    if (state == ATTACKING) {
+        this->attack(enemies); // change this
     }
     state = NOT;
 }

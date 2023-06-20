@@ -43,7 +43,7 @@ public:
 
     void start_shooting();
 
-    void stop_shooting();
+    void stop_shooting(std::map<int, Character*>& enemies);
 
     virtual void receive_damage(int damage) = 0;
 

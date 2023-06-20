@@ -6,7 +6,7 @@
 
 #define SURVIVOR_LIFE 100
 #define DEFAULT_DAMAGE 1
-#define DEFAULT_ATTACK_DAMAGE 2
+#define DEFAULT_ATTACK_DAMAGE 4
 #define MAX_SHOOTING_RANGE 1920
 #define RIGHT 1
 #define LEFT 2
@@ -75,11 +75,11 @@ void Survivor::attack(std::map<int, Character*>& enemies) {
     if (state == DEAD || state == RELOADING) {
         return;
     }
-    /*if (delay < 4) {
+    if (delay < 10) {
         ++delay;
         state = ATTACKING;
         return;
-    }*/
+    }
     for (auto character : enemies) {
         auto *enemy = character.second;
         if ((orientation == RIGHT &&
@@ -89,8 +89,7 @@ void Survivor::attack(std::map<int, Character*>& enemies) {
             enemy->receive_damage(DEFAULT_ATTACK_DAMAGE);
         }
     }
-    //delay = 0;
-    //state = NOT;
+    delay = 0;
 }
 
 void Survivor::receive_damage(int damage) {
