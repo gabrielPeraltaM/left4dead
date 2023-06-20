@@ -8,6 +8,7 @@
 #include <map>
 #include <memory>
 #include "Character.h"
+#include "Survivor.h"
 #include "Zombie.h"
 #include "../server_src/State.h"
 
@@ -17,6 +18,7 @@ class Map {
     std::map<int, Character*> characters;
     std::map<int, Character*> zombies;
     std::map<int, Character*> elements;
+    Survivor generic;
 
    public:
     explicit Map(int limit_y);
@@ -38,7 +40,9 @@ class Map {
    private:
     bool limit_collision(Character *character, int move_x, int move_y) const;
 
-    void calculate_position(int &pos_x, int &pos_y) const;
+    void calculate_position(int &pos_x, int &pos_y);
+
+    bool collision(int pos_x, int pos_y);
 };
 
 #endif  // LEFT4DEAD_MAP_H

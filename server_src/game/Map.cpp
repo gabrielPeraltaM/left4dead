@@ -3,8 +3,8 @@
 //
 
 #include "Map.h"
-#include "Survivor.h"
 #include <arpa/inet.h>
+#include <random>
 
 #define POS_X_ONE 200
 #define POS_Y_ONE 900
@@ -18,8 +18,13 @@
 
 #define CHARACTER_ATTRIBUTES_AMOUNT 6
 
+#define PLAYER_ZONE_LIMIT_LEFT 50
+#define PLAYER_ZONE_LIMIT_RIGHT 400
+#define ZONE_LIMIT_UP 920
+
 Map::Map(int limit_y) : limit_y(limit_y),
-                        players(0) {
+                        players(0),
+                        generic(0, 0) {
     auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y);
     auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y);
     zombies[2] = zombie1;
@@ -120,13 +125,14 @@ std::shared_ptr<State> Map::update() {
 }
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {
-    if (character->get_pos_y() + move_y <= limit_y || character->get_pos_y() + move_y >= 920) {
+    if (character->get_pos_y() + move_y <= limit_y ||
+        character->get_pos_y() + move_y >= ZONE_LIMIT_UP) {
         return true;
     }
     return false;
 }
 
-void Map::calculate_position(int &pos_x, int &pos_y) const {
+void Map::calculate_position(int &pos_x, int &pos_y) {
     if (players == 0) {
         pos_x = POS_X_ONE;
         pos_y = POS_Y_ONE;
@@ -136,4 +142,25 @@ void Map::calculate_position(int &pos_x, int &pos_y) const {
         pos_x = POS_X_TWO;
         pos_y = POS_Y_TWO;
     }
+    /*std::random_device rd;
+    std::uniform_int_distribution<int> dist_x(PLAYER_ZONE_LIMIT_LEFT, PLAYER_ZONE_LIMIT_RIGHT);
+    std::uniform_int_distribution<int> dist_y(limit_y, ZONE_LIMIT_UP);
+    int tentative_pos_x;
+    int tentative_pos_y;
+    do {
+        tentative_pos_x = dist_x(rd);
+        tentative_pos_y = dist_y(rd);
+    } while (collision(tentative_pos_x, tentative_pos_y));
+    pos_x = tentative_pos_x;
+    pos_y = tentative_pos_y;*/
+}
+
+bool Map::collision(int pos_x, int pos_y) {
+    bool collision = false;
+    for (auto other : characters) {
+        if (generic.collision(other.second, pos_x, pos_y)) {
+            collision = true;
+        }
+    }
+    return collision;
 }
