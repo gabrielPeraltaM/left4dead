@@ -1,7 +1,3 @@
-//
-// Created by ignacio on 6/19/23.
-//
-
 #ifndef LEFT4DEAD_KEYBOARDHANDLER_H
 #define LEFT4DEAD_KEYBOARDHANDLER_H
 
