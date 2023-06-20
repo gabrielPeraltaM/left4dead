@@ -43,6 +43,8 @@ class Map {
     void calculate_position(int &pos_x, int &pos_y);
 
     bool collision(int pos_x, int pos_y);
+
+    void initialize_zombies();
 };
 
 #endif  // LEFT4DEAD_MAP_H

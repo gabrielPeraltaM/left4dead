@@ -17,20 +17,19 @@
 #define ZOMBIE2_POS_Y 900
 
 #define CHARACTER_ATTRIBUTES_AMOUNT 6
+#define ZOMBIES_AMOUNT 2
 
 #define PLAYER_ZONE_LIMIT_LEFT 50
 #define PLAYER_ZONE_LIMIT_RIGHT 400
 #define ZONE_LIMIT_UP 920
+#define ZOMBIES_ZONE_LIMIT_LEFT 650
+#define ZOMBIES_ZONE_LIMIT_RIGHT 2000
+#define MAX_PLAYER_AMOUNT 10
 
 Map::Map(int limit_y) : limit_y(limit_y),
                         players(0),
                         generic(0, 0) {
-    auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y);
-    auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y);
-    zombies[2] = zombie1;
-    zombies[3] = zombie2;
-    elements[2] = zombie1;
-    elements[3] = zombie2;
+    initialize_zombies();
 }
 
 Map::~Map() {
@@ -163,4 +162,21 @@ bool Map::collision(int pos_x, int pos_y) {
         }
     }
     return collision;
+}
+
+void Map::initialize_zombies() {
+    auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y);
+    auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y);
+    zombies[2] = zombie1;
+    zombies[3] = zombie2;
+    elements[2] = zombie1;
+    elements[3] = zombie2;
+    /*std::random_device rd;
+    std::uniform_int_distribution<int> dist_x(ZOMBIES_ZONE_LIMIT_LEFT, ZOMBIES_ZONE_LIMIT_RIGHT);
+    std::uniform_int_distribution<int> dist_y(limit_y, ZONE_LIMIT_UP);
+    for (int i = MAX_PLAYER_AMOUNT; i < MAX_PLAYER_AMOUNT + ZOMBIES_AMOUNT; i++) {
+        int pos_x = dist_x(rd);
+        int pos_y = dist_y(rd);
+        zombies[i] = new Zombie(pos_x, pos_y);
+    }*/
 }
