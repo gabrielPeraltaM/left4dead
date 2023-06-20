@@ -8,7 +8,6 @@
 #include "Action.h"
 #include "./game/Map.h"
 #include "State.h"
-#include <memory>
 
 class ActionMove : public Action {
     int move_x;
