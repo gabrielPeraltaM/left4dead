@@ -43,6 +43,7 @@ void GameRenderer::run() {
         t1 += rate;
 
         // Hago que los players se renderizen a 1000 / 60 * 6 => 10 fps
+        /* y esto no lo podrían tener los players? */
         playersRate++;
         if (playersRate == 6){
             it++;

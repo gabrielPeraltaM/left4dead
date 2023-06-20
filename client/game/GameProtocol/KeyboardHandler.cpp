@@ -1,7 +1,3 @@
-//
-// Created by ignacio on 6/19/23.
-//
-
 #include "KeyboardHandler.h"
 
 #include <SDL_keycode.h>

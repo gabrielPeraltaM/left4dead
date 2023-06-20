@@ -1,13 +1,8 @@
-//
-// Created by ignacio on 6/10/23.
-//
-
 #include "Receiver.h"
 
 #include <netinet/in.h>
 
 #include <vector>
-
 #define CHARACTER_ATTRIBUTES_AMOUNT 6
 
 enum States : uint16_t {
@@ -36,6 +31,11 @@ void Receiver::run() {
       running = false;
       break;
     }
+
+    /*
+     * no es logica de receiver
+     * podría estar en una clase aparte (protocol!)
+     */
     for (int i = 0; i < 4 * CHARACTER_ATTRIBUTES_AMOUNT;
          i += CHARACTER_ATTRIBUTES_AMOUNT) {
       uint16_t playerId = ntohs(state[i]);
@@ -43,6 +43,12 @@ void Receiver::run() {
       uint16_t y = ntohs(state[i + 2]);
       uint16_t character_state = ntohs(state[i + 3]);
       uint16_t health = ntohs(state[i + 4]);
+      /*
+       * race condition
+       * fijensé si hay manera de comunicar al receiver con el renderer que no
+       * sea compartiendo el vector de caracteres...
+       * MONITOR
+       */
       switch (character_state) {
         case DEAD:
           characters.at(playerId).die();
