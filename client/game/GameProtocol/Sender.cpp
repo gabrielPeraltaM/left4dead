@@ -1,89 +1,119 @@
 #include "Sender.h"
+
 #include "common_src/actions.h"
 
-Sender::Sender(Socket &socket, bool &running) : socket(socket), running(running) {}
+extern int SCREEN_WIDTH;
+extern int SCREEN_HEIGHT;
+
+Sender::Sender(Socket &socket, bool &running)
+    : socket(socket), running(running) {}
 
 void Sender::run() {
   bool was_closed = false;
-  uint8_t action;
+  SDL_Event event;
+
   while (running) {
-    // Delay
     SDL_Delay(1000 / 60);
+    action = keyboardHandler.getAction();
 
-    state = SDL_GetKeyboardState(nullptr);
+    /* Tendriamos que hacer asi, que cada vez que se presione una tecla
+     * se envie la accion correspondiente, y que el server
+     * se encargue de actualizar el estado del personaje.
+     * También mandaría el IDLE, para que el server sepa que el cliente
+     * no esta haciendo nada.
+     *
+     * LO QUE PUSO EL PROFE
+     * okay, tiene sentido en este hilo
+     * podrían cambiar la lectura del state por poll_event (y sacar el otro
+    poll_event de main)
+     * para no floodear la red, trackeen que keys ya apretaron (cosa de no
+    volver a enviarlas)
 
-    if (state[SDL_SCANCODE_R]) {
-      action = RELOAD;
-      socket.sendall(&action, 1, &was_closed);
-      continue;
+
+    if (action && action != previous_action) {
+      previous_action = action;
+      socket.sendall(&action, sizeof(action), &was_closed);
+      if (was_closed) {
+        running = false;
+        break;
+      }
+    }
+     */
+    if (action) {
+      socket.sendall(&action, sizeof(action), &was_closed);
+      if (was_closed) {
+        running = false;
+        break;
+      }
     }
 
-    if (state[SDL_SCANCODE_SPACE]) {
-      action = SHOOT;
-      socket.sendall(&action, 1, &was_closed);
-      continue;
-    }
-
-    if (state[SDL_SCANCODE_LCTRL]) {
-      action = ATTACK;
-      socket.sendall(&action, 1, &was_closed);
-      continue;
-    }
-
-    // Move
-    int direction = 0;
-    if (state[SDL_SCANCODE_A]) {
-      direction |= 1;
-    } else if (state[SDL_SCANCODE_D]) {
-      direction |= 2;
-    }
-
-    // Move vertically
-    if (state[SDL_SCANCODE_W]) {
-      direction |= 4;
-    } else if (state[SDL_SCANCODE_S]) {
-      direction |= 8;
-    }
-
-    switch (direction) {
-      case 0:
-        //action = IDLE;
-        //socket.sendall(&action, 1, &was_closed);
-        break;
-      case 1:
-        action = MOVE_LEFT;
-        socket.sendall(&action, 1, &was_closed);
-        break;
-      case 2:
-        action = MOVE_RIGHT;
-        socket.sendall(&action, 1, &was_closed);
-        break;
-      case 4:
-        action = MOVE_UP;
-        socket.sendall(&action, 1, &was_closed);
-        break;
-      case 8:
-        action = MOVE_DOWN;
-        socket.sendall(&action, 1, &was_closed);
-        break;
-      case 5:
-        action = MOVE_UP_LEFT;
-        socket.sendall(&action, 1, &was_closed);
-        break;
-      case 6:
-        action = MOVE_UP_RIGHT;
-        socket.sendall(&action, 1, &was_closed);
-        break;
-      case 9:
-        action = MOVE_DOWN_LEFT;
-        socket.sendall(&action, 1, &was_closed);
-        break;
-      case 10:
-        action = MOVE_DOWN_RIGHT;
-        socket.sendall(&action, 1, &was_closed);
-        break;
-      default:
-        break;
+    while (SDL_PollEvent(&event)) {
+      if (event.type == SDL_WINDOWEVENT) {
+        switch (event.window.event) {
+          case SDL_WINDOWEVENT_RESIZED:
+            SCREEN_WIDTH = event.window.data1;
+            SCREEN_HEIGHT = event.window.data2;
+            break;
+          case SDL_WINDOWEVENT_CLOSE:
+            running = false;
+            break;
+        }
+      } else if (event.type == SDL_KEYDOWN) {
+        switch (event.key.keysym.sym) {
+          case SDLK_ESCAPE:
+            running = false;
+            break;
+          case SDLK_r:
+            keyboardHandler.setPressed(SDLK_r);
+            break;
+          case SDLK_SPACE:
+            keyboardHandler.setPressed(SDLK_SPACE);
+            break;
+          case SDLK_LCTRL:
+            keyboardHandler.setPressed(SDLK_LCTRL);
+            break;
+          case SDLK_a:
+            keyboardHandler.setPressed(SDLK_a);
+            break;
+          case SDLK_d:
+            keyboardHandler.setPressed(SDLK_d);
+            break;
+          case SDLK_w:
+            keyboardHandler.setPressed(SDLK_w);
+            break;
+          case SDLK_s:
+            keyboardHandler.setPressed(SDLK_s);
+            break;
+          default:
+            break;
+        }
+      } else if (event.type == SDL_KEYUP) {
+        switch (event.key.keysym.sym) {
+          case SDLK_r:
+            keyboardHandler.setReleased(SDLK_r);
+            break;
+          case SDLK_SPACE:
+            keyboardHandler.setReleased(SDLK_SPACE);
+            break;
+          case SDLK_LCTRL:
+            keyboardHandler.setReleased(SDLK_LCTRL);
+            break;
+          case SDLK_a:
+            keyboardHandler.setReleased(SDLK_a);
+            break;
+          case SDLK_d:
+            keyboardHandler.setReleased(SDLK_d);
+            break;
+          case SDLK_w:
+            keyboardHandler.setReleased(SDLK_w);
+            break;
+          case SDLK_s:
+            keyboardHandler.setReleased(SDLK_s);
+            break;
+          default:
+            break;
+        }
+      }
     }
   }
 }

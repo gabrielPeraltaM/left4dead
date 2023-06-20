@@ -34,33 +34,12 @@ void Game::start() {
   receiver.start();
   sender.start();
 
-  SDL_Event event;
-
   while (running) {
-    // Handle events
-    while (SDL_PollEvent(&event)) {
-      if (event.type == SDL_KEYDOWN) {
-        switch (event.key.keysym.sym) {
-          case SDLK_ESCAPE:
-            running = false;
-            break;
-        }
-      } else if (event.type == SDL_WINDOWEVENT) {
-        switch (event.window.event) {
-          case SDL_WINDOWEVENT_RESIZED:
-            SCREEN_WIDTH = event.window.data1;
-            SCREEN_HEIGHT = event.window.data2;
-            break;
-          case SDL_WINDOWEVENT_CLOSE:
-            running = false;
-            break;
-        }
-      }
-    }
-
-    // Delay
     SDL_Delay(1000 / 60);
   }
+  gameRenderer.join();
+  receiver.join();
+  sender.join();
 
   SDL_Quit();
 }
