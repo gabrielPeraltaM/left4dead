@@ -85,11 +85,14 @@ void Survivor::attack(std::map<int, Character*>& enemies) {
         if ((orientation == RIGHT &&
             enemy->get_pos_x() > pos_x &&
             collision(enemy, pos_x, pos_y)) ||
-            (orientation == LEFT && enemy->get_pos_x() < pos_x && collision(enemy, pos_x, pos_y))) {
+            (orientation == LEFT &&
+            enemy->get_pos_x() < pos_x &&
+            collision(enemy, pos_x, pos_y))) {
             enemy->receive_damage(DEFAULT_ATTACK_DAMAGE);
         }
     }
     delay = 0;
+    state = NOT;
 }
 
 void Survivor::receive_damage(int damage) {
@@ -97,6 +100,7 @@ void Survivor::receive_damage(int damage) {
         return;
     }
     life -= damage;
+    //state = DAMAGING;
     if (life <= 0) {
         life = 0;
         state = DEAD;

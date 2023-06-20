@@ -43,6 +43,7 @@ void Receiver::run() {
       uint16_t y = ntohs(state[i + 2]);
       uint16_t character_state = ntohs(state[i + 3]);
       uint16_t health = ntohs(state[i + 4]);
+      uint16_t ammo = htons(state[i + 5]);
       switch (character_state) {
         case DEAD:
           characters.at(playerId).die();
