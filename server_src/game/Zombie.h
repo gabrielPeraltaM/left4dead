@@ -11,6 +11,7 @@ class Zombie : public Character {
     int moving_x;
     int moving_y;
     Character *target;
+    int delay;
 
 public:
     Zombie(int pos_x, int pos_y);
@@ -26,6 +27,8 @@ public:
     void move(int move_x, int move_y) override;
 
     void receive_damage(int damage) override;
+
+    void reset_state() override;
 
     void shoot(std::map<int, Character*> &enemies) override;
 

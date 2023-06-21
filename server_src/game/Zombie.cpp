@@ -13,7 +13,8 @@
 Zombie::Zombie(int pos_x, int pos_y) : Character(ZOMBIE_LIFE, pos_x, pos_y, COLLISION_RANGE, 0),
                                        moving_x(0),
                                        moving_y(0),
-                                       target(nullptr) {}
+                                       target(nullptr),
+                                       delay(0) {}
 
 void Zombie::update_move() {
     int distance_x = this->pos_x - target->get_pos_x();
@@ -29,8 +30,15 @@ void Zombie::interact() {
     if (state == DEAD) {
         return;
     }
+    /*if (state == ATTACKING && delay < 10) {
+        ++delay;
+        return;
+    }*/
+    //delay = 0;
+    //state = NOT;
     if (target && target_collision()) {
         target->receive_damage(ZOMBIE_DAMAGE);
+        //state = ATTACKING;
         return;
     }
     pos_x -= moving_x;
@@ -78,6 +86,8 @@ void Zombie::receive_damage(int damage) {
         state = DEAD;
     }
 }
+
+void Zombie::reset_state() {}
 
 void Zombie::shoot(std::map<int, Character *> &enemies) {}
 
