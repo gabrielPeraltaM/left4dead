@@ -5,16 +5,17 @@
 #include "Survivor.h"
 
 #define SURVIVOR_LIFE 100
-#define DEFAULT_DAMAGE 1
+#define DEFAULT_DAMAGE 20
 #define DEFAULT_ATTACK_DAMAGE 4
 #define MAX_SHOOTING_RANGE 1920
 #define RIGHT 1
 #define LEFT 2
 #define SURVIVOR_COLLISION_RANGE 22
-#define DEFAULT_SURVIVOR_AMMO 100
+#define DEFAULT_SURVIVOR_AMMO 10
 
 #define RELOAD_DELAY 40
 #define ATTACK_DELAY 10
+#define SHOOTING_DELAY 14
 
 Survivor::Survivor(int pos_x, int pos_y) : Character(SURVIVOR_LIFE, pos_x, pos_y,
                                                      SURVIVOR_COLLISION_RANGE,
@@ -41,7 +42,7 @@ bool Survivor::collision(Character *other, int pos_x, int pos_y) {
 }
 
 void Survivor::shoot(std::map<int, Character*>& enemies) {
-    if ((state != NOT && state != SHOOTING) || ammo == 0) {
+    if (state != NOT || ammo == 0) {
         return;
     }
     this->start_shooting();
@@ -78,11 +79,6 @@ void Survivor::attack(std::map<int, Character*>& enemies) {
     if (state == DEAD || state == RELOADING) {
         return;
     }
-    /*if (delay < ATTACK_DELAY) {
-        ++delay;
-        state = ATTACKING;
-        return;
-    }*/
     state = ATTACKING;
     for (auto character : enemies) {
         auto *enemy = character.second;
@@ -115,6 +111,10 @@ void Survivor::reset_state() {
         return;
     }
     if (state == ATTACKING && delay < ATTACK_DELAY) {
+        ++delay;
+        return;
+    }
+    if (state == SHOOTING && delay < SHOOTING_DELAY) {
         ++delay;
         return;
     }
