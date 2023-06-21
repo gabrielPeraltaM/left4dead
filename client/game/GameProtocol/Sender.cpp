@@ -59,6 +59,10 @@ void Sender::run() {
             break;
         }
       } else if (event.type == SDL_KEYDOWN) {
+        if (event.key.keysym.sym == SDLK_ESCAPE) {
+          running = false;
+          break;
+        }
         keyboardHandler.setPressed(event.key.keysym.sym);
       } else if (event.type == SDL_KEYUP) {
         keyboardHandler.setReleased(event.key.keysym.sym);
