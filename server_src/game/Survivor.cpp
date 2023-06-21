@@ -13,6 +13,9 @@
 #define SURVIVOR_COLLISION_RANGE 22
 #define DEFAULT_SURVIVOR_AMMO 100
 
+#define RELOAD_DELAY 40
+#define ATTACK_DELAY 10
+
 Survivor::Survivor(int pos_x, int pos_y) : Character(SURVIVOR_LIFE, pos_x, pos_y,
                                                      SURVIVOR_COLLISION_RANGE,
                                                      DEFAULT_SURVIVOR_AMMO),
@@ -61,7 +64,7 @@ void Survivor::reload() {
         ammo == DEFAULT_SURVIVOR_AMMO) {
         return;
     }
-    if (delay < 40) {
+    if (delay < RELOAD_DELAY) {
         ++delay;
         state = RELOADING;
         return;
@@ -75,11 +78,12 @@ void Survivor::attack(std::map<int, Character*>& enemies) {
     if (state == DEAD || state == RELOADING) {
         return;
     }
-    if (delay < 10) {
+    /*if (delay < ATTACK_DELAY) {
         ++delay;
         state = ATTACKING;
         return;
-    }
+    }*/
+    state = ATTACKING;
     for (auto character : enemies) {
         auto *enemy = character.second;
         if ((orientation == RIGHT &&
@@ -91,8 +95,6 @@ void Survivor::attack(std::map<int, Character*>& enemies) {
             enemy->receive_damage(DEFAULT_ATTACK_DAMAGE);
         }
     }
-    delay = 0;
-    state = NOT;
 }
 
 void Survivor::receive_damage(int damage) {
@@ -106,6 +108,18 @@ void Survivor::receive_damage(int damage) {
         state = DEAD;
         collision_range = 2;
     }
+}
+
+void Survivor::reset_state() {
+    if (state != SHOOTING && state != ATTACKING) {
+        return;
+    }
+    if (state == ATTACKING && delay < ATTACK_DELAY) {
+        ++delay;
+        return;
+    }
+    delay = 0;
+    state = NOT;
 }
 
 Character *Survivor::find_enemies_left(std::map<int, Character *> &enemies) const {

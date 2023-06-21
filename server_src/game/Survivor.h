@@ -26,6 +26,8 @@ public:
 
     void receive_damage(int damage) override;
 
+    void reset_state() override;
+
     void interact() override;
 
     void check_target(Character *other) override;

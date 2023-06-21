@@ -32,6 +32,7 @@ void Acceptor::reap_dead() {
         auto *c = dynamic_cast<ClientHandler*>(t);
         if (c->is_dead()) {
             c->join();
+            delete c;
             return true;
         }
         return false;
