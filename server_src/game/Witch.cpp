@@ -9,7 +9,7 @@
 #define SCREAM_NUMBER 52
 
 Witch::Witch(int pos_x, int pos_y,
-             std::map<int, Character*> &zombies) : Zombie(pos_x, pos_y, WITCH_COLLISION_RANGE),
+             std::map<int, Character*> &zombies) : Zombie(pos_x, pos_y, WITCH_COLLISION_RANGE, WITCH),
                                                    zombies(zombies),
                                                    dist(0, 200) {}
 

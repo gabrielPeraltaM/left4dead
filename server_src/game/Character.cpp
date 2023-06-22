@@ -6,12 +6,13 @@
 #include <cmath>
 
 Character::Character(int life, int pos_x, int pos_y,
-                     int collision_range, int ammo) : life(life),
+                     int collision_range, int ammo, Type type) : life(life),
                                                       pos_x(pos_x),
                                                       pos_y(pos_y),
                                                       collision_range(collision_range),
                                                       state(NOT),
-                                                      ammo(ammo) {
+                                                      ammo(ammo),
+                                                      type(type) {
 }
 
 int Character::get_life() const {
@@ -42,6 +43,10 @@ int Character::get_state() const {
 
 int Character::get_ammo() const {
     return ammo;
+}
+
+int Character::get_type() const {
+    return type;
 }
 
 void Character::start_shooting() {

@@ -8,6 +8,17 @@
 #include <map>
 #include <vector>
 
+enum Type : int {
+    IDF = 1,
+    SCOUT,
+    P90,
+    INFECTED,
+    JUMPER,
+    SPEAR,
+    VENOM,
+    WITCH
+};
+
 enum States : int {
     NOT = 4,
     SHOOTING,
@@ -25,9 +36,10 @@ protected:
     int collision_range;
     States state;
     int ammo;
+    Type type;
 
 public:
-    Character(int life, int pos_x, int pos_y, int collision_range, int ammo);
+    Character(int life, int pos_x, int pos_y, int collision_range, int ammo, Type type);
 
     int get_life() const;
 
@@ -40,6 +52,8 @@ public:
     int get_state() const;
 
     int get_ammo() const;
+
+    int get_type() const;
 
     void start_shooting();
 

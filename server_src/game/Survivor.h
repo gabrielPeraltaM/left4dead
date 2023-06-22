@@ -12,7 +12,7 @@ class Survivor : public Character {
     int delay;
 
 public:
-    Survivor(int pos_x, int pos_y);
+    Survivor(int pos_x, int pos_y, Type type);
 
     void move(int move_x, int move_y) override;
 
@@ -34,7 +34,7 @@ public:
 
     void witch_interact(int witch_pos_x, int witch_pos_y) override;
 
-private:
+protected:
     Character *find_enemies_left(std::map<int, Character*> &enemies) const;
 
     Character *find_enemies_right(std::map<int, Character*> &enemies) const;

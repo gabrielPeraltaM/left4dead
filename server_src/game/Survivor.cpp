@@ -17,11 +17,11 @@
 #define ATTACK_DELAY 10
 #define SHOOTING_DELAY 14
 
-Survivor::Survivor(int pos_x, int pos_y) : Character(SURVIVOR_LIFE, pos_x, pos_y,
+Survivor::Survivor(int pos_x, int pos_y, Type type) : Character(SURVIVOR_LIFE, pos_x, pos_y,
                                                      SURVIVOR_COLLISION_RANGE,
-                                                     DEFAULT_SURVIVOR_AMMO),
-                                           orientation(RIGHT),
-                                           delay(0) {}
+                                                     DEFAULT_SURVIVOR_AMMO, type),
+                                                      orientation(RIGHT),
+                                                      delay(0) {}
 
 void Survivor::move(int move_x, int move_y) {
     if (state != NOT) {

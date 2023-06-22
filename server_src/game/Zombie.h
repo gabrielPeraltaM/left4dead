@@ -15,7 +15,7 @@ protected:
     int delay;
 
 public:
-    Zombie(int pos_x, int pos_y, int collision_range);
+    Zombie(int pos_x, int pos_y, int collision_range, Type type);
 
     void update_move();
 

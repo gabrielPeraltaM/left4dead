@@ -3,6 +3,7 @@
 //
 
 #include "Map.h"
+#include "Idf.h"
 #include <arpa/inet.h>
 #include <random>
 
@@ -29,7 +30,7 @@
 
 Map::Map(int limit_y) : limit_y(limit_y),
                         players(0),
-                        generic(0, 0) {
+                        generic(0, 0, IDF) {
     initialize_zombies();
 }
 
@@ -44,7 +45,7 @@ void Map::add_character(int id, int collision_range) {
     int pos_x = 0;
     int pos_y = 0;
     calculate_position(pos_x, pos_y);
-    auto *character = new Survivor(pos_x, pos_y);
+    auto *character = new Idf(pos_x, pos_y); // change this
     characters[id] = character;
     elements[id] = character;
     ++players;
@@ -166,8 +167,10 @@ bool Map::collision(int pos_x, int pos_y) {
 }
 
 void Map::initialize_zombies() {
-    auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y, ZOMBIE_DEFAULT_COLLISION_RANGE);
-    auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y, ZOMBIE_DEFAULT_COLLISION_RANGE);
+    auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y, ZOMBIE_DEFAULT_COLLISION_RANGE,
+                               INFECTED);
+    auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y, ZOMBIE_DEFAULT_COLLISION_RANGE,
+                               JUMPER);
     zombies[2] = zombie1;
     zombies[3] = zombie2;
     elements[2] = zombie1;
