@@ -34,7 +34,7 @@ add_executable(client
         client/game/GameProtocol/Sender.cpp
         client/game/GameProtocol/Sender.h
         client/game/GameRenderer/PlayerRenderer.cpp
-        client/game/GameRenderer/PlayerRenderer.h client/game/GameProtocol/KeyboardHandler.cpp client/game/GameProtocol/KeyboardHandler.h client/game/GameMonitor/GameMonitor.h client/game/GameMonitor/GameMonitor.cpp client/game/GameProtocol/ReceiverProtocol.cpp client/game/GameProtocol/ReceiverProtocol.h)
+        client/game/GameRenderer/PlayerRenderer.h client/game/GameProtocol/KeyboardHandler.cpp client/game/GameProtocol/KeyboardHandler.h client/game/GameProtocol/ReceiverProtocol.cpp client/game/GameProtocol/ReceiverProtocol.h)
 target_link_libraries(client PUBLIC SDL2pp::SDL2pp)
 
 # Server

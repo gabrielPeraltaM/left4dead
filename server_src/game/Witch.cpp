@@ -5,17 +5,28 @@
 #include "Witch.h"
 
 #define WITCH_ZOMBIE_RANGE 120
+#define WITCH_COLLISION_RANGE 80
 #define SCREAM_NUMBER 52
 
-Witch::Witch(int pos_x, int pos_y, std::map<int, Character*> &zombies) : Zombie(pos_x, pos_y),
-                                                                         zombies(zombies),
-                                                                         dist(0, 200) {}
+Witch::Witch(int pos_x, int pos_y,
+             std::map<int, Character*> &zombies) : Zombie(pos_x, pos_y, WITCH_COLLISION_RANGE),
+                                                   zombies(zombies),
+                                                   dist(0, 200) {}
 
 void Witch::interact() {
+    if (state == DEAD) {
+        return;
+    }
     int scream_number = dist(rd);
     if (scream_number == SCREAM_NUMBER) {
         scream();
+        return;
     }
+    if (target && target_collision()) {
+        return;
+    }
+    pos_x -= moving_x;
+    pos_y -= moving_y;
 }
 
 void Witch::scream() {
