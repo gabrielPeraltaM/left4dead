@@ -32,6 +32,7 @@ class Game {
 
     // Storage
     std::vector<Character> characters;
+    Mix_Music *music = nullptr;
 
     // Threads
     GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId);

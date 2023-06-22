@@ -16,11 +16,8 @@ void Game::start() {
   SCREEN_HEIGHT = DM.h;
 
   // Load music
-  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-    printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
-  }
-
-  Mix_Music *music = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music.mp3");
+  Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+  music = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music.mp3");
   Mix_PlayMusic(music, -1);
 
   // Add initial players
