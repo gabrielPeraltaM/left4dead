@@ -9,9 +9,9 @@
 #include <vector>
 #include "client/characters/Character.h"
 class ReceiverProtocol {
-  std::vector<Character> &characters;
+  std::map<int, std::shared_ptr<Character>> &characters;
  public:
-  ReceiverProtocol(std::vector<Character> &characters);
+  explicit ReceiverProtocol(std::map<int, std::shared_ptr<Character>> &characters);
   ~ReceiverProtocol() = default;
   void handleReceive(std::vector<uint16_t> &state);
 };

@@ -12,6 +12,8 @@
 #include "client/game/GameProtocol/Receiver.h"
 #include "client/game/GameProtocol/Sender.h"
 #include "common_src/socket.h"
+#include <map>
+#include <memory>
 
 using namespace SDL2pp;
 extern int SCREEN_WIDTH;
@@ -31,7 +33,7 @@ class Game {
     bool running = true;
 
     // Storage
-    std::vector<Character> characters;
+    std::map<int, std::shared_ptr<Character>> characters;
     Mix_Music *music = nullptr;
 
     // Threads

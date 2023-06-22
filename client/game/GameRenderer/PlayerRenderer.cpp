@@ -7,7 +7,7 @@
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 
-PlayerRenderer::PlayerRenderer(std::vector<Character> &characters,
+PlayerRenderer::PlayerRenderer(std::map<int, std::shared_ptr<Character>> &characters,
                                Renderer &renderer)
     : characters(characters), renderer(renderer) {
   loadTextures();
@@ -29,27 +29,28 @@ void PlayerRenderer::loadTextures() {
 }
 
 void PlayerRenderer::render(int it) {
-  for (auto &character : characters) {
-    int x = character.getCameraX();
+  for (auto &element : characters) {
+    std::shared_ptr<Character> character = element.second;
+    int x = character->getCameraX();
 
     // Check if character is out of screen
-    if (x < -character.getFrameSize() || x > SCREEN_WIDTH) {
+    if (x < -character->getFrameSize() || x > SCREEN_WIDTH) {
       continue;
     }
 
-    int y = character.getCameraY();
+    int y = character->getCameraY();
 
-    std::string character_type = character.getType();
-    std::string action = character.getAction();
+    std::string character_type = character->getType();
+    std::string action = character->getAction();
     Texture *texture = textures[character_type + action];
 
-    int frameSize = character.getFrameSize();
+    int frameSize = character->getFrameSize();
     int n = texture->GetWidth() / frameSize;
     int frame = it % n;
     if (action == "Dead" && frame == n - 1) {
-      character.kill();
+      character->kill();
     }
-    if (character.isDead()) {
+    if (character->isDead()) {
       frame = n - 1;
     }
 
@@ -57,7 +58,7 @@ void PlayerRenderer::render(int it) {
     Rect dstRect = {x, y, frameSize * SCREEN_WIDTH / 1920,
                     frameSize * SCREEN_HEIGHT / 1080};
 
-    renderer.Copy(*texture, srcRect, dstRect, 0, NullOpt, character.getFlip());
+    renderer.Copy(*texture, srcRect, dstRect, 0, NullOpt, character->getFlip());
   }
 }
 PlayerRenderer::~PlayerRenderer() {

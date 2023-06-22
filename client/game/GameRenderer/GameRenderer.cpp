@@ -52,7 +52,7 @@ void GameRenderer::run() {
     }
 }
 
-GameRenderer::GameRenderer(Renderer &renderer, bool &running, std::vector<Character> &characters, int playerId)
+GameRenderer::GameRenderer(Renderer &renderer, bool &running, std::map<int, std::shared_ptr<Character>> &characters, int playerId)
         : renderer(renderer),
           running(running),
           characters(

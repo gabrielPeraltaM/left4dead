@@ -19,13 +19,13 @@ class GameRenderer : public Thread {
 private:
     Renderer &renderer;
     bool &running;
-    std::vector<Character> &characters;
+    std::map<int, std::shared_ptr<Character>> &characters;
     const int playerId;
     BackgroundRenderer backgroundRenderer = BackgroundRenderer(renderer, characters, playerId);
     UIRenderer uiRenderer = UIRenderer(renderer, 100, 100, 100, 100);
     PlayerRenderer playerRenderer = PlayerRenderer(characters, renderer);
 public:
-    GameRenderer(Renderer &renderer, bool &running, std::vector<Character> &characters, int playerId);
+    GameRenderer(Renderer &renderer, bool &running, std::map<int, std::shared_ptr<Character>> &characters, int playerId);
 
     void run() override;
 };

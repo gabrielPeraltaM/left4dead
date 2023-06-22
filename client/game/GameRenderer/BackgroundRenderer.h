@@ -15,7 +15,7 @@ extern int SCREEN_HEIGHT;
 class BackgroundRenderer {
 private:
     Renderer &renderer;
-    std::vector<Character> &characters;
+    std::map<int, std::shared_ptr<Character>> &characters;
     Texture floor = Texture(renderer,
                             RESOURCE_PATH "/background/road.png");
     Texture sky = Texture(renderer,
@@ -31,7 +31,7 @@ private:
     Rect housesCamera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
     const int playerId;
 public:
-    BackgroundRenderer(Renderer &renderer, std::vector<Character> &characters, int playerId);
+    BackgroundRenderer(Renderer &renderer, std::map<int, std::shared_ptr<Character>> &characters, int playerId);
     void render();
     ~BackgroundRenderer() = default;
 };

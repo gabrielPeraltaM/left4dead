@@ -37,25 +37,25 @@ void ReceiverProtocol::handleReceive(std::vector<uint16_t>& state) {
      */
     switch (character_state) {
       case DEAD:
-        characters.at(playerId).die();
+        characters.at(playerId)->die();
         break;
       case SHOOTING:
-        characters.at(playerId).shoot();
+        characters.at(playerId)->shoot();
         break;
       case ATTACKING:
-        characters.at(playerId).attack();
+        characters.at(playerId)->attack();
         break;
       case RELOADING:
-        characters.at(playerId).reload();
+        characters.at(playerId)->reload();
         break;
       case DAMAGING:
-        characters.at(playerId).hurt();
+        characters.at(playerId)->hurt();
         break;
       default:
-        characters.at(playerId).move(x, y);
+        characters.at(playerId)->move(x, y);
         break;
     }
   }
 
 }
-ReceiverProtocol::ReceiverProtocol(std::vector<Character>& characters) : characters(characters) {}
+ReceiverProtocol::ReceiverProtocol(std::map<int, std::shared_ptr<Character>>& characters) : characters(characters) {}

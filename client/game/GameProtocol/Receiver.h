@@ -11,13 +11,13 @@
 class Receiver : public Thread {
  private:
   bool &running;
-  std::vector<Character> &characters;
+  std::map<int, std::shared_ptr<Character>> &characters;
   Socket &socket;
   ReceiverProtocol receiverProtocol = ReceiverProtocol(characters);
 
  public:
   Receiver(Socket &socket, bool &was_closed,
-           std::vector<Character> &characters);
+           std::map<int, std::shared_ptr<Character>> &characters);
   void run() override;
 };
 

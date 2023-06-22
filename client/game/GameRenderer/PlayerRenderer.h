@@ -15,12 +15,12 @@ using namespace SDL2pp;
 class PlayerRenderer {
 private:
     std::map<std::string, Texture *> textures;
-    std::vector<Character> &characters;
+    std::map<int, std::shared_ptr<Character>> &characters;
     Renderer &renderer;
 
     void loadTextures();
 public:
-    PlayerRenderer(std::vector<Character> &characters, Renderer &renderer);
+    PlayerRenderer(std::map<int, std::shared_ptr<Character>> &characters, Renderer &renderer);
     void render(int it);
     ~PlayerRenderer();
 

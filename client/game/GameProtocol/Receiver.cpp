@@ -6,7 +6,7 @@
 #define CHARACTER_ATTRIBUTES_AMOUNT 6
 
 Receiver::Receiver(Socket &socket, bool &running,
-                   std::vector<Character> &characters)
+                   std::map<int, std::shared_ptr<Character>> &characters)
     : socket(socket), running(running), characters(characters) {}
 
 void Receiver::run() {

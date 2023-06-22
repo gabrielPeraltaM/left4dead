@@ -21,18 +21,18 @@ void Game::start() {
   Mix_PlayMusic(music, -1);
 
   // Add initial players
-  Character player = Character(200, 900, 0, "IDF");
-  characters.push_back(player);
+  std::shared_ptr<Character> player = std::make_shared<Character>(200, 900, 0, "IDF");
+  characters[0] = player;
 
-  Character player2 = Character(350, 900, 1, "Scout");
-  characters.push_back(player2);
+  std::shared_ptr<Character> player2 = std::make_shared<Character>(350, 900, 1, "Scout");
+  characters[1] = player2;
 
   // Add initial zombies
-  Character zombie = Character(800, 900, 2, "Zombie", 96);
-  characters.push_back(zombie);
+  std::shared_ptr<Character> zombie = std::make_shared<Character>(800, 900, 2, "Zombie", 96);
+  characters[2] = zombie;
 
-  Character zombie2 = Character(900, 900, 3, "Jumper", 96);
-  characters.push_back(zombie2);
+  std::shared_ptr<Character> zombie2 = std::make_shared<Character>(900, 900, 3, "Jumper", 96);
+  characters[3] = zombie2;
 
   // Game loop
   gameRenderer.start();
