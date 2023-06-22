@@ -32,6 +32,8 @@ public:
 
     void check_target(Character *other) override;
 
+    void witch_interact(int witch_pos_x, int witch_pos_y) override;
+
 private:
     Character *find_enemies_left(std::map<int, Character*> &enemies) const;
 

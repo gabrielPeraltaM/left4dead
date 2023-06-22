@@ -36,6 +36,8 @@ public:
 
     void attack(std::map<int, Character*>& enemies) override;
 
+    void witch_interact(int witch_pos_x, int witch_pos_y) override;
+
 private:
     double distance_from(Character *other) const;
 

@@ -87,6 +87,19 @@ void Zombie::receive_damage(int damage) {
     }
 }
 
+void Zombie::witch_interact(int witch_pos_x, int witch_pos_y) {
+    if (state == DEAD || target) {
+        return;
+    }
+    int distance_x = this->pos_x - witch_pos_x;
+    int distance_y = this->pos_y - witch_pos_y;
+    double distance = sqrt((distance_x * distance_x) + (distance_y * distance_y));
+    double dir_x = round(distance_x / distance);
+    double dir_y = round(distance_y / distance);
+    moving_x = (int)dir_x;
+    moving_y = (int)dir_y;
+}
+
 void Zombie::reset_state() {}
 
 void Zombie::shoot(std::map<int, Character *> &enemies) {}

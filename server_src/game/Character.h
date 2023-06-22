@@ -63,6 +63,8 @@ public:
 
     bool is_dead() const;
 
+    virtual void witch_interact(int witch_pos_x, int witch_pos_y) = 0;
+
 protected:
     static double distance(Character *other, int new_pos_x, int new_pos_y);
 };
