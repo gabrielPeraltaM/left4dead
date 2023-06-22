@@ -41,3 +41,18 @@ En un pdf aparte
 5) Jugabilidad
 6) Algo extra
 7) Performance
+8) Tests
+9) Diagrama de robustez
+
+## Cosas que faltan por agregar
+
+- [ ] Agregar Lobby QT
+- [ ] Agregar tests
+- [ ] Agregar documentación técnica
+- [ ] Agregar documentación de usuario
+- [ ] Agregar diagrama de robustez
+- [ ] Agregar imágenes del juego
+- [ ] Crear UI para el juego
+- [ ] Agregar sonidos
+- [ ] Agregar música
+- 

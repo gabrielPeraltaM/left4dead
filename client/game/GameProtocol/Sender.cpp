@@ -59,60 +59,13 @@ void Sender::run() {
             break;
         }
       } else if (event.type == SDL_KEYDOWN) {
-        switch (event.key.keysym.sym) {
-          case SDLK_ESCAPE:
-            running = false;
-            break;
-          case SDLK_r:
-            keyboardHandler.setPressed(SDLK_r);
-            break;
-          case SDLK_SPACE:
-            keyboardHandler.setPressed(SDLK_SPACE);
-            break;
-          case SDLK_LCTRL:
-            keyboardHandler.setPressed(SDLK_LCTRL);
-            break;
-          case SDLK_a:
-            keyboardHandler.setPressed(SDLK_a);
-            break;
-          case SDLK_d:
-            keyboardHandler.setPressed(SDLK_d);
-            break;
-          case SDLK_w:
-            keyboardHandler.setPressed(SDLK_w);
-            break;
-          case SDLK_s:
-            keyboardHandler.setPressed(SDLK_s);
-            break;
-          default:
-            break;
+        if (event.key.keysym.sym == SDLK_ESCAPE) {
+          running = false;
+          break;
         }
+        keyboardHandler.setPressed(event.key.keysym.sym);
       } else if (event.type == SDL_KEYUP) {
-        switch (event.key.keysym.sym) {
-          case SDLK_r:
-            keyboardHandler.setReleased(SDLK_r);
-            break;
-          case SDLK_SPACE:
-            keyboardHandler.setReleased(SDLK_SPACE);
-            break;
-          case SDLK_LCTRL:
-            keyboardHandler.setReleased(SDLK_LCTRL);
-            break;
-          case SDLK_a:
-            keyboardHandler.setReleased(SDLK_a);
-            break;
-          case SDLK_d:
-            keyboardHandler.setReleased(SDLK_d);
-            break;
-          case SDLK_w:
-            keyboardHandler.setReleased(SDLK_w);
-            break;
-          case SDLK_s:
-            keyboardHandler.setReleased(SDLK_s);
-            break;
-          default:
-            break;
-        }
+        keyboardHandler.setReleased(event.key.keysym.sym);
       }
     }
   }

@@ -4,28 +4,23 @@
 
 #include "BackgroundRenderer.h"
 
-extern int SCREEN_WIDTH;
-
 BackgroundRenderer::BackgroundRenderer(Renderer &renderer,
                                        std::vector<Character> &characters,
                                        int playerId)
     : renderer(renderer), characters(characters), playerId(playerId) {}
 
 void BackgroundRenderer::render() {
-  camera.x = (characters.at(playerId).getPosX() - SCREEN_WIDTH / 2) %
-             (LEVEL_WIDTH - camera.w);
-  skyCamera.x = ((characters.at(playerId).getPosX() - SCREEN_WIDTH / 2) / 3) %
-                (LEVEL_WIDTH - camera.w);
-  housesCamera.x =
-      ((characters.at(playerId).getPosX() - SCREEN_WIDTH / 2) / 3 * 2) %
-      (LEVEL_WIDTH - camera.w);
+  cameraOffset = characters.at(playerId).getPosX() - SCREEN_WIDTH / 2;
+  camera.x = (cameraOffset) % (LEVEL_WIDTH - camera.w);
+  skyCamera.x = (cameraOffset / 3) % (LEVEL_WIDTH - camera.w);
+  housesCamera.x = (cameraOffset / 3 * 2) % (LEVEL_WIDTH - camera.w);
+
   // Keep camera in bounds
   if (camera.x < 0) {
     camera.x = 0;
     skyCamera.x = 0;
     housesCamera.x = 0;
   }
-  cameraOffset = characters.at(playerId).getPosX() - SCREEN_WIDTH / 2;
 
   if (camera.x == 0 || cameraOffset < 0) {
     cameraOffset = 0;
@@ -48,4 +43,3 @@ void BackgroundRenderer::render() {
     character.setCameraY(character.getPosY());
   }
 }
-BackgroundRenderer::~BackgroundRenderer() {}

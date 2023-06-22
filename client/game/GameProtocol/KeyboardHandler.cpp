@@ -70,6 +70,7 @@ uint8_t KeyboardHandler::getMovement() const {
 
 uint8_t KeyboardHandler::getAction() const {
   uint8_t action = getMovement();
+  
   if (keys.at(SDLK_r)) {
     action = RELOAD;
   }
