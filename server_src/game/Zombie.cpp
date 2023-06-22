@@ -10,11 +10,12 @@
 #define ZOMBIE_DAMAGE 4
 #define ZOMBIE_LIFE 100
 
-Zombie::Zombie(int pos_x, int pos_y) : Character(ZOMBIE_LIFE, pos_x, pos_y, COLLISION_RANGE, 0),
-                                       moving_x(0),
-                                       moving_y(0),
-                                       target(nullptr),
-                                       delay(0) {}
+Zombie::Zombie(int pos_x, int pos_y,
+               int collision_range) : Character(ZOMBIE_LIFE, pos_x, pos_y, collision_range, 0),
+                                      moving_x(0),
+                                      moving_y(0),
+                                      target(nullptr),
+                                      delay(0) {}
 
 void Zombie::update_move() {
     int distance_x = this->pos_x - target->get_pos_x();
@@ -85,6 +86,19 @@ void Zombie::receive_damage(int damage) {
         life = 0;
         state = DEAD;
     }
+}
+
+void Zombie::witch_interact(int witch_pos_x, int witch_pos_y) {
+    if (state == DEAD || target) {
+        return;
+    }
+    int distance_x = this->pos_x - witch_pos_x;
+    int distance_y = this->pos_y - witch_pos_y;
+    double distance = sqrt((distance_x * distance_x) + (distance_y * distance_y));
+    double dir_x = round(distance_x / distance);
+    double dir_y = round(distance_y / distance);
+    moving_x = (int)dir_x;
+    moving_y = (int)dir_y;
 }
 
 void Zombie::reset_state() {}

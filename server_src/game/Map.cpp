@@ -18,6 +18,7 @@
 
 #define CHARACTER_ATTRIBUTES_AMOUNT 6
 #define ZOMBIES_AMOUNT 2
+#define ZOMBIE_DEFAULT_COLLISION_RANGE 20
 
 #define PLAYER_ZONE_LIMIT_LEFT 50
 #define PLAYER_ZONE_LIMIT_RIGHT 400
@@ -165,8 +166,8 @@ bool Map::collision(int pos_x, int pos_y) {
 }
 
 void Map::initialize_zombies() {
-    auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y);
-    auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y);
+    auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y, ZOMBIE_DEFAULT_COLLISION_RANGE);
+    auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y, ZOMBIE_DEFAULT_COLLISION_RANGE);
     zombies[2] = zombie1;
     zombies[3] = zombie2;
     elements[2] = zombie1;

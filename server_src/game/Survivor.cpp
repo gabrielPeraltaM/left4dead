@@ -159,3 +159,5 @@ void Survivor::interact() {
 
 void Survivor::check_target(Character *other) {
 }
+
+void Survivor::witch_interact(int witch_pos_x, int witch_pos_y) {}

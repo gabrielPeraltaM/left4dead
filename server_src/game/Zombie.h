@@ -8,13 +8,14 @@
 #include "Character.h"
 
 class Zombie : public Character {
+protected:
     int moving_x;
     int moving_y;
     Character *target;
     int delay;
 
 public:
-    Zombie(int pos_x, int pos_y);
+    Zombie(int pos_x, int pos_y, int collision_range);
 
     void update_move();
 
@@ -36,7 +37,9 @@ public:
 
     void attack(std::map<int, Character*>& enemies) override;
 
-private:
+    void witch_interact(int witch_pos_x, int witch_pos_y) override;
+
+protected:
     double distance_from(Character *other) const;
 
     bool target_collision();
