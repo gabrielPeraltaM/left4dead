@@ -13,13 +13,7 @@ class Client {
     bool host = false;
 public:
     Client(const char *hostname, const char *port);
-    void getFirstAction();
-    uint32_t createGame(std::string &scenarioName);
-    uint8_t joinGame(uint32_t gameId);
-    uint8_t getPlayerId();
-    void startGame();
-private:
-    void tentative_start();
+    void run();
 };
 
 

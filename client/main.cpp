@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     const char *port = argv[2];
 
     Client client(hostname, port);
-    client.startGame();
+    client.run();
 
     return 0;
 }

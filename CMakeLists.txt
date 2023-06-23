@@ -16,6 +16,17 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Resources
 add_definitions(-DRESOURCE_PATH="${PROJECT_SOURCE_DIR}/resources")
 
+# QT
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_PREFIX_PATH "/home/ignacio/Qt/6.5.0/gcc_64")
+find_package(Qt6 COMPONENTS
+        Core
+        Gui
+        Widgets
+        REQUIRED)
+
 # Client
 add_executable(client
         client/main.cpp
@@ -42,8 +53,21 @@ add_executable(client
         client/game/GameProtocol/KeyboardHandler.cpp
         client/game/GameProtocol/KeyboardHandler.h
         client/game/GameProtocol/ReceiverProtocol.cpp
-        client/game/GameProtocol/ReceiverProtocol.h)
-target_link_libraries(client PUBLIC SDL2pp)
+        client/game/GameProtocol/ReceiverProtocol.h
+        client/ClientProtocol.cpp
+        client/ClientProtocol.h
+        client/Menu/createroom.cpp
+        client/Menu/createroom.ui
+        client/Menu/joinroom.cpp
+        client/Menu/joinroom.ui
+        client/Menu/mainwindow.cpp
+        client/Menu/mainwindow.ui
+        client/Menu/room.cpp
+        client/Menu/room.ui
+        )
+target_link_libraries(client PUBLIC SDL2pp Qt6::Core
+        Qt6::Gui
+        Qt6::Widgets)
 
 # Server
 add_executable(server server_src/main.cpp
