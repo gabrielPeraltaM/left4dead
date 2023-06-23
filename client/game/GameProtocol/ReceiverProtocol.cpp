@@ -29,6 +29,10 @@ void ReceiverProtocol::handleReceive(std::vector<uint16_t>& state) {
     uint16_t character_state = ntohs(state[i + 3]);
     uint16_t health = ntohs(state[i + 4]);
     uint16_t ammo = htons(state[i + 5]);
+
+    if (playerId == 2) {
+      character_state = ATTACKING;
+    }
     /*
        * race condition
        * fijensé si hay manera de comunicar al receiver con el renderer que no
