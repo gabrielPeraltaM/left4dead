@@ -5,10 +5,9 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
-#include "./Match.h"
+#include "./Player.h"
 #include "./Matches.h"
 #include <string>
-#include <utility>
 
 #define CREATE 0
 #define JOIN 1
@@ -21,11 +20,7 @@ class Login {
     bool joined;
 
 public:
-    Login(std::string match_name, const int match_code) : match_name(std::move(match_name)),
-                                                          join_code(match_code),
-                                                          login_type(CREATE),
-                                                          joined(false) {
-    }
+    Login(std::string match_name, int match_code);
 
     int get_login(Matches &matches);
 

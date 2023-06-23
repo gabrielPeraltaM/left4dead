@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include <mutex>
-#include "Match.h"
+#include "Player.h"
 #include "../common_src/thread.h"
 #include "./game/GameState.h"
 
@@ -28,7 +28,7 @@ public:
 
     void run() override;
 
-    Match add_player();
+    Player add_player();
 
 private:
     void handle_game();

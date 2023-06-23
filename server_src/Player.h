@@ -10,14 +10,15 @@
 #include <atomic>
 #include <memory>
 
-class Match {
+class Player {
     ActionQueue &actions;
     StateQueue *states;
     std::atomic<bool> finished;
     int player_id;
+    bool host;
 
 public:
-    Match(ActionQueue &actions, StateQueue *states, int player_id);
+    Player(ActionQueue &actions, StateQueue *states, int player_id, bool host);
 
     void send_action(const std::shared_ptr<Action>& action);
 

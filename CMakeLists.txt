@@ -55,7 +55,7 @@ add_executable(server server_src/main.cpp
         server_src/Acceptor.cpp
         server_src/ClientHandler.cpp
         server_src/Matches.cpp
-        server_src/Match.cpp
+        server_src/Player.cpp
         common_src/thread.cpp
         common_src/protocol.cpp
         server_src/GroupMatch.cpp

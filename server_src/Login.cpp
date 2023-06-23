@@ -3,6 +3,12 @@
 //
 
 #include "Login.h"
+#include <utility>
+
+Login::Login(std::string match_name, int match_code) : match_name(std::move(match_name)),
+                                                       join_code(match_code),
+                                                       login_type(CREATE),
+                                                       joined(false) {}
 
 int Login::get_login(Matches &matches) {
     if (login_type == CREATE) {

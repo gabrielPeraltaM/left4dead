@@ -28,12 +28,16 @@ void GroupMatch::run() {
     }
 }
 
-Match GroupMatch::add_player() {
+Player GroupMatch::add_player() {
     std::lock_guard<std::mutex> lock(m);
     auto *state = new StateQueue;
     player_states.push_back(state);
     game.add_character(players, PLAYER_COLLISION_RANGE);
-    return {actions, state, players++};
+    bool host = false;
+    if (players == 0) {
+        host = true;
+    }
+    return {actions, state, players++, host};
 }
 
 void GroupMatch::handle_game() {

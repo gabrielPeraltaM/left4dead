@@ -7,7 +7,7 @@
 
 #include "./Login.h"
 #include "../common_src/socket.h"
-#include "Match.h"
+#include "Player.h"
 #include "Action.h"
 #include "State.h"
 #include <memory>
@@ -29,7 +29,7 @@ public:
 
     void send_player_id(int player_id);
 
-    void receive_start(Match &match);
+    void receive_start(Player &match);
 
     std::shared_ptr<Action> receive_action();
 

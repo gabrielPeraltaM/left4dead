@@ -6,8 +6,8 @@
 #include "State.h"
 #include <memory>
 
-Sender::Sender(ServerProtocol &protocol, Match &match) : protocol(protocol),
-                                                         match(match) {
+Sender::Sender(ServerProtocol &protocol, Player &match) : protocol(protocol),
+                                                          match(match) {
 }
 
 void Sender::run() {

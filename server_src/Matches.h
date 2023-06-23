@@ -5,7 +5,7 @@
 #ifndef MATCHES_H
 #define MATCHES_H
 
-#include "./Match.h"
+#include "./Player.h"
 #include "./Groups.h"
 #include <mutex>
 
@@ -19,7 +19,7 @@ public:
 
     int create(std::string name);
 
-    Match join(int match_code);
+    Player join(int match_code);
 };
 
 #endif //MATCHES_H

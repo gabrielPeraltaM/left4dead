@@ -4,8 +4,8 @@
 
 #include "Receiver.h"
 
-Receiver::Receiver(ServerProtocol &protocol, Match &match) : protocol(protocol),
-                                                             match(match) {
+Receiver::Receiver(ServerProtocol &protocol, Player &match) : protocol(protocol),
+                                                              match(match) {
 }
 
 void Receiver::run() {

@@ -4,9 +4,9 @@
 
 #include "Commands.h"
 
-Commands::Commands(ServerProtocol &protocol, Match &match) : match(match),
-                                                             sender(protocol, match),
-                                                             receiver(protocol, match) {
+Commands::Commands(ServerProtocol &protocol, Player &match) : match(match),
+                                                              sender(protocol, match),
+                                                              receiver(protocol, match) {
     sender.start();
 }
 

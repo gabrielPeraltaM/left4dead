@@ -7,14 +7,14 @@
 
 #include "../common_src/thread.h"
 #include "ServerProtocol.h"
-#include "Match.h"
+#include "Player.h"
 
 class Receiver : public Thread {
     ServerProtocol &protocol;
-    Match &match;
+    Player &match;
 
    public:
-    Receiver(ServerProtocol &protocol, Match &match);
+    Receiver(ServerProtocol &protocol, Player &match);
 
     void run() override;
 };

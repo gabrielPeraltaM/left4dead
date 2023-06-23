@@ -18,7 +18,8 @@ int Matches::create(std::string name) {
     return created++;
 }
 
-Match Matches::join(int match_code) {
+Player Matches::join(int match_code) {
+    std::lock_guard<std::mutex> lock(m);
     GroupMatch *group = groups.get_group(match_code);
     return group->add_player();
 }

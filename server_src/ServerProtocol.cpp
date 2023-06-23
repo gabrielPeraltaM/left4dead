@@ -99,7 +99,7 @@ void ServerProtocol::send_player_id(int player_id) {
     send_byte((uint8_t)player_id);
 }
 
-void ServerProtocol::receive_start(Match &match) {
+void ServerProtocol::receive_start(Player &match) {
     uint8_t start = -1;
     while (start != ACTION_START) {
         start = receive_byte();

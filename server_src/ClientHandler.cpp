@@ -21,7 +21,7 @@ void ClientHandler::run() {
         }
         protocol.send_join_fail();
     }
-    Match match = matches.join(match_code);
+    Player match = matches.join(match_code);
     protocol.send_player_id(match.get_player_id());
     protocol.receive_start(match);
     Commands commands(protocol, match);
