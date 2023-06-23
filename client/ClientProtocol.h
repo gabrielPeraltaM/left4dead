@@ -14,6 +14,8 @@ class ClientProtocol {
   Socket &socket;
   bool &was_closed;
   bool host = false;
+  int mapSelected = 0;
+  int playerSelected = 0;
  public:
   ClientProtocol(Socket &socket, bool &was_closed);
   uint32_t createGame(std::string &scenarioName);
@@ -21,6 +23,10 @@ class ClientProtocol {
   uint8_t getPlayerId();
   void sendCharacterType(uint8_t characterType);
   void startGame();
+  void waitStart();
+  bool isHost();
+  void setMapSelected(int mapSelected);
+  void setPlayerSelected(int playerSelected);
 };
 
 #endif  // LEFT4DEAD_CLIENTPROTOCOL_H

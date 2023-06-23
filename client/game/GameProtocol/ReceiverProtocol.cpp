@@ -33,7 +33,6 @@ void ReceiverProtocol::handleReceive(std::vector<uint16_t>& state) {
        * race condition
        * fijensé si hay manera de comunicar al receiver con el renderer que no
        * sea compartiendo el vector de caracteres...
-       * MONITOR
      */
     switch (character_state) {
       case DEAD:

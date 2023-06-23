@@ -16,14 +16,18 @@ class BackgroundRenderer {
 private:
     Renderer &renderer;
     std::map<int, std::shared_ptr<Character>> &characters;
+    const int mapSelected;
+    std::string mapPath = RESOURCE_PATH "/background" + std::to_string(mapSelected) + "/";
     Texture floor = Texture(renderer,
-                            RESOURCE_PATH "/background/road.png");
+                            mapPath + "road.png");
     Texture sky = Texture(renderer,
-                          RESOURCE_PATH "/background/sky.png");
+                          mapPath + "sky.png");
     Texture wall = Texture(renderer,
-                           RESOURCE_PATH "/background/wall.png");
+                           mapPath + "wall.png");
     Texture houses = Texture(renderer,
-                             RESOURCE_PATH "/background/houses.png");
+                             mapPath + "/houses.png");
+    Texture houses2 = Texture(renderer,
+                             mapPath + "/houses2.png");
     const int LEVEL_WIDTH = floor.GetWidth();
     int cameraOffset = 0;
     Rect camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
@@ -31,7 +35,7 @@ private:
     Rect housesCamera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
     const int playerId;
 public:
-    BackgroundRenderer(Renderer &renderer, std::map<int, std::shared_ptr<Character>> &characters, int playerId);
+    BackgroundRenderer(Renderer &renderer, std::map<int, std::shared_ptr<Character>> &characters, int playerId, int mapSelected);
     void render();
     ~BackgroundRenderer() = default;
 };

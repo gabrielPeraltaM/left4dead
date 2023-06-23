@@ -21,12 +21,9 @@ void Game::start() {
   Mix_PlayMusic(music, -1);
 
   // Load initial Players
-  int posX = 100;
-  int posY = 900;
   for (int i = 0; i < numPlayers; i++) {
-    auto *character = new Character(posX, posY, i, "IDF");
+    auto *character = new Character(i, "IDF");
     characters[i] = std::shared_ptr<Character>(character);
-    posX += 100;
   }
 
   // Game loop
@@ -51,5 +48,5 @@ Game::~Game() {
   socket.close();
 }
 
-Game::Game(Socket &socket, int playerId, int numPlayers)
-    : socket(socket), playerId(playerId), numPlayers(numPlayers) {}
+Game::Game(Socket &socket, int playerId, int numPlayers, int mapSelected)
+    : socket(socket), playerId(playerId), numPlayers(numPlayers), mapSelected(mapSelected) {}

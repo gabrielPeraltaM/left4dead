@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="4" column="0">
+   <item row="5" column="0">
     <widget class="QPushButton" name="Leave">
      <property name="font">
       <font>
@@ -26,16 +26,49 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QPushButton" name="Start">
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
+   <item row="3" column="0" colspan="2">
+    <widget class="QGroupBox" name="MapBox">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>120</height>
+      </size>
      </property>
-     <property name="text">
-      <string>Start</string>
+     <property name="title">
+      <string>Select Map</string>
      </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QRadioButton" name="radioButton">
+        <property name="text">
+         <string>Sabana</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">MapType</string>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_2">
+        <property name="text">
+         <string>City</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">MapType</string>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_3">
+        <property name="text">
+         <string>Dark</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">MapType</string>
+        </attribute>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="1" column="0" colspan="2">
@@ -54,38 +87,69 @@
     </widget>
    </item>
    <item row="2" column="0" colspan="2">
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Select a Player Type:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="IDF">
-       <property name="text">
-        <string>IDF</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="P90">
-       <property name="text">
-        <string>P90</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="Scout">
-       <property name="text">
-        <string>Scout</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QGroupBox" name="PlayerBox">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>130</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Select a Player Type</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QRadioButton" name="IDF">
+        <property name="text">
+         <string>IDF</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">PlayerType</string>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="P90">
+        <property name="text">
+         <string>P90</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">PlayerType</string>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="Scout">
+        <property name="text">
+         <string>Scout</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <attribute name="buttonGroup">
+         <string notr="true">PlayerType</string>
+        </attribute>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
-   <item row="3" column="0" colspan="2">
+   <item row="4" column="0" colspan="2">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -97,6 +161,18 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="5" column="1">
+    <widget class="QPushButton" name="Start">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Start</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -135,4 +211,8 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="PlayerType"/>
+  <buttongroup name="MapType"/>
+ </buttongroups>
 </ui>

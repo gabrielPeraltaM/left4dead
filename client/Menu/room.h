@@ -3,21 +3,28 @@
 
 #include <QDialog>
 
+#include "client/ClientProtocol.h"
+
 namespace Ui {
 class Room;
 }
 
-class Room : public QDialog
-{
-    Q_OBJECT
+class Room : public QDialog {
+  Q_OBJECT
 
-public:
-    explicit Room(QWidget *parent = nullptr, QString id = 0);
-    ~Room();
+ public:
+  explicit Room(ClientProtocol &protocol, QWidget *parent = nullptr,
+                QString id = nullptr);
+  ~Room();
 
-private:
-    Ui::Room *ui;
-    QString id;
+ private slots:
+  void on_MapType_clicked();
+  void on_PlayerType_clicked();
+
+ private:
+  Ui::Room *ui;
+  QString id;
+  ClientProtocol &protocol;
 };
 
-#endif // ROOM_H
+#endif  // ROOM_H

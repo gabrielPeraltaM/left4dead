@@ -5,30 +5,34 @@
 #ifndef SDL_PRUEBA_GAMERENDERER_H
 #define SDL_PRUEBA_GAMERENDERER_H
 
-
-#include "common_src/thread.h"
-#include "client/characters/Character.h"
-#include "BackgroundRenderer.h"
-#include "UIRenderer.h"
-#include "PlayerRenderer.h"
 #include <SDL2pp/SDL2pp.hh>
+
+#include "BackgroundRenderer.h"
+#include "PlayerRenderer.h"
+#include "UIRenderer.h"
+#include "client/characters/Character.h"
+#include "common_src/thread.h"
 
 using namespace SDL2pp;
 
 class GameRenderer : public Thread {
-private:
-    Renderer &renderer;
-    bool &running;
-    std::map<int, std::shared_ptr<Character>> &characters;
-    const int playerId;
-    BackgroundRenderer backgroundRenderer = BackgroundRenderer(renderer, characters, playerId);
-    UIRenderer uiRenderer = UIRenderer(renderer, 100, 100, 100, 100);
-    PlayerRenderer playerRenderer = PlayerRenderer(characters, renderer);
-public:
-    GameRenderer(Renderer &renderer, bool &running, std::map<int, std::shared_ptr<Character>> &characters, int playerId);
+ private:
+  Renderer &renderer;
+  bool &running;
+  std::map<int, std::shared_ptr<Character>> &characters;
+  const int playerId;
+  const int mapSelected;
+  BackgroundRenderer backgroundRenderer =
+      BackgroundRenderer(renderer, characters, playerId, mapSelected);
+  UIRenderer uiRenderer = UIRenderer(renderer, 100, 100, 100, 100);
+  PlayerRenderer playerRenderer = PlayerRenderer(characters, renderer);
 
-    void run() override;
+ public:
+  GameRenderer(Renderer &renderer, bool &running,
+               std::map<int, std::shared_ptr<Character>> &characters,
+               int playerId, int mapSelected);
+
+  void run() override;
 };
 
-
-#endif //SDL_PRUEBA_GAMERENDERER_H
+#endif  // SDL_PRUEBA_GAMERENDERER_H

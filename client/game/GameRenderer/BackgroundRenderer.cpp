@@ -6,8 +6,8 @@
 
 BackgroundRenderer::BackgroundRenderer(Renderer &renderer,
                                        std::map<int, std::shared_ptr<Character>> &characters,
-                                       int playerId)
-    : renderer(renderer), characters(characters), playerId(playerId) {}
+                                       int playerId, int mapSelected)
+    : renderer(renderer), characters(characters), playerId(playerId), mapSelected(mapSelected) {}
 
 void BackgroundRenderer::render() {
   cameraOffset = characters.at(playerId)->getPosX() - SCREEN_WIDTH / 2;
@@ -29,6 +29,7 @@ void BackgroundRenderer::render() {
   // Show the Background
   renderer.Copy(sky, skyCamera, NullOpt);
   renderer.Copy(houses, housesCamera, NullOpt);
+  renderer.Copy(houses2, housesCamera, NullOpt);
   renderer.Copy(wall, camera, NullOpt);
   renderer.Copy(floor, camera, NullOpt);
 

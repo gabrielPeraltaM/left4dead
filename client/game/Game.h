@@ -31,6 +31,7 @@ class Game {
     Socket &socket;
     const int playerId;
     const int numPlayers;
+    const int mapSelected;
     bool running = true;
 
     // Storage
@@ -38,12 +39,12 @@ class Game {
     Mix_Music *music = nullptr;
 
     // Threads
-    GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId);
+    GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId, mapSelected);
     Receiver receiver = Receiver(socket, running, characters);
     Sender sender = Sender(socket, running);
 
 public:
-    Game(Socket &socket, int playerId, int numPlayers);
+    Game(Socket &socket, int playerId, int numPlayers, int mapSelected);
 
     void start();
 

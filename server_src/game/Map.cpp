@@ -7,10 +7,9 @@
 #include <arpa/inet.h>
 #include <random>
 
-#define POS_X_ONE 200
-#define POS_Y_ONE 900
-#define POS_X_TWO 350
-#define POS_Y_TWO 900
+#define POS_X_FIRST 300
+#define POS_Y_FIRST 900
+#define POSX_GAP 100
 
 #define ZOMBIE1_POS_X 800
 #define ZOMBIE1_POS_Y 900
@@ -134,15 +133,9 @@ bool Map::limit_collision(Character *character, int move_x, int move_y) const {
 }
 
 void Map::calculate_position(int &pos_x, int &pos_y) {
-    if (players == 0) {
-        pos_x = POS_X_ONE;
-        pos_y = POS_Y_ONE;
-        return;
-    }
-    if (players == 1) {
-        pos_x = POS_X_TWO;
-        pos_y = POS_Y_TWO;
-    }
+    pos_x = POS_X_FIRST + players * POSX_GAP;
+    pos_y = POS_Y_FIRST;
+
     /*std::random_device rd;
     std::uniform_int_distribution<int> dist_x(PLAYER_ZONE_LIMIT_LEFT, PLAYER_ZONE_LIMIT_RIGHT);
     std::uniform_int_distribution<int> dist_y(limit_y, ZONE_LIMIT_UP);

@@ -27,6 +27,7 @@ private:
 
     void setStatus(actions newStatus);
 public:
+    Character(int id, const char* type);
     Character(int posX, int posY, int id, const char* type);
     Character(int posX, int posY, int id, const char* type, int frameSize);
     ~Character() = default;

@@ -7,6 +7,9 @@
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 
+Character::Character(int id, const char *type)
+    : posX(0), posY(0), id(id), type(type) {}
+
 Character::Character(int posX, int posY, int id, const char *type)
     : posX(posX), posY(posY), id(id), type(type) {}
 
@@ -29,9 +32,7 @@ void Character::attack() { setStatus(ATTACK); }
 
 void Character::hurt() { setStatus(HURT); }
 
-void Character::die() {
-  setStatus(DIE);
-}
+void Character::die() { setStatus(DIE); }
 
 void Character::reload() { setStatus(RELOAD); }
 
@@ -92,7 +93,6 @@ std::string Character::getAction() const {
   }
 }
 
-
 void Character::setStatus(actions newStatus) { status = newStatus; }
 
 int Character::getFrameSize() const { return frameSize; }
@@ -101,10 +101,6 @@ Character::Character(int posX, int posY, int id, const char *type,
                      int frameSize)
     : posX(posX), posY(posY), id(id), type(type), frameSize(frameSize) {}
 
-void Character::kill() {
-  dead = true;
-}
+void Character::kill() { dead = true; }
 
-bool Character::isDead() const {
-  return dead;
-}
+bool Character::isDead() const { return dead; }
