@@ -10,6 +10,7 @@
 class Client {
     Socket peer;
     bool was_closed = false;
+    bool host = false;
 public:
     Client(const char *hostname, const char *port);
     void getFirstAction();

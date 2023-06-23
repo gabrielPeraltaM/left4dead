@@ -81,7 +81,7 @@ add_executable(server server_src/main.cpp
         server_src/game/Witch.cpp
         server_src/game/Idf.cpp
         server_src/game/Scout.cpp
-        )
+        server_src/ActionStart.cpp)
 
 # Google test
 include(FetchContent)

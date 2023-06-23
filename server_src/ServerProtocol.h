@@ -29,7 +29,7 @@ public:
 
     void send_player_id(int player_id);
 
-    void receive_start(Player &match);
+    void receive_start(Player &player);
 
     std::shared_ptr<Action> receive_action();
 

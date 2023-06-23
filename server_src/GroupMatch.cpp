@@ -21,6 +21,7 @@ GroupMatch::~GroupMatch() {
 }
 
 void GroupMatch::run() {
+    actions.pop();
     std::chrono::milliseconds tic(1000/60);
     while (not finished) { // change this
         handle_game();

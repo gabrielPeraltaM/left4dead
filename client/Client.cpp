@@ -40,6 +40,7 @@ void Client::getFirstAction() {
         std::cout << "Joined game with id: " << gameId << std::endl;
     } else if (command == "create") {
         uint32_t gameId = createGame(argument);
+        host = true;
         std::cout << "Game created with id: " << gameId << std::endl;
     } else {
         throw std::runtime_error("Invalid command");
@@ -99,13 +100,15 @@ uint8_t Client::getPlayerId() {
 }
 
 void Client::tentative_start() {
-    std::string action;
-    while (action != "start") {
-        std::cin >> action;
+    if (host) {
+        std::string action;
+        while (action != "start") {
+            std::cin >> action;
+        }
+        uint8_t start = START;
+        peer.sendall(&start, sizeof(start), &was_closed);
+        if (was_closed) throw std::runtime_error("Connection closed");
     }
-    uint8_t start = START;
-    peer.sendall(&start, 1, &was_closed);
-    if (was_closed) throw std::runtime_error("Connection closed");
     uint16_t characters;
     peer.recvall(&characters, 2, &was_closed);
     if (was_closed) throw std::runtime_error("Connection closed");

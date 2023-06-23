@@ -99,12 +99,15 @@ void ServerProtocol::send_player_id(int player_id) {
     send_byte((uint8_t)player_id);
 }
 
-void ServerProtocol::receive_start(Player &match) {
+void ServerProtocol::receive_start(Player &player) {
     uint8_t start = -1;
-    while (start != ACTION_START) {
-        start = receive_byte();
+    if (player.is_host()) {
+        while (start != ACTION_START) {
+            start = receive_byte();
+        }
+        player.send_start();
     }
-    auto state = match.receive_state();
+    auto state = player.receive_state();
     uint16_t characters = htons(state->characters);
     if (sk.sendall(&characters, sizeof(characters), &was_closed) == 0) {
         throw LibError(EPIPE, "The client was disconnected");

@@ -22,6 +22,8 @@ public:
 
     void send_action(const std::shared_ptr<Action>& action);
 
+    void send_start();
+
     std::shared_ptr<State> receive_state();
 
     void finish();
@@ -29,6 +31,8 @@ public:
     bool is_finished();
 
     int get_player_id() const;
+
+    bool is_host() const;
 };
 
 #endif //MATCH_H
