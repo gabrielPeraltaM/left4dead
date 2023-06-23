@@ -7,11 +7,11 @@ set(SDL2PP_WITH_TTF YES)
 set(SDL2PP_WITH_MIXER YES)
 add_subdirectory(SDL2pp)
 find_package(SDL2pp REQUIRED)
+include_directories(${SDL2PP_INCLUDE_DIRS})
 
 # Compilation flags
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-include_directories(${SDL2PP_INCLUDE_DIRS})
 
 # Resources
 add_definitions(-DRESOURCE_PATH= "${PROJECT_SOURCE_DIR}/resources")
