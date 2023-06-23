@@ -28,11 +28,14 @@ void Game::start() {
   characters[1] = player2;
 
   // Add initial zombies
-  std::shared_ptr<Character> zombie = std::make_shared<Character>(800, 900, 2, "Zombie", 96);
+  std::shared_ptr<Character> zombie = std::make_shared<Character>(800, 900, 2, "Witch", 96);
   characters[2] = zombie;
 
-  std::shared_ptr<Character> zombie2 = std::make_shared<Character>(900, 900, 3, "Jumper", 96);
+  std::shared_ptr<Character> zombie2 = std::make_shared<Character>(900, 900, 3, "Spear", 128);
   characters[3] = zombie2;
+
+  std::shared_ptr<Character> zombie3 = std::make_shared<Character>(900, 900, 3, "Venom", 128);
+  characters[4] = zombie2;
 
   // Game loop
   gameRenderer.start();
