@@ -20,22 +20,14 @@ void Game::start() {
   music = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music.mp3");
   Mix_PlayMusic(music, -1);
 
-  // Add initial players
-  std::shared_ptr<Character> player = std::make_shared<Character>(200, 900, 0, "IDF");
-  characters[0] = player;
-
-  std::shared_ptr<Character> player2 = std::make_shared<Character>(350, 900, 1, "Scout");
-  characters[1] = player2;
-
-  // Add initial zombies
-  std::shared_ptr<Character> zombie = std::make_shared<Character>(800, 900, 2, "Witch", 96);
-  characters[2] = zombie;
-
-  std::shared_ptr<Character> zombie2 = std::make_shared<Character>(900, 900, 3, "Spear", 128);
-  characters[3] = zombie2;
-
-  std::shared_ptr<Character> zombie3 = std::make_shared<Character>(900, 900, 3, "Venom", 128);
-  characters[4] = zombie2;
+  // Load initial Players
+  int posX = 100;
+  int posY = 900;
+  for (int i = 0; i < numPlayers; i++) {
+    auto *character = new Character(posX, posY, i, "IDF");
+    characters[i] = std::shared_ptr<Character>(character);
+    posX += 100;
+  }
 
   // Game loop
   gameRenderer.start();
@@ -52,7 +44,6 @@ void Game::start() {
   gameRenderer.join();
   receiver.join();
   sender.join();
-
 }
 
 Game::~Game() {
@@ -60,4 +51,5 @@ Game::~Game() {
   socket.close();
 }
 
-Game::Game(Socket &socket, int playerId) : socket(socket), playerId(playerId) {}
+Game::Game(Socket &socket, int playerId, int numPlayers)
+    : socket(socket), playerId(playerId), numPlayers(numPlayers) {}

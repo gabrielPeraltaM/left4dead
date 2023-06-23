@@ -19,6 +19,7 @@ class ClientProtocol {
   uint32_t createGame(std::string &scenarioName);
   uint8_t joinGame(uint32_t gameId);
   uint8_t getPlayerId();
+  void sendCharacterType(uint8_t characterType);
   void startGame();
 };
 

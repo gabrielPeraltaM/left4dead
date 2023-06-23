@@ -30,6 +30,7 @@ class Game {
     // Game Variables
     Socket &socket;
     const int playerId;
+    const int numPlayers;
     bool running = true;
 
     // Storage
@@ -42,7 +43,7 @@ class Game {
     Sender sender = Sender(socket, running);
 
 public:
-    Game(Socket &socket, int playerId);
+    Game(Socket &socket, int playerId, int numPlayers);
 
     void start();
 

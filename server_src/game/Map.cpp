@@ -167,15 +167,16 @@ bool Map::collision(int pos_x, int pos_y) {
 }
 
 void Map::initialize_zombies() {
+    /*
     auto *zombie1 = new Zombie(ZOMBIE1_POS_X, ZOMBIE1_POS_Y, ZOMBIE_DEFAULT_COLLISION_RANGE,
                                INFECTED);
     auto *zombie2 = new Zombie(ZOMBIE2_POS_X, ZOMBIE2_POS_Y, ZOMBIE_DEFAULT_COLLISION_RANGE,
                                JUMPER);
-    zombies[2] = zombie1;
-    zombies[3] = zombie2;
-    elements[2] = zombie1;
-    elements[3] = zombie2;
-    /*std::random_device rd;
+    //zombies[2] = zombie1;
+    //zombies[3] = zombie2;
+    //elements[2] = zombie1;
+    //elements[3] = zombie2;
+    std::random_device rd;
     std::uniform_int_distribution<int> dist_x(ZOMBIES_ZONE_LIMIT_LEFT, ZOMBIES_ZONE_LIMIT_RIGHT);
     std::uniform_int_distribution<int> dist_y(limit_y, ZONE_LIMIT_UP);
     for (int i = MAX_PLAYER_AMOUNT; i < MAX_PLAYER_AMOUNT + ZOMBIES_AMOUNT; i++) {

@@ -82,7 +82,14 @@ void ClientProtocol::startGame() {
   numPlayers = ntohs(numPlayers);
   std::cout << "numPlayers: " << numPlayers << std::endl;
 
-  Game game(socket, playerId);
+  Game game(socket, playerId, numPlayers);
   game.start();
 
 }
+void ClientProtocol::sendCharacterType(uint8_t characterType) {
+    uint8_t opcode = characterType;
+
+    socket.sendall(&opcode, 1, &was_closed);
+    if (was_closed) throw std::runtime_error("Connection closed");
+}
+
