@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <vector>
 #include "client/characters/Character.h"
+#include <memory>
 class ReceiverProtocol {
   std::map<int, std::shared_ptr<Character>> &characters;
  public:

@@ -5,7 +5,7 @@
 #ifndef SDL_PRUEBA_BACKGROUNDRENDERER_H
 #define SDL_PRUEBA_BACKGROUNDRENDERER_H
 
-
+#include <memory>
 #include <SDL2pp/SDL2pp.hh>
 #include "client/characters/Character.h"
 
