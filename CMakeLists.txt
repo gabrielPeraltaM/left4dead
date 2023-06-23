@@ -1,20 +1,21 @@
 cmake_minimum_required(VERSION 3.24 FATAL_ERROR)
 project(left4dead LANGUAGES CXX VERSION 0.10 DESCRIPTION "Left 4 Dead Grupo 8")
 
+add_definitions(-DRESOURCE_PATH="${PROJECT_SOURCE_DIR}/resources")
 # SDL
 set(SDL2PP_WITH_IMAGE YES)
 set(SDL2PP_WITH_TTF YES)
 set(SDL2PP_WITH_MIXER YES)
 add_subdirectory(SDL2pp)
 find_package(SDL2pp REQUIRED)
-include_directories(${SDL2PP_INCLUDE_DIRS})
 
 # Compilation flags
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Resources
-add_definitions(-DRESOURCE_PATH= "${PROJECT_SOURCE_DIR}/resources")
+
+include_directories(${SDL2PP_INCLUDE_DIRS})
 
 # Client
 add_executable(client
