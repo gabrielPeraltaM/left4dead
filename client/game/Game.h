@@ -39,8 +39,6 @@ class Game {
 
     // Music
     Mix_Music *music = nullptr;
-    Mix_Music *music2 = nullptr;
-    Mix_Music *music3 = nullptr;
     int musicIndex = 0;
 
     // Threads

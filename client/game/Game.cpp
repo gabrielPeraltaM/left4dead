@@ -17,9 +17,14 @@ void Game::start() {
 
   // Load music
   Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-  music = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music.mp3");
-  music2 = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music2.mp3");
-  music3 = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music3.mp3");
+  if (mapSelected == 0) {
+    music = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music.mp3");
+  } else if (mapSelected == 1) {
+    music = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music2.mp3");
+  } else {
+    music = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music3.mp3");
+  }
+  Mix_PlayMusic(music, -1);
 
   // Load initial Players
   for (int i = 0; i < numPlayers; i++) {
@@ -33,26 +38,10 @@ void Game::start() {
   sender.start();
 
   while (running) {
-    // Check if music has finished and start the next one
-    if (!Mix_PlayingMusic()) {
-      musicIndex++;
-      if (musicIndex == 3) {
-        musicIndex = 0;
-      }
-      if (musicIndex == 0) {
-        Mix_PlayMusic(music, 1);
-      } else if (musicIndex == 1) {
-        Mix_PlayMusic(music2, 1);
-      } else if (musicIndex == 2) {
-        Mix_PlayMusic(music3, 1);
-      }
-    }
     SDL_Delay(1000);  // No hace falta que sea tan rapido
   }
 
   Mix_FreeMusic(music);
-  Mix_FreeMusic(music2);
-  Mix_FreeMusic(music3);
   SDL_Quit();
 
   gameRenderer.join();

@@ -92,7 +92,6 @@ void ClientProtocol::waitStart() {
   if (was_closed) throw std::runtime_error("Connection closed");
 
   numPlayers = ntohs(numPlayers);
-  std::cout << "numPlayers: " << mapSelected << std::endl;
 
   Game game(socket, playerId, numPlayers, mapSelected);
   game.start();
@@ -101,7 +100,6 @@ void ClientProtocol::waitStart() {
 bool ClientProtocol::isHost() { return host; }
 
 void ClientProtocol::setMapSelected(int map) {
-  std::cout << "mapSelected: " << map << std::endl;
   mapSelected = map;
 }
 
