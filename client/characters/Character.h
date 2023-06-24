@@ -33,7 +33,6 @@ public:
     ~Character() = default;
     // Actions
     void move(int x, int y);
-    void run(int x, int y);
     void attack();
     void hurt();
     void die();

@@ -35,37 +35,32 @@ int KeyboardHandler::getDirection() const {
 }
 
 uint8_t KeyboardHandler::getMovement() const {
-  bool isRunning = false;
-  if (keys.at(SDLK_LSHIFT)) {
-        isRunning = true;
-  }
-
   uint8_t movement = 0;
   int direction = getDirection();
   switch (direction) {
     case 1:
-      movement = isRunning ? RUN_LEFT : MOVE_LEFT;
+      movement = MOVE_LEFT;
       break;
     case 2:
-      movement = isRunning ? RUN_RIGHT : MOVE_RIGHT;
+      movement = MOVE_RIGHT;
       break;
     case 4:
-      movement = isRunning ? RUN_UP : MOVE_UP;
+      movement = MOVE_UP;
       break;
     case 8:
-      movement = isRunning ? RUN_DOWN : MOVE_DOWN;
+      movement = MOVE_DOWN;
       break;
     case 5:
-      movement = isRunning ? RUN_UP_LEFT : MOVE_UP_LEFT;
+      movement = MOVE_UP_LEFT;
       break;
     case 6:
-      movement = isRunning ? RUN_UP_RIGHT : MOVE_UP_RIGHT;
+      movement = MOVE_UP_RIGHT;
       break;
     case 9:
-      movement = isRunning ? RUN_DOWN_LEFT : MOVE_DOWN_LEFT;
+      movement = MOVE_DOWN_LEFT;
       break;
     case 10:
-      movement = isRunning ? RUN_DOWN_RIGHT : MOVE_DOWN_RIGHT;
+      movement = MOVE_DOWN_RIGHT;
       break;
     default:
       break;
@@ -75,7 +70,7 @@ uint8_t KeyboardHandler::getMovement() const {
 
 uint8_t KeyboardHandler::getAction() const {
   uint8_t action = getMovement();
-  
+
   if (keys.at(SDLK_r)) {
     action = RELOAD;
   }

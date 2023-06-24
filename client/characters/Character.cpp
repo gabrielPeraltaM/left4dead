@@ -28,12 +28,6 @@ void Character::move(int x, int y) {
   posY = y;
 }
 
-void Character::run(int x, int y) {
-  move(x, y);
-  if (status != IDLE)
-    setStatus(RUN_UP);
-}
-
 void Character::attack() { setStatus(ATTACK); }
 
 void Character::hurt() { setStatus(HURT); }

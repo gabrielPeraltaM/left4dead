@@ -16,7 +16,6 @@ class ActionMove : public Action {
 
    public:
     ActionMove(int move_x, int move_y);
-    ActionMove(int move_x, int move_y, bool isRunning);
 
     void execute(Map &map) override;
 };

@@ -172,34 +172,6 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
     case RELOAD:
       return std::make_shared<ActionReload>();
 
-    case RUN_DOWN:
-      return std::make_shared<ActionMove>(0, -MOVE_SIZE, true);
-
-    case RUN_UP:
-      return std::make_shared<ActionMove>(0, MOVE_SIZE, true);
-
-    case RUN_LEFT:
-      return std::make_shared<ActionMove>(-MOVE_SIZE, 0, true);
-
-    case RUN_RIGHT:
-      return std::make_shared<ActionMove>(MOVE_SIZE, 0, true);
-
-    case RUN_DOWN_LEFT:
-      return std::make_shared<ActionMove>(-MOVE_SIZE / sqrt(2),
-                                          -MOVE_SIZE / sqrt(2), true);
-
-    case RUN_DOWN_RIGHT:
-      return std::make_shared<ActionMove>(MOVE_SIZE / sqrt(2),
-                                          -MOVE_SIZE / sqrt(2), true);
-
-    case RUN_UP_LEFT:
-      return std::make_shared<ActionMove>(-MOVE_SIZE / sqrt(2),
-                                          MOVE_SIZE / sqrt(2), true);
-
-    case RUN_UP_RIGHT:
-      return std::make_shared<ActionMove>(MOVE_SIZE / sqrt(2),
-                                          MOVE_SIZE / sqrt(2), true);
-
     default:
       // change this
       return nullptr;
