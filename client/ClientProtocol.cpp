@@ -86,22 +86,26 @@ void ClientProtocol::sendCharacterType(uint8_t characterType) {
 void ClientProtocol::waitStart() {
   uint8_t playerId = getPlayerId();
   uint16_t numPlayers;
+  uint16_t numZombies;
 
   socket.recvall(&numPlayers, 2, &was_closed);
   if (was_closed) throw std::runtime_error("Connection closed");
 
   numPlayers = ntohs(numPlayers);
+  std::cout << "numPlayers: " << numPlayers << std::endl;
 
-  Game game(socket, playerId, numPlayers, mapSelected);
+  socket.recvall(&numZombies, 2, &was_closed);
+  if (was_closed) throw std::runtime_error("Connection closed");
+
+  numZombies = ntohs(numZombies);
+  std::cout << "numZombies: " << numZombies << std::endl;
+
+  Game game(socket, playerId, numPlayers, mapSelected, numZombies);
   game.start();
 }
 
 bool ClientProtocol::isHost() { return host; }
 
-void ClientProtocol::setMapSelected(int map) {
-  mapSelected = map;
-}
+void ClientProtocol::setMapSelected(int map) { mapSelected = map; }
 
-void ClientProtocol::setPlayerSelected(int player) {
-  playerSelected = player;
-}
+void ClientProtocol::setPlayerSelected(int player) { playerSelected = player; }

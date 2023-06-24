@@ -13,8 +13,9 @@ class State{
 public:
     std::vector<uint16_t> elements;
     uint16_t characters;
+    uint16_t zombies;
 
-    State(std::vector<uint16_t> elements, uint16_t characters);
+    State(std::vector<uint16_t> elements, uint16_t characters, uint16_t zombies);
 };
 
 #endif //LEFT4DEAD_STATE_H

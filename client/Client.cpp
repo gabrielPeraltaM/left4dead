@@ -14,6 +14,7 @@
 #include "client/Menu/mainwindow.h"
 #include "client/game/Game.h"
 
+
 Client::Client(const char *hostname, const char *port) : peer(hostname, port) {}
 
 void Client::run() {

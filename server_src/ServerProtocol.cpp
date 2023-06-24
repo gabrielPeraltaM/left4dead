@@ -121,6 +121,10 @@ void ServerProtocol::receive_start(Player& player) {
   if (sk.sendall(&characters, sizeof(characters), &was_closed) == 0) {
     throw LibError(EPIPE, "The client was disconnected");
   }
+  uint16_t zombies = htons(state->zombies);
+  if (sk.sendall(&zombies, sizeof(zombies), &was_closed) == 0) {
+    throw LibError(EPIPE, "The client was disconnected");
+  }
   auto elements = state->elements;
   if (sk.sendall(elements.data(), elements.size() * 2, &was_closed) == 0) {
     throw LibError(EPIPE, "The client was disconnected");

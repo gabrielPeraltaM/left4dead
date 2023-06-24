@@ -31,6 +31,7 @@ class Game {
     Socket &socket;
     const int playerId;
     const int numPlayers;
+    const int numZombies;
     const int mapSelected;
     bool running = true;
 
@@ -43,11 +44,11 @@ class Game {
 
     // Threads
     GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId, mapSelected);
-    Receiver receiver = Receiver(socket, running, characters);
+    Receiver receiver = Receiver(socket, running, characters, numZombies+numPlayers);
     Sender sender = Sender(socket, running);
 
 public:
-    Game(Socket &socket, int playerId, int numPlayers, int mapSelected);
+    Game(Socket &socket, int playerId, int numPlayers, int mapSelected, int numZombies);
 
     void start();
 

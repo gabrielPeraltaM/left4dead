@@ -14,8 +14,8 @@ using namespace SDL2pp;
 
 class Character {
 private:
-    int posX;
-    int posY;
+    int posX = 0;
+    int posY = 0;
     int cameraX = 0;
     int cameraY = 0;
     int id;
@@ -30,6 +30,7 @@ public:
     Character(int id, const char* type);
     Character(int posX, int posY, int id, const char* type);
     Character(int posX, int posY, int id, const char* type, int frameSize);
+    Character(int id, int type);
     ~Character() = default;
     // Actions
     void move(int x, int y);

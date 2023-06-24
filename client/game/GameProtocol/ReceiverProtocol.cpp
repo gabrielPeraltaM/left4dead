@@ -7,7 +7,6 @@
 #include <netinet/in.h>
 
 #define CHARACTER_ATTRIBUTES_AMOUNT 7
-#define CHARACTER_AMOUNT 4
 #include "common_src/actions.h"
 
 enum States : uint16_t {
@@ -20,7 +19,7 @@ enum States : uint16_t {
 };
 
 void ReceiverProtocol::handleReceive(std::vector<uint16_t>& state) {
-  for (int i = 0; i < CHARACTER_AMOUNT * CHARACTER_ATTRIBUTES_AMOUNT;
+  for (int i = 0; i < numCharacters * CHARACTER_ATTRIBUTES_AMOUNT;
        i += CHARACTER_ATTRIBUTES_AMOUNT) {
     uint16_t playerId = ntohs(state[i]);
     uint16_t x = ntohs(state[i + 1]);
@@ -28,6 +27,7 @@ void ReceiverProtocol::handleReceive(std::vector<uint16_t>& state) {
     uint16_t character_state = ntohs(state[i + 3]);
     uint16_t health = ntohs(state[i + 4]);
     uint16_t ammo = htons(state[i + 5]);
+
     /*
      * race condition
      * fijensé si hay manera de comunicar al receiver con el renderer que no
@@ -35,26 +35,36 @@ void ReceiverProtocol::handleReceive(std::vector<uint16_t>& state) {
      */
     switch (character_state) {
       case DEAD:
-        characters.at(playerId)->die();
+        characters[playerId]->die();
         break;
       case SHOOTING:
-        characters.at(playerId)->shoot();
+        characters[playerId]->shoot();
         break;
       case ATTACKING:
-        characters.at(playerId)->attack();
+        characters[playerId]->attack();
         break;
       case RELOADING:
-        characters.at(playerId)->reload();
+        characters[playerId]->reload();
         break;
       case DAMAGING:
-        characters.at(playerId)->hurt();
+        characters[playerId]->hurt();
         break;
       default:
-        characters.at(playerId)->move(x, y);
+        characters[playerId]->move(x, y);
         break;
     }
   }
 }
 ReceiverProtocol::ReceiverProtocol(
-    std::map<int, std::shared_ptr<Character>>& characters)
-    : characters(characters) {}
+    std::map<int, std::shared_ptr<Character>>& characters, int numCharacters)
+    : characters(characters), numCharacters(numCharacters) {}
+
+void ReceiverProtocol::handleFirstReceive(std::vector<uint16_t>& state) {
+  for (int i = 0; i < numCharacters * CHARACTER_ATTRIBUTES_AMOUNT;
+       i += CHARACTER_ATTRIBUTES_AMOUNT) {
+        uint16_t playerId = ntohs(state[i]);
+        uint16_t type = ntohs(state[i + 6]);
+        auto *character = new Character(playerId, type);
+        characters[playerId] = std::shared_ptr<Character>(character);
+  }
+}

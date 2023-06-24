@@ -6,6 +6,7 @@
 
 #include <arpa/inet.h>
 
+#include <iostream>
 #include <random>
 
 #include "Idf.h"
@@ -20,14 +21,14 @@
 #define ZOMBIE2_POS_Y 900
 
 #define CHARACTER_ATTRIBUTES_AMOUNT 7
-#define ZOMBIES_AMOUNT 2
+#define ZOMBIES_AMOUNT 20
 #define ZOMBIE_DEFAULT_COLLISION_RANGE 20
 
 #define PLAYER_ZONE_LIMIT_LEFT 50
 #define PLAYER_ZONE_LIMIT_RIGHT 400
 #define ZONE_LIMIT_UP 920
-#define ZOMBIES_ZONE_LIMIT_LEFT 650
-#define ZOMBIES_ZONE_LIMIT_RIGHT 2000
+#define ZOMBIES_ZONE_LIMIT_LEFT 1300
+#define ZOMBIES_ZONE_LIMIT_RIGHT 2060
 #define MAX_PLAYER_AMOUNT 10
 
 Map::Map(int limit_y) : limit_y(limit_y), players(0), generic(0, 0, IDF) {
@@ -125,7 +126,7 @@ std::shared_ptr<State> Map::update() {
         buf[pos++] = type;
         character->reset_state();  // change this
     }
-    return std::make_shared<State>(std::move(buf), (uint16_t) elements.size());
+    return std::make_shared<State>(std::move(buf), (uint16_t) characters.size(), zombies.size());
 }
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {
@@ -160,7 +161,7 @@ bool Map::collision(int pos_x, int pos_y) {
 }
 
 void Map::initialize_zombies() {
-    /*std::random_device rd;
+    std::random_device rd;
     std::uniform_int_distribution<int> dist_x(ZOMBIES_ZONE_LIMIT_LEFT, ZOMBIES_ZONE_LIMIT_RIGHT);
     std::uniform_int_distribution<int> dist_y(limit_y, ZONE_LIMIT_UP);
     std::uniform_int_distribution<int> dist_type(INFECTED, VENOM);
@@ -169,5 +170,6 @@ void Map::initialize_zombies() {
         int pos_y = dist_y(rd);
         Type type = (Type)dist_type(rd);
         zombies[i] = new Zombie(pos_x, pos_y, ZOMBIE_DEFAULT_COLLISION_RANGE, type);
-    }*/
+        elements[i] = zombies[i];
+    }
 }

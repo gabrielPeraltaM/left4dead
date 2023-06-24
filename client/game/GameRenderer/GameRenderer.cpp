@@ -5,6 +5,7 @@
 #include "GameRenderer.h"
 
 void GameRenderer::run() {
+  SDL_Delay(1000 / 60 * 2);  // Espero 2 frames para que se carguen las texturas
   Uint32 t1 = SDL_GetTicks();
   int it = 0;
   int behind = 0;

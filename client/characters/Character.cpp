@@ -4,6 +4,8 @@
 
 #include "Character.h"
 
+enum Type : int { IDF = 1, SCOUT, P90, INFECTED, JUMPER, SPEAR, VENOM, WITCH };
+
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 
@@ -104,3 +106,38 @@ Character::Character(int posX, int posY, int id, const char *type,
 void Character::kill() { dead = true; }
 
 bool Character::isDead() const { return dead; }
+
+Character::Character(int id, int type): id(id) {
+  switch (type) {
+    case IDF:
+      this->type = "IDF";
+      break;
+    case SCOUT:
+      this->type = "Scout";
+      break;
+    case P90:
+      this->type = "P90";
+      break;
+    case INFECTED:
+      this->type = "Zombie";
+      frameSize = 96;
+      break;
+    case JUMPER:
+      this->type = "Jumper";
+      frameSize = 96;
+      break;
+    case SPEAR:
+      this->type = "Spear";
+      break;
+    case VENOM:
+      this->type = "Venom";
+      break;
+    case WITCH:
+      this->type = "Witch";
+      frameSize = 96;
+      break;
+    default:
+      this->type = "IDF";
+      break;
+  }
+}
