@@ -18,8 +18,8 @@ class Room : public QDialog {
   ~Room();
 
  private slots:
-  void on_MapType_clicked();
-  void on_PlayerType_clicked();
+  void onMapSelected(int id);
+  void onPlayerSelected(int id);
 
  private:
   Ui::Room *ui;

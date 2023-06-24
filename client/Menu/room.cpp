@@ -19,14 +19,17 @@ Room::Room(ClientProtocol &protocol, QWidget *parent, QString id)
   ui->PlayerType->setId(ui->PlayerType->buttons()[0], 0);
   ui->PlayerType->setId(ui->PlayerType->buttons()[1], 1);
   ui->PlayerType->setId(ui->PlayerType->buttons()[2], 2);
+
+  connect(ui->MapType, SIGNAL(idClicked(int)), this,
+          SLOT(onMapSelected(int)));
+  connect(ui->PlayerType, SIGNAL(idClicked(int)), this,
+          SLOT(onPlayerSelected(int)));
 }
 
-void Room::on_MapType_clicked() {
-  protocol.setMapSelected(ui->MapType->checkedId());
+void Room::onMapSelected(int mapId) { protocol.setMapSelected(mapId); }
+
+void Room::onPlayerSelected(int playerType) {
+  protocol.setPlayerSelected(playerType);
 }
 
 Room::~Room() { delete ui; }
-
-void Room::on_PlayerType_clicked() {
-  protocol.setPlayerSelected(ui->PlayerType->checkedId());
-}
