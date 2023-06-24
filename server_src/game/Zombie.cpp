@@ -5,7 +5,7 @@
 #include "Zombie.h"
 #include <cmath>
 
-#define PERCEPTION_RANGE 200
+#define PERCEPTION_RANGE 350
 #define ZOMBIE_DAMAGE 4
 #define ZOMBIE_LIFE 100
 

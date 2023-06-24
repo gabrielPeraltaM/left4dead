@@ -128,7 +128,7 @@ Character *Survivor::find_enemies_left(std::map<int, Character *> &enemies) cons
     Character *closest_zombie = nullptr;
     for (auto character : enemies) {
         auto *enemy = character.second;
-        if (enemy->get_pos_x() < this->pos_x &&
+        if (!enemy->is_dead() && enemy->get_pos_x() < this->pos_x &&
             this->pos_y < (enemy->get_pos_y() + enemy->get_collision_range()) &&
                           this->pos_y > (enemy->get_pos_y() - enemy->get_collision_range()) &&
             enemy->get_pos_x() > closest_zombie_pos) {
@@ -144,7 +144,7 @@ Character *Survivor::find_enemies_right(std::map<int, Character *> &enemies) con
     Character *closest_zombie = nullptr;
     for (auto character : enemies) {
         auto *enemy = character.second;
-        if (enemy->get_pos_x() > this->pos_x &&
+        if (!enemy->is_dead() && enemy->get_pos_x() > this->pos_x &&
             this->pos_y < (enemy->get_pos_y() + enemy->get_collision_range()) &&
                           this->pos_y > (enemy->get_pos_y() - enemy->get_collision_range()) &&
             enemy->get_pos_x() < closest_zombie_pos) {
