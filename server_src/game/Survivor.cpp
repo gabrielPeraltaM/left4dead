@@ -16,6 +16,7 @@
 #define RELOAD_DELAY 40
 #define ATTACK_DELAY 10
 #define SHOOTING_DELAY 14
+#define DAMAGING_DELAY 10
 
 Survivor::Survivor(int pos_x, int pos_y, Type type) : Character(SURVIVOR_LIFE, pos_x, pos_y,
                                                      SURVIVOR_COLLISION_RANGE,
@@ -99,7 +100,7 @@ void Survivor::receive_damage(int damage) {
         return;
     }
     life -= damage;
-    //state = DAMAGING;
+    state = DAMAGING;
     if (life <= 0) {
         life = 0;
         state = DEAD;
@@ -108,7 +109,7 @@ void Survivor::receive_damage(int damage) {
 }
 
 void Survivor::reset_state() {
-    if (state != SHOOTING && state != ATTACKING) {
+    if (state != SHOOTING && state != ATTACKING && state != DAMAGING) {
         return;
     }
     if (state == ATTACKING && delay < ATTACK_DELAY) {
@@ -116,6 +117,10 @@ void Survivor::reset_state() {
         return;
     }
     if (state == SHOOTING && delay < SHOOTING_DELAY) {
+        ++delay;
+        return;
+    }
+    if (state == DAMAGING && delay < DAMAGING_DELAY) {
         ++delay;
         return;
     }
