@@ -16,8 +16,7 @@ enum States : uint16_t {
   ATTACKING,
   RELOADING,
   DAMAGING,
-  DEAD,
-  RUNNING
+  DEAD
 };
 
 void ReceiverProtocol::handleReceive(std::vector<uint16_t>& state) {
