@@ -27,7 +27,7 @@ class Map {
 
     void add_character(int id, int collision_range);
 
-    void move_character(int id, int move_x, int move_y);
+    void move_character(int id, int move_x, int move_y, bool isRunning);
 
     void shoot(int player_id);
 

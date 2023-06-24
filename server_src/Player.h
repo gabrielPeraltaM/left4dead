@@ -5,10 +5,11 @@
 #ifndef MATCH_H
 #define MATCH_H
 
-#include "ActionQueue.h"
-#include "StateQueue.h"
 #include <atomic>
 #include <memory>
+
+#include "StateQueue.h"
+#include "server_src/actions/ActionQueue.h"
 
 class Player {
     ActionQueue &actions;

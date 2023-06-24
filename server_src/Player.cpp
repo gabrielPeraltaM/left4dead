@@ -3,7 +3,8 @@
 //
 
 #include "Player.h"
-#include "ActionStart.h"
+
+#include "server_src/actions/ActionStart.h"
 
 Player::Player(ActionQueue &actions, StateQueue *states, int player_id, bool host) : actions(actions),
                                                                                      states(states),

@@ -5,10 +5,11 @@
 #ifndef LEFT4DEAD_GAME_STATE_H
 #define LEFT4DEAD_GAME_STATE_H
 
-#include "Map.h"
-#include "../State.h"
-#include "../Action.h"
 #include <memory>
+
+#include "../State.h"
+#include "Map.h"
+#include "server_src/actions/Action.h"
 
 class GameState {
     Map map;

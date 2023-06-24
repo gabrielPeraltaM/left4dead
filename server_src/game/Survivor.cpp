@@ -34,6 +34,7 @@ void Survivor::move(int move_x, int move_y) {
     } else {
         orientation = LEFT;
     }
+
 }
 
 bool Survivor::collision(Character *other, int pos_x, int pos_y) {
@@ -161,3 +162,4 @@ void Survivor::check_target(Character *other) {
 }
 
 void Survivor::witch_interact(int witch_pos_x, int witch_pos_y) {}
+

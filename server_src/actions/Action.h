@@ -5,9 +5,10 @@
 #ifndef LEFT4DEAD_ACTION_H
 #define LEFT4DEAD_ACTION_H
 
-#include "./game/Map.h"
-#include "State.h"
 #include <memory>
+
+#include "server_src/State.h"
+#include "server_src/game/Map.h"
 
 class Action {
    public:

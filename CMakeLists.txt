@@ -83,13 +83,13 @@ add_executable(server server_src/main.cpp
         common_src/thread.cpp
         common_src/protocol.cpp
         server_src/GroupMatch.cpp
-        server_src/ActionQueue.cpp
-        server_src/Action.h
+        server_src/actions/ActionQueue.cpp
+        server_src/actions/Action.h
         server_src/StateQueue.cpp
         server_src/Groups.cpp
         server_src/game/Character.cpp
         server_src/game/Map.cpp
-        server_src/ActionMove.cpp
+        server_src/actions/ActionMove.cpp
         server_src/game/GameState.cpp
         server_src/Login.cpp
         server_src/ServerProtocol.cpp
@@ -99,13 +99,13 @@ add_executable(server server_src/main.cpp
         server_src/game/Zombie.cpp
         server_src/State.cpp
         server_src/game/Survivor.cpp
-        server_src/ActionShoot.cpp
-        server_src/ActionReload.cpp
-        server_src/ActionAttack.cpp
+        server_src/actions/ActionShoot.cpp
+        server_src/actions/ActionReload.cpp
+        server_src/actions/ActionAttack.cpp
         server_src/game/Witch.cpp
         server_src/game/Idf.cpp
         server_src/game/Scout.cpp
-        server_src/ActionStart.cpp)
+        server_src/actions/ActionStart.cpp)
 
 # Google test
 include(FetchContent)

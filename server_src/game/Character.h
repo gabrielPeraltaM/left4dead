@@ -26,6 +26,7 @@ enum States : int {
     RELOADING,
     DAMAGING,
     DEAD,
+    RUNNING
 };
 
 class Character {

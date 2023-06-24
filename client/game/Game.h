@@ -36,7 +36,12 @@ class Game {
 
     // Storage
     std::map<int, std::shared_ptr<Character>> characters;
+
+    // Music
     Mix_Music *music = nullptr;
+    Mix_Music *music2 = nullptr;
+    Mix_Music *music3 = nullptr;
+    int musicIndex = 0;
 
     // Threads
     GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId, mapSelected);

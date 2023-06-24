@@ -5,12 +5,13 @@
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
 
-#include "./Login.h"
-#include "../common_src/socket.h"
-#include "Player.h"
-#include "Action.h"
-#include "State.h"
 #include <memory>
+
+#include "../common_src/socket.h"
+#include "./Login.h"
+#include "Player.h"
+#include "State.h"
+#include "server_src/actions/Action.h"
 
 class ServerProtocol {
     Socket sk;
