@@ -3,17 +3,17 @@
 //
 
 #include "Map.h"
-
+#include "Idf.h"
+#include "Witch.h"
 #include <arpa/inet.h>
-
 #include <iostream>
 #include <random>
-
-#include "Idf.h"
 
 #define POS_X_FIRST 300
 #define POS_Y_FIRST 900
 #define POSX_GAP 100
+#define WITCH_POS_X 1600
+#define WITCH_POS_Y 820
 
 #define CHARACTER_ATTRIBUTES_AMOUNT 7
 #define ZOMBIES_AMOUNT 20
@@ -165,4 +165,7 @@ void Map::initialize_zombies() {
         zombies[i] = new Zombie(pos_x, pos_y, ZOMBIE_DEFAULT_COLLISION_RANGE, type);
         elements[i] = zombies[i];
     }
+    auto *witch = new Witch(WITCH_POS_X, WITCH_POS_Y, zombies);
+    zombies[MAX_PLAYER_AMOUNT + ZOMBIES_AMOUNT] = witch;
+    elements[MAX_PLAYER_AMOUNT + ZOMBIES_AMOUNT] = witch;
 }

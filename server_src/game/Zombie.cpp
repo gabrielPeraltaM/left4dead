@@ -115,6 +115,14 @@ void Zombie::reset_state() {
     state = NOT;
 }
 
+void Zombie::stop_moving() {
+    if (state == DEAD || target) {
+        return;
+    }
+    moving_x = 0;
+    moving_y = 0;
+}
+
 void Zombie::shoot(std::map<int, Character *> &enemies) {}
 
 void Zombie::reload() {}

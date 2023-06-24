@@ -39,6 +39,8 @@ public:
 
     void witch_interact(int witch_pos_x, int witch_pos_y) override;
 
+    void stop_moving() override;
+
 protected:
     double distance_from(Character *other) const;
 

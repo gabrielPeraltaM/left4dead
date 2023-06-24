@@ -80,6 +80,8 @@ public:
 
     virtual void witch_interact(int witch_pos_x, int witch_pos_y) = 0;
 
+    virtual void stop_moving();
+
 protected:
     static double distance(Character *other, int new_pos_x, int new_pos_y);
 };

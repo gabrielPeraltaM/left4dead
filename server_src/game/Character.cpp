@@ -56,3 +56,7 @@ void Character::start_shooting() {
 bool Character::is_dead() const {
     return state == DEAD;
 }
+
+void Character::stop_moving() {
+    state = NOT;
+}
