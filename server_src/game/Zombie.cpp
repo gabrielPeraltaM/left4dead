@@ -8,6 +8,7 @@
 #define PERCEPTION_RANGE 350
 #define ZOMBIE_DAMAGE 4
 #define ZOMBIE_LIFE 100
+#define ATTACK_DELAY 10
 
 Zombie::Zombie(int pos_x,
                int pos_y,
@@ -29,7 +30,7 @@ void Zombie::update_move() {
 }
 
 void Zombie::interact() {
-    if (state == DEAD) {
+    if (state == DEAD || state == ATTACKING) {
         return;
     }
     /*if (state == ATTACKING && delay < 10) {
@@ -40,20 +41,20 @@ void Zombie::interact() {
     //state = NOT;
     if (target && target_collision()) {
         target->receive_damage(ZOMBIE_DAMAGE);
-        //state = ATTACKING;
+        state = ATTACKING;
         return;
     }
     pos_x -= moving_x;
     pos_y -= moving_y;
 }
 
-void Zombie::check_target(Character *other) {
-    if (other == target) {
+void Zombie::check_target(Character *survivor) {
+    if (survivor == target) {
         update_move();
         return;
     }
-    if ((!target || target->is_dead()) && distance_from(other) < PERCEPTION_RANGE) {
-        target = other;
+    if ((!target || target->is_dead()) && distance_from(survivor) < PERCEPTION_RANGE) {
+        target = survivor;
         update_move();
     }
 }
@@ -102,7 +103,17 @@ void Zombie::witch_interact(int witch_pos_x, int witch_pos_y) {
     moving_y = (int)dir_y;
 }
 
-void Zombie::reset_state() {}
+void Zombie::reset_state() {
+    if (state == DEAD) {
+        return;
+    }
+    if (state == ATTACKING && delay < ATTACK_DELAY) {
+        ++delay;
+        return;
+    }
+    delay = 0;
+    state = NOT;
+}
 
 void Zombie::shoot(std::map<int, Character *> &enemies) {}
 

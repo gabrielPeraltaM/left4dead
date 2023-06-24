@@ -21,7 +21,7 @@ public:
 
     void interact() override;
 
-    void check_target(Character *other) override;
+    void check_target(Character *survivor) override;
 
     bool collision(Character *other, int pos_x, int pos_y) override;
 
