@@ -6,7 +6,7 @@
 
 #include <netinet/in.h>
 
-#define CHARACTER_ATTRIBUTES_AMOUNT 6
+#define CHARACTER_ATTRIBUTES_AMOUNT 7
 #define CHARACTER_AMOUNT 4
 #include "common_src/actions.h"
 

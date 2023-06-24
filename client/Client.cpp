@@ -14,8 +14,6 @@
 #include "client/Menu/mainwindow.h"
 #include "client/game/Game.h"
 
-#define CHARACTER_ATTRIBUTES_AMOUNT 6
-
 Client::Client(const char *hostname, const char *port) : peer(hostname, port) {}
 
 void Client::run() {

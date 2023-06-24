@@ -3,7 +3,7 @@
 #include <netinet/in.h>
 
 #include <vector>
-#define CHARACTER_ATTRIBUTES_AMOUNT 6
+#define CHARACTER_ATTRIBUTES_AMOUNT 7
 
 Receiver::Receiver(Socket &socket, bool &running,
                    std::map<int, std::shared_ptr<Character>> &characters)

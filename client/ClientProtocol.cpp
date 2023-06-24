@@ -17,7 +17,6 @@
 #define CREATE 0X01
 #define JOIN 0X02
 #define START 0X03
-#define CHARACTER_ATTRIBUTES_AMOUNT 6
 
 ClientProtocol::ClientProtocol(Socket &socket, bool &was_closed)
     : socket(socket), was_closed(was_closed) {}
