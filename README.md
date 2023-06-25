@@ -70,3 +70,7 @@ Link PlantUML: www.plantuml.com/plantuml/png/FOx1IiOm48Jl-nHBJXRyyLv4VkX12Wg5uWD
 - [ ] Arreglar bugs
 - [ ] Agregar más zombies
 - [ ] Testear instalador
+- [ ] Elegir personaje
+- [ ] Elegir mapa
+- [ ] Elegir dificultad
+- [ ] Niveles distintos
