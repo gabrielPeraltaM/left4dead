@@ -4,5 +4,7 @@
 
 #include "Idf.h"
 
-Idf::Idf(int pos_x, int pos_y) : Survivor(pos_x, pos_y, IDF) {
+#define IDF_HURT_RANGE 26
+
+Idf::Idf(int pos_x, int pos_y) : Survivor(pos_x, pos_y, IDF, IDF_HURT_RANGE) {
 }

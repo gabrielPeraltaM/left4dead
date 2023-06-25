@@ -6,12 +6,16 @@
 
 #define WITCH_ZOMBIE_RANGE 120
 #define WITCH_COLLISION_RANGE 350
+#define WITCH_HURT_RANGE 26
 #define SCREAM_NUMBER 52
 
 Witch::Witch(int pos_x, int pos_y,
-             std::map<int, Character*> &zombies) : Zombie(pos_x, pos_y, WITCH_COLLISION_RANGE, WITCH),
+             std::map<int, Character*> &zombies) : Zombie(pos_x, pos_y,
+                                                          WITCH_COLLISION_RANGE,
+                                                          WITCH_HURT_RANGE,
+                                                          WITCH),
                                                    zombies(zombies),
-                                                   dist(0, 200) {}
+                                                   dist(0, 400) {}
 
 void Witch::interact() {
     if (state == DEAD) {

@@ -6,13 +6,14 @@
 #include <cmath>
 
 Character::Character(int life, int pos_x, int pos_y,
-                     int collision_range, int ammo, Type type) : life(life),
-                                                      pos_x(pos_x),
-                                                      pos_y(pos_y),
-                                                      collision_range(collision_range),
-                                                      state(NOT),
-                                                      ammo(ammo),
-                                                      type(type) {
+                     int collision_range, int hurt_range, int ammo, Type type) : life(life),
+                                                                                 pos_x(pos_x),
+                                                                                 pos_y(pos_y),
+                                                                                 collision_range(collision_range),
+                                                                                 hurt_range(hurt_range),
+                                                                                 state(NOT),
+                                                                                 ammo(ammo),
+                                                                                 type(type) {
 }
 
 int Character::get_life() const {
@@ -29,6 +30,10 @@ int Character::get_pos_y() const {
 
 int Character::get_collision_range() const {
     return collision_range;
+}
+
+int Character::get_hurt_range() const {
+    return hurt_range;
 }
 
 double Character::distance(Character *other, int new_pos_x, int new_pos_y) {

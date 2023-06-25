@@ -18,11 +18,11 @@
 #define SHOOTING_DELAY 14
 #define DAMAGING_DELAY 10
 
-Survivor::Survivor(int pos_x, int pos_y, Type type) : Character(SURVIVOR_LIFE, pos_x, pos_y,
-                                                     SURVIVOR_COLLISION_RANGE,
-                                                     DEFAULT_SURVIVOR_AMMO, type),
-                                                      orientation(RIGHT),
-                                                      delay(0) {}
+Survivor::Survivor(int pos_x, int pos_y, Type type, int hurt_range) : Character(SURVIVOR_LIFE, pos_x, pos_y,
+                                                                                SURVIVOR_COLLISION_RANGE, hurt_range,
+                                                                                DEFAULT_SURVIVOR_AMMO, type),
+                                                                      orientation(RIGHT),
+                                                                      delay(0) {}
 
 void Survivor::move(int move_x, int move_y) {
     if (state != NOT) {
@@ -134,8 +134,8 @@ Character *Survivor::find_enemies_left(std::map<int, Character *> &enemies) cons
     for (auto character : enemies) {
         auto *enemy = character.second;
         if (!enemy->is_dead() && enemy->get_pos_x() < this->pos_x &&
-            this->pos_y < (enemy->get_pos_y() + enemy->get_collision_range()) &&
-                          this->pos_y > (enemy->get_pos_y() - enemy->get_collision_range()) &&
+            this->pos_y < (enemy->get_pos_y() + enemy->get_hurt_range()) &&
+                          this->pos_y > (enemy->get_pos_y() - enemy->get_hurt_range()) &&
             enemy->get_pos_x() > closest_zombie_pos) {
             closest_zombie_pos = enemy->get_pos_x();
             closest_zombie = enemy;
@@ -150,8 +150,8 @@ Character *Survivor::find_enemies_right(std::map<int, Character *> &enemies) con
     for (auto character : enemies) {
         auto *enemy = character.second;
         if (!enemy->is_dead() && enemy->get_pos_x() > this->pos_x &&
-            this->pos_y < (enemy->get_pos_y() + enemy->get_collision_range()) &&
-                          this->pos_y > (enemy->get_pos_y() - enemy->get_collision_range()) &&
+            this->pos_y < (enemy->get_pos_y() + enemy->get_hurt_range()) &&
+                          this->pos_y > (enemy->get_pos_y() - enemy->get_hurt_range()) &&
             enemy->get_pos_x() < closest_zombie_pos) {
             closest_zombie_pos = enemy->get_pos_x();
             closest_zombie = enemy;

@@ -13,11 +13,12 @@
 Zombie::Zombie(int pos_x,
                int pos_y,
                int collision_range,
-               Type type) : Character(ZOMBIE_LIFE, pos_x, pos_y, collision_range, 0, type),
-                            moving_x(0),
-                            moving_y(0),
-                            target(nullptr),
-                            delay(0) {}
+               int hurt_range, Type type) : Character(ZOMBIE_LIFE, pos_x, pos_y,
+                                                      collision_range, hurt_range, 0, type),
+                                            moving_x(0),
+                                            moving_y(0),
+                                            target(nullptr),
+                                            delay(0) {}
 
 void Zombie::update_move() {
     int distance_x = this->pos_x - target->get_pos_x();

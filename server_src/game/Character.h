@@ -35,12 +35,13 @@ protected:
     int pos_x;
     int pos_y;
     int collision_range;
+    int hurt_range;
     States state;
     int ammo;
     Type type;
 
 public:
-    Character(int life, int pos_x, int pos_y, int collision_range, int ammo, Type type);
+    Character(int life, int pos_x, int pos_y, int collision_range, int hurt_range, int ammo, Type type);
 
     int get_life() const;
 
@@ -49,6 +50,8 @@ public:
     int get_pos_y() const;
 
     int get_collision_range() const;
+
+    int get_hurt_range() const;
 
     int get_state() const;
 

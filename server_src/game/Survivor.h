@@ -12,7 +12,7 @@ class Survivor : public Character {
     int delay;
 
 public:
-    Survivor(int pos_x, int pos_y, Type type);
+    Survivor(int pos_x, int pos_y, Type type, int hurt_range);
 
     void move(int move_x, int move_y) override;
 

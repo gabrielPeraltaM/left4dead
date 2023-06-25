@@ -16,15 +16,18 @@
 #define WITCH_POS_Y 820
 
 #define CHARACTER_ATTRIBUTES_AMOUNT 7
+#define CHARACTER_DEFAULT_HURT_RANGE 26
 #define ZOMBIES_AMOUNT 20
 #define ZOMBIE_DEFAULT_COLLISION_RANGE 20
+#define ZOMBIE_DEFAULT_HURT_RANGE 28
 
 #define ZONE_LIMIT_UP 920
 #define ZOMBIES_ZONE_LIMIT_LEFT 1300
 #define ZOMBIES_ZONE_LIMIT_RIGHT 4060
 #define MAX_PLAYER_AMOUNT 10
 
-Map::Map(int limit_y) : limit_y(limit_y), players(0), generic(0, 0, IDF) {
+Map::Map(int limit_y) : limit_y(limit_y), players(0), generic(0, 0, IDF,
+                                                              CHARACTER_DEFAULT_HURT_RANGE) {
     initialize_zombies();
 }
 
@@ -162,7 +165,8 @@ void Map::initialize_zombies() {
         int pos_x = dist_x(rd);
         int pos_y = dist_y(rd);
         Type type = (Type)dist_type(rd);
-        zombies[i] = new Zombie(pos_x, pos_y, ZOMBIE_DEFAULT_COLLISION_RANGE, type);
+        zombies[i] = new Zombie(pos_x, pos_y, ZOMBIE_DEFAULT_COLLISION_RANGE,
+                                ZOMBIE_DEFAULT_HURT_RANGE, type);
         elements[i] = zombies[i];
     }
     auto *witch = new Witch(WITCH_POS_X, WITCH_POS_Y, zombies);
