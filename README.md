@@ -1,56 +1,72 @@
 # left4dead
 TP Grupal de Taller de Programación
 
-Para correr el juego:
+Para buildear el proyecto:
 ```
-mkdir build
-cd build
-cmake ..
-make
-./lesson00
+chmod +x install.sh
+./install.sh
 ```
 
-Para correr los tests (cuando hayan):
+Para crear el servidor:
 ```
-mkdir build
 cd build
-cmake ..
-make
-./runTests
+./server <puerto>
 ```
-## Features
+
+Para crear el cliente:
+```
+cd build
+./client <ip> <puerto>
+```
+
+Para correr los tests:
+```
+cd build
+./test
+```
+
+## Features del juego
+- [x] Lobby en Qt
+- [x] Background Scrolling
+- [x] Adaptable a distintas resoluciones
+- [x] Animaciones de los personajes
+- [x] Animaciones de los zombies
+- [x] 3 mapas distintos (uno por nivel)
+- [x] 3 soundtracks distintos (uno por nivel)
+- [x] 3 niveles distintos
+- [x] Colisión de players
+- [x] Limites de mapa
+- [x] Colisión de balas
+- [x] Witch (zombie especial)
+- [x] Infected (zombie común)
+- [x] Instalador por script
+
+# Imágenes del juego
+
+Más imagenes en carpeta images
+## In-game
+![Animación ataque](./images/1.png)
+
+## Lobby
+![Lobby](./images/2.png)
+![Room](./images/4.png)
+
+---
 
 ## Manual de Usuario
 Link overleaf: https://www.overleaf.com/1192774991qypxvjbgnwrb
-Referencia a documentación técnica
 
-## Manual del proyecto y docu técnica
-En un pdf aparte
-
-## Imágenes del juego
+## Manual del proyecto y documentación técnica
+Link overleaf: https://www.overleaf.com/project/6498abd3c81ecb7ca80ae8b0
 
 ## Diagrama de Robustez
-
-## Parámetros
-1) Robustez y validate
-2) Features
-3) Código
-4) Documentación
-5) Jugabilidad
-6) Algo extra
-7) Performance
-8) Tests
-9) Diagrama de robustez
+Link PlantUML: www.plantuml.com/plantuml/png/FOx1IiOm48Jl-nHBJXRyyLv4VkX12Wg5uWDiazKgIIERhT2tbtH3JmiptyxClIY9xYb2FqKwM7gytLxmuIqloz51kwQzKk8EBksvQk-aVksmnsgEuJ7hoeBZzfd1UCDc9TrBvOQLXBoo50oa132p_B5OWwL1kwQrLm1tzg8N9kMdd_ozuHSbTaZbskicoPfzZZYS69v9XhHmz_4RgbFNeOMRVnNTUGjxYly0
 
 ## Cosas que faltan por agregar
 
-- [ ] Agregar Lobby QT
 - [ ] Agregar tests
-- [ ] Agregar documentación técnica
-- [ ] Agregar documentación de usuario
-- [ ] Agregar diagrama de robustez
-- [ ] Agregar imágenes del juego
 - [ ] Crear UI para el juego
-- [ ] Agregar sonidos
-- [ ] Agregar música
-- 
+- [ ] Agregar estadisticas
+- [ ] Arreglar bugs
+- [ ] Agregar más zombies
+- [ ] Testear instalador
