@@ -9,6 +9,7 @@
 #include <string>
 
 #include "common_src/socket.h"
+
 class ClientProtocol {
  private:
   Socket &socket;
@@ -24,7 +25,7 @@ class ClientProtocol {
   void sendCharacterType(uint8_t characterType);
   void startGame();
   void waitStart();
-  bool isHost();
+  bool isHost() const;
   void setMapSelected(int mapSelected);
   void setPlayerSelected(int playerSelected);
 };

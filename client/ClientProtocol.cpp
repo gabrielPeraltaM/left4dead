@@ -9,7 +9,6 @@
 #include <QApplication>
 #include <stdexcept>
 #include <string>
-#include <vector>
 
 #include "client/game/Game.h"
 #include "common_src/socket.h"
@@ -104,7 +103,7 @@ void ClientProtocol::waitStart() {
   game.start();
 }
 
-bool ClientProtocol::isHost() { return host; }
+bool ClientProtocol::isHost() const { return host; }
 
 void ClientProtocol::setMapSelected(int map) { mapSelected = map; }
 
