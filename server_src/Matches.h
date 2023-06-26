@@ -17,7 +17,7 @@ class Matches {
 public:
     bool exist(int code);
 
-    int create(std::string name);
+    int create(std::string name, int max_players);
 
     Player join(int match_code);
 };

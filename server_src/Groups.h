@@ -13,7 +13,7 @@ class Groups {
     std::map<int, GroupMatch*> groups;
 
 public:
-    GroupMatch *create_group(int match_code, std::string name);
+    GroupMatch *create_group(int match_code, std::string name, int max_players);
 
     ~Groups();
 

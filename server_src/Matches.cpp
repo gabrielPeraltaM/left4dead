@@ -9,12 +9,19 @@ bool Matches::exist(int code) {
         return false;
     }
     std::lock_guard<std::mutex> lock(m);
-    return (this->created > code);
+    if (created > code) {
+        GroupMatch *group = groups.get_group(code);
+        if (group->full_players()) {
+            return false;
+        }
+        return true;
+    }
+    return false;
 }
 
-int Matches::create(std::string name) {
+int Matches::create(std::string name, int max_players) {
     std::lock_guard<std::mutex> lock(m);
-    groups.create_group(created, std::move(name));
+    groups.create_group(created, std::move(name), max_players);
     return created++;
 }
 

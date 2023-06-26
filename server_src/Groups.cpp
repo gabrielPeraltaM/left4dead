@@ -5,8 +5,8 @@
 #include "Groups.h"
 #include <utility>
 
-GroupMatch *Groups::create_group(int match_code, std::string name) {
-    auto *group = new GroupMatch(std::move(name));
+GroupMatch *Groups::create_group(int match_code, std::string name, int max_players) {
+    auto *group = new GroupMatch(std::move(name), max_players);
     groups[match_code] = group;
     group->start();
     return group;
