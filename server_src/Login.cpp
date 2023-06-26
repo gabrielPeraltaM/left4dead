@@ -5,6 +5,8 @@
 #include "Login.h"
 #include <utility>
 
+#define MAX_PLAYERS 5  // Hardcoded for now
+
 Login::Login(std::string match_name, int match_code) : match_name(std::move(match_name)),
                                                        join_code(match_code),
                                                        login_type(CREATE),
@@ -12,7 +14,7 @@ Login::Login(std::string match_name, int match_code) : match_name(std::move(matc
 
 int Login::get_login(Matches &matches) {
     if (login_type == CREATE) {
-        int match_code = matches.create(std::move(match_name));
+        int match_code = matches.create(std::move(match_name), MAX_PLAYERS);
         return match_code;
     } else if (login_type == JOIN) {
         if (matches.exist(join_code)) {

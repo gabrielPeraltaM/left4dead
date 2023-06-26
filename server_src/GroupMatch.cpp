@@ -9,10 +9,11 @@
 #define LIMIT_Y 750
 #define PLAYER_COLLISION_RANGE 22
 
-GroupMatch::GroupMatch(std::string name) : name(std::move(name)),
-                                           game(LIMIT_Y),
-                                           players(0),
-                                           finished(false) {}
+GroupMatch::GroupMatch(std::string name, int max_players) : name(std::move(name)),
+                                                            game(LIMIT_Y),
+                                                            players(0),
+                                                            finished(false),
+                                                            max_players(max_players) {}
 
 GroupMatch::~GroupMatch() {
     for (auto *state : player_states) {
@@ -39,6 +40,10 @@ Player GroupMatch::add_player() {
         host = true;
     }
     return {actions, state, players++, host};
+}
+
+bool GroupMatch::full_players() const {
+    return (players >= max_players);
 }
 
 void GroupMatch::handle_game() {

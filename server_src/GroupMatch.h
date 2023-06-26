@@ -17,18 +17,21 @@ class GroupMatch : public Thread {
     GameState game;
     int players;
     bool finished;
+    int max_players;
     ActionQueue actions;
     std::vector<StateQueue*> player_states;
     std::mutex m;
 
 public:
-    explicit GroupMatch(std::string name);
+    GroupMatch(std::string name, int max_players);
 
     ~GroupMatch() override;
 
     void run() override;
 
     Player add_player();
+
+    bool full_players() const;
 
 private:
     void handle_game();

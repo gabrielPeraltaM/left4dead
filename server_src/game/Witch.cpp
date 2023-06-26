@@ -15,12 +15,12 @@ Witch::Witch(int pos_x, int pos_y,
                                                           WITCH_HURT_RANGE,
                                                           WITCH),
                                                    zombies(zombies),
-                                                   dist(0, 400) {}
+                                                   dist(0, 500) {}
 
 void Witch::interact() {
-    if (state == DEAD) {
+    /*if (state == DEAD) {
         return;
-    }
+    }*/
     int number = dist(rd);
     if (number == SCREAM_NUMBER) {
         scream();
@@ -35,6 +35,9 @@ void Witch::interact() {
 }
 
 void Witch::scream() {
+    if (state == DEAD) {
+        return;
+    }
     state = ATTACKING;
     for (auto element : zombies) {
         auto *zombie = element.second;
