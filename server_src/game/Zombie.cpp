@@ -8,7 +8,7 @@
 #define PERCEPTION_RANGE 350
 #define ZOMBIE_DAMAGE 4
 #define ZOMBIE_LIFE 100
-#define ATTACK_DELAY 10
+#define ATTACK_DELAY 16
 
 Zombie::Zombie(int pos_x,
                int pos_y,

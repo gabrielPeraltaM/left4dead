@@ -29,15 +29,7 @@ void Witch::interact() {
     if (target && target_collision()) {
         return;
     }
-    for (auto element : zombies) {
-        auto *zombie = element.second;
-        if (zombie == this || zombie->is_dead()) {
-            continue;
-        }
-        if (Character::distance(zombie, pos_x, pos_y) < WITCH_ZOMBIE_RANGE) {
-            zombie->stop_moving();
-        }
-    }
+    stop_zombies();
     pos_x -= moving_x;
     pos_y -= moving_y;
 }
@@ -52,5 +44,29 @@ void Witch::scream() {
         if (Character::distance(zombie, pos_x, pos_y) > WITCH_ZOMBIE_RANGE) {
             zombie->witch_interact(pos_x, pos_y);
         }
+    }
+}
+
+void Witch::stop_zombies() {
+    for (auto element : zombies) {
+        auto *zombie = element.second;
+        if (zombie == this || zombie->is_dead()) {
+            continue;
+        }
+        if (Character::distance(zombie, pos_x, pos_y) < WITCH_ZOMBIE_RANGE) {
+            zombie->stop_moving();
+        }
+    }
+}
+
+void Witch::receive_damage(int damage) {
+    if (state == DEAD) {
+        return;
+    }
+    life -= damage;
+    if (life <= 0) {
+        life = 0;
+        stop_zombies();
+        state = DEAD;
     }
 }

@@ -20,6 +20,10 @@ public:
     void interact() override;
 
     void scream();
+
+    void stop_zombies();
+
+    void receive_damage(int damage) override;
 };
 
 #endif //LEFT4DEAD_WITCH_H

@@ -16,7 +16,7 @@
 #define RELOAD_DELAY 40
 #define ATTACK_DELAY 10
 #define SHOOTING_DELAY 14
-#define DAMAGING_DELAY 10
+#define DAMAGING_DELAY 16
 
 Survivor::Survivor(int pos_x, int pos_y, Type type, int hurt_range) : Character(SURVIVOR_LIFE, pos_x, pos_y,
                                                                                 SURVIVOR_COLLISION_RANGE, hurt_range,

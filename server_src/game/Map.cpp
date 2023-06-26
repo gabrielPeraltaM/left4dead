@@ -22,6 +22,7 @@
 #define ZOMBIE_DEFAULT_HURT_RANGE 28
 
 #define ZONE_LIMIT_UP 920
+#define ZONE_LIMIT_LEFT 20
 #define ZOMBIES_ZONE_LIMIT_LEFT 1300
 #define ZOMBIES_ZONE_LIMIT_RIGHT 4060
 #define MAX_PLAYER_AMOUNT 10
@@ -127,7 +128,8 @@ std::shared_ptr<State> Map::update() {
 
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {
     if (character->get_pos_y() + move_y <= limit_y ||
-        character->get_pos_y() + move_y >= ZONE_LIMIT_UP) {
+        character->get_pos_y() + move_y >= ZONE_LIMIT_UP ||
+        character->get_pos_x() + move_x < ZONE_LIMIT_LEFT) {
         return true;
     }
     return false;
