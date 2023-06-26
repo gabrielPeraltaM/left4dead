@@ -13,6 +13,7 @@
 class Receiver : public Thread {
  private:
   bool &running;
+  bool &isLoadingPlayers;
   const int numCharacters;
   std::map<int, std::shared_ptr<Character>> &characters;
   Socket &socket;
@@ -22,7 +23,7 @@ class Receiver : public Thread {
 
  public:
   Receiver(Socket &socket, bool &was_closed,
-           std::map<int, std::shared_ptr<Character>> &characters, int numCharacters);
+           std::map<int, std::shared_ptr<Character>> &characters, int numCharacters, bool &isLoadingPlayers);
   void run() override;
 };
 

@@ -5,7 +5,9 @@
 #include "GameRenderer.h"
 
 void GameRenderer::run() {
-  SDL_Delay(1000 / 60 * 2);  // Espero 2 frames para que se carguen las texturas
+  while (isLoadingPlayers) {
+    SDL_Delay(10);
+  }
   Uint32 t1 = SDL_GetTicks();
   int it = 0;
   int behind = 0;
@@ -33,7 +35,7 @@ void GameRenderer::run() {
     // Delay
     Uint32 t2 = SDL_GetTicks();
     int rest = rate - (t2 - t1);
-    if (rest < 0) {
+    if (rest < 0) { // No deberia pasar nunca
       behind = -rest;
       lost = behind - behind % rate;
       t1 += lost;
@@ -44,7 +46,6 @@ void GameRenderer::run() {
     t1 += rate;
 
     // Hago que los players se renderizen a 1000 / 60 * 6 => 10 fps
-    /* y esto no lo podrían tener los players? */
     playersRate++;
     if (playersRate == 6) {
       it++;
@@ -56,9 +57,10 @@ void GameRenderer::run() {
 GameRenderer::GameRenderer(
     Renderer &renderer, bool &running,
     std::map<int, std::shared_ptr<Character>> &characters, int playerId,
-    int mapSelected)
+    int mapSelected, bool &isLoadingPlayers)
     : renderer(renderer),
       running(running),
       characters(characters),
       playerId(playerId),
-      mapSelected(mapSelected) {}
+      mapSelected(mapSelected),
+      isLoadingPlayers(isLoadingPlayers){}
