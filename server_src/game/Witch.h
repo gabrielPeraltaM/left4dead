@@ -15,7 +15,7 @@ class Witch : public Zombie {
     std::random_device rd;
 
 public:
-    Witch(int pos_x, int pos_y, std::map<int, Character*> &zombies);
+    Witch(int pos_x, int pos_y, std::map<int, Character*> &zombies, int &dead_zombies);
 
     void interact() override;
 

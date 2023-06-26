@@ -11,7 +11,7 @@
 
 #define POS_X_FIRST 300
 #define POS_Y_FIRST 900
-#define POSX_GAP 100
+#define POS_X_GAP 100
 #define WITCH_POS_X 1600
 #define WITCH_POS_Y 820
 
@@ -27,8 +27,10 @@
 #define ZOMBIES_ZONE_LIMIT_RIGHT 4060
 #define MAX_PLAYER_AMOUNT 10
 
-Map::Map(int limit_y) : limit_y(limit_y), players(0), generic(0, 0, IDF,
-                                                              CHARACTER_DEFAULT_HURT_RANGE) {
+Map::Map(int limit_y) : limit_y(limit_y),
+                        players(0), generic(0, 0, IDF, CHARACTER_DEFAULT_HURT_RANGE, dead_players),
+                        dead_players(0),
+                        dead_zombies(0) {
     initialize_zombies();
 }
 
@@ -43,7 +45,7 @@ void Map::add_character(int id, int collision_range) {
     int pos_x = 0;
     int pos_y = 0;
     calculate_position(pos_x, pos_y);
-    auto *character = new Idf(pos_x, pos_y);  // change this
+    auto *character = new Idf(pos_x, pos_y, dead_players);  // change this
     characters[id] = character;
     elements[id] = character;
     ++players;
@@ -126,6 +128,14 @@ std::shared_ptr<State> Map::update() {
     return std::make_shared<State>(std::move(buf), (uint16_t) characters.size(), zombies.size());
 }
 
+bool Map::all_players_dead() const {
+    return dead_players == players;
+}
+
+bool Map::all_zombies_dead() const {
+    return dead_zombies == zombies.size();
+}
+
 bool Map::limit_collision(Character *character, int move_x, int move_y) const {
     if (character->get_pos_y() + move_y <= limit_y ||
         character->get_pos_y() + move_y >= ZONE_LIMIT_UP ||
@@ -136,7 +146,7 @@ bool Map::limit_collision(Character *character, int move_x, int move_y) const {
 }
 
 void Map::calculate_position(int &pos_x, int &pos_y) {
-    pos_x = POS_X_FIRST + players * POSX_GAP;
+    pos_x = POS_X_FIRST + players * POS_X_GAP;
     pos_y = POS_Y_FIRST;
 
     /*std::random_device rd;
@@ -168,10 +178,10 @@ void Map::initialize_zombies() {
         int pos_y = dist_y(rd);
         Type type = (Type)dist_type(rd);
         zombies[i] = new Zombie(pos_x, pos_y, ZOMBIE_DEFAULT_COLLISION_RANGE,
-                                ZOMBIE_DEFAULT_HURT_RANGE, type);
+                                ZOMBIE_DEFAULT_HURT_RANGE, type, dead_zombies);
         elements[i] = zombies[i];
     }
-    auto *witch = new Witch(WITCH_POS_X, WITCH_POS_Y, zombies);
+    auto *witch = new Witch(WITCH_POS_X, WITCH_POS_Y, zombies, dead_zombies);
     zombies[MAX_PLAYER_AMOUNT + ZOMBIES_AMOUNT] = witch;
     elements[MAX_PLAYER_AMOUNT + ZOMBIES_AMOUNT] = witch;
 }

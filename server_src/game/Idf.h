@@ -9,7 +9,7 @@
 
 class Idf : public Survivor {
 public:
-    Idf(int pos_x, int pos_y);
+    Idf(int pos_x, int pos_y, int &dead_players);
 };
 
 #endif //LEFT4DEAD_IDF_H

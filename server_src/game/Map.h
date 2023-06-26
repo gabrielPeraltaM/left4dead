@@ -15,10 +15,12 @@
 class Map {
     const int limit_y;
     int players;
+    Survivor generic;
+    int dead_players;
+    int dead_zombies;
     std::map<int, Character*> characters;
     std::map<int, Character*> zombies;
     std::map<int, Character*> elements;
-    Survivor generic;
 
    public:
     explicit Map(int limit_y);
@@ -36,6 +38,10 @@ class Map {
     void attack(int player_id);
 
     std::shared_ptr<State> update();
+
+    bool all_players_dead() const;
+
+    bool all_zombies_dead() const;
 
    private:
     bool limit_collision(Character *character, int move_x, int move_y) const;

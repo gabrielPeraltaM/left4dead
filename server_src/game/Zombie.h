@@ -13,9 +13,10 @@ protected:
     int moving_y;
     Character *target;
     int delay;
+    int &dead_zombies;
 
 public:
-    Zombie(int pos_x, int pos_y, int collision_range, int hurt_range, Type type);
+    Zombie(int pos_x, int pos_y, int collision_range, int hurt_range, Type type, int &dead_zombies);
 
     void update_move();
 

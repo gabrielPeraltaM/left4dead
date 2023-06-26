@@ -9,7 +9,7 @@
 
 class Scout : public Survivor {
 public:
-    Scout(int pos_x, int pos_y);
+    Scout(int pos_x, int pos_y, int &dead_players);
 };
 
 #endif //LEFT4DEAD_SCOUT_H
