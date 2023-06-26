@@ -16,6 +16,8 @@
 #define CREATE 0X01
 #define JOIN 0X02
 #define START 0X03
+#define MAP_SELECTED 0X04
+#define PLAYER_SELECTED 0X05
 
 ClientProtocol::ClientProtocol(Socket &socket, bool &was_closed)
     : socket(socket), was_closed(was_closed) {}
@@ -75,10 +77,22 @@ void ClientProtocol::startGame() {
   waitStart();
 }
 
-void ClientProtocol::sendCharacterType(uint8_t characterType) {
-  uint8_t opcode = characterType;
+void ClientProtocol::sendCharacterType() {
+  uint8_t opcode = PLAYER_SELECTED;
+  socket.sendall(&opcode, 1, &was_closed);
+  if (was_closed) throw std::runtime_error("Connection closed");
+
+  socket.sendall(&playerSelected, 1, &was_closed);
+  if (was_closed) throw std::runtime_error("Connection closed");
+}
+
+void ClientProtocol::sendMapSelected() {
+  uint8_t opcode = MAP_SELECTED;
 
   socket.sendall(&opcode, 1, &was_closed);
+  if (was_closed) throw std::runtime_error("Connection closed");
+
+  socket.sendall(&mapSelected, 1, &was_closed);
   if (was_closed) throw std::runtime_error("Connection closed");
 }
 
@@ -105,6 +119,8 @@ void ClientProtocol::waitStart() {
 
 bool ClientProtocol::isHost() const { return host; }
 
-void ClientProtocol::setMapSelected(int map) { mapSelected = map; }
+void ClientProtocol::setMapSelected(uint8_t map) { mapSelected = map; }
 
-void ClientProtocol::setPlayerSelected(int player) { playerSelected = player; }
+void ClientProtocol::setPlayerSelected(uint8_t player) {
+  playerSelected = player;
+}

@@ -32,6 +32,10 @@ public:
 
     void receive_start(Player &player);
 
+    void receive_character_type(Player &player);
+
+    void receive_map_selected(Player &player);
+
     std::shared_ptr<Action> receive_action();
 
     void send_state(const std::shared_ptr<State>& state);
