@@ -13,7 +13,8 @@ GroupMatch::GroupMatch(std::string name, int max_players) : name(std::move(name)
                                                             game(LIMIT_Y),
                                                             players(0),
                                                             finished(false),
-                                                            max_players(max_players) {}
+                                                            max_players(max_players),
+                                                            started(false) {}
 
 GroupMatch::~GroupMatch() {
     for (auto *state : player_states) {
@@ -23,8 +24,9 @@ GroupMatch::~GroupMatch() {
 
 void GroupMatch::run() {
     actions.pop();
+    started = true;
     std::chrono::milliseconds tic(1000/60);
-    while (not finished) { // change this
+    while (!finished) { // change this
         handle_game();
         std::this_thread::sleep_for(tic);
     }
@@ -42,8 +44,8 @@ Player GroupMatch::add_player() {
     return {actions, state, players++, host};
 }
 
-bool GroupMatch::full_players() const {
-    return (players >= max_players);
+bool GroupMatch::is_available() const {
+    return (players < max_players && !started);
 }
 
 void GroupMatch::handle_game() {
