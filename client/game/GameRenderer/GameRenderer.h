@@ -22,6 +22,7 @@ class GameRenderer : public Thread {
   std::map<int, std::shared_ptr<Character>> &characters;
   const int playerId;
   const int mapSelected;
+  bool &isLoadingPlayers;
   BackgroundRenderer backgroundRenderer =
       BackgroundRenderer(renderer, characters, playerId, mapSelected);
   UIRenderer uiRenderer = UIRenderer(renderer, 100, 100, 100, 100);
@@ -30,7 +31,7 @@ class GameRenderer : public Thread {
  public:
   GameRenderer(Renderer &renderer, bool &running,
                std::map<int, std::shared_ptr<Character>> &characters,
-               int playerId, int mapSelected);
+               int playerId, int mapSelected, bool &isLoadingPlayers);
 
   void run() override;
 };

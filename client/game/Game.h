@@ -33,6 +33,7 @@ class Game {
     const int numPlayers;
     const int numZombies;
     const int mapSelected;
+    bool isLoadingPlayers = true;
     bool running = true;
 
     // Storage
@@ -43,8 +44,8 @@ class Game {
     int musicIndex = 0;
 
     // Threads
-    GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId, mapSelected);
-    Receiver receiver = Receiver(socket, running, characters, numZombies+numPlayers);
+    GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId, mapSelected, isLoadingPlayers);
+    Receiver receiver = Receiver(socket, running, characters, numZombies+numPlayers, isLoadingPlayers);
     Sender sender = Sender(socket, running);
 
 public:
