@@ -20,7 +20,7 @@ add_definitions(-DRESOURCE_PATH="${PROJECT_SOURCE_DIR}/resources")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
-set(CMAKE_PREFIX_PATH "/home/ignacio/Qt/6.5.0/gcc_64")
+set(CMAKE_PREFIX_PATH "/home/ignacio/Qt/6.5.0/gcc_64") # TODO: Change this to your Qt installation path
 find_package(Qt6 COMPONENTS
         Core
         Gui
@@ -64,7 +64,8 @@ add_executable(client
         client/Menu/mainwindow.ui
         client/Menu/room.cpp
         client/Menu/room.ui
-        )
+        client/game/GameMonitor/CharactersQueue.cpp client/game/GameMonitor/CharactersQueue.h)
+
 target_link_libraries(client PUBLIC SDL2pp Qt6::Core
         Qt6::Gui
         Qt6::Widgets)
@@ -107,6 +108,8 @@ add_executable(server server_src/main.cpp
         server_src/game/Scout.cpp
         server_src/actions/ActionStart.cpp)
 
+install(TARGETS client server DESTINATION bin)
+
 # Google test
 include(FetchContent)
 FetchContent_Declare(
@@ -116,3 +119,12 @@ FetchContent_Declare(
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+
+#[===[
+sh install.sh
+ngrok
+yaml cpp
+sudo install sdl
+estadisticas
+limites en x
+]===]

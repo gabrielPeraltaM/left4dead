@@ -18,6 +18,8 @@
 #define ACTION_CREATE 1
 #define ACTION_JOIN 2
 #define ACTION_START 3
+#define ACTION_CHARACTER_TYPE 4
+#define ACTION_MAP_SELECTED 5
 
 #define JOIN_SUCCESSFUL 0
 #define JOIN_FAILURE 1
@@ -39,14 +41,6 @@ enum OPCODES : uint8_t {
   MOVE_DOWN_RIGHT,
   HURT,
   DIE,
-  RUN_UP,
-  RUN_DOWN,
-  RUN_LEFT,
-  RUN_RIGHT,
-  RUN_UP_LEFT,
-  RUN_UP_RIGHT,
-  RUN_DOWN_LEFT,
-  RUN_DOWN_RIGHT,
 };
 
 ServerProtocol::ServerProtocol(Socket sk)
@@ -106,6 +100,21 @@ void ServerProtocol::send_join_fail() { send_byte(JOIN_FAILURE); }
 
 void ServerProtocol::send_player_id(int player_id) {
   send_byte((uint8_t)player_id);
+}
+
+void ServerProtocol::receive_character_type(Player& player) {
+  uint8_t character_type;
+  if (sk.recvall(&character_type, sizeof(character_type), &was_closed) == 0) {
+    throw LibError(EPIPE, "The client was disconnected");
+  }
+  player.set_character_type(character_type);
+}
+void ServerProtocol::receive_map_selected(Player& player) {
+  uint8_t map_selected;
+  if (sk.recvall(&map_selected, sizeof(map_selected), &was_closed) == 0) {
+    throw LibError(EPIPE, "The client was disconnected");
+  }
+  player.set_map_selected(map_selected);
 }
 
 void ServerProtocol::receive_start(Player& player) {

@@ -16,6 +16,8 @@ class Player {
     StateQueue *states;
     std::atomic<bool> finished;
     int player_id;
+    int character_type = 0;
+    int map_selected = 0;
     bool host;
 
 public:
@@ -30,6 +32,14 @@ public:
     void finish();
 
     bool is_finished();
+
+    void set_character_type(int character_type);
+
+    int get_character_type() const;
+
+    void set_map_selected(int map_selected);
+
+    int get_map_selected() const;
 
     int get_player_id() const;
 
