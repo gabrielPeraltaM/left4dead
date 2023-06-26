@@ -3,6 +3,8 @@
 //
 
 #include "Matches.h"
+#include <string>
+#include <utility>
 
 bool Matches::exist(int code) {
     if (code < 0) {
@@ -11,7 +13,7 @@ bool Matches::exist(int code) {
     std::lock_guard<std::mutex> lock(m);
     if (created > code) {
         GroupMatch *group = groups.get_group(code);
-        if (group->full_players()) {
+        if (!group->is_available()) {
             return false;
         }
         return true;

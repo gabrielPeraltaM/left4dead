@@ -18,6 +18,7 @@ class GroupMatch : public Thread {
     int players;
     bool finished;
     int max_players;
+    bool started;
     ActionQueue actions;
     std::vector<StateQueue*> player_states;
     std::mutex m;
@@ -31,7 +32,7 @@ public:
 
     Player add_player();
 
-    bool full_players() const;
+    bool is_available() const;
 
 private:
     void handle_game();
