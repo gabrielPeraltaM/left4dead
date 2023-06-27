@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>240</width>
-    <height>320</height>
+    <height>370</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,7 +60,71 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="id"/>
+      <widget class="QSpinBox" name="id">
+       <property name="maximum">
+        <number>9999</number>
+       </property>
+       <property name="displayIntegerBase">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Player Type:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QRadioButton" name="IDF">
+          <property name="text">
+           <string>IDF</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">PlayerType</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="P90">
+          <property name="text">
+           <string>P90</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">PlayerType</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="Scout">
+          <property name="text">
+           <string>Scout</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">PlayerType</string>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -88,7 +152,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -129,7 +193,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -145,8 +209,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>119</x>
-     <y>298</y>
+     <x>128</x>
+     <y>264</y>
     </hint>
     <hint type="destinationlabel">
      <x>119</x>
@@ -161,8 +225,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>119</x>
-     <y>298</y>
+     <x>128</x>
+     <y>264</y>
     </hint>
     <hint type="destinationlabel">
      <x>119</x>
@@ -171,4 +235,7 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="PlayerType"/>
+ </buttongroups>
 </ui>

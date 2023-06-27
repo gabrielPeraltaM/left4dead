@@ -15,6 +15,9 @@ public:
     explicit CreateRoom(QWidget *parent = nullptr);
     ~CreateRoom();
     QString getName();
+    int getPlayerType();
+    int getDifficulty();
+    int getMap();
 
 private:
     Ui::CreateRoom *ui;

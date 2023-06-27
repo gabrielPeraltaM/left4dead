@@ -9,22 +9,21 @@ namespace Ui {
 class Room;
 }
 
-class Room : public QDialog {
-  Q_OBJECT
+class Room : public QDialog
+{
+    Q_OBJECT
 
- public:
-  explicit Room(ClientProtocol &protocol, QWidget *parent = nullptr,
-                QString id = nullptr);
-  ~Room();
+public:
+    explicit Room(ClientProtocol &protocol, QWidget *parent = nullptr);
+    ~Room();
 
- private slots:
-  void onMapSelected(int id);
-  void onPlayerSelected(int id);
-
- private:
-  Ui::Room *ui;
-  QString id;
-  ClientProtocol &protocol;
+private:
+    Ui::Room *ui;
+    QString id;
+    QString map;
+    QString difficulty;
+    QString playerType;
+    ClientProtocol &protocol;
 };
 
-#endif  // ROOM_H
+#endif // ROOM_H

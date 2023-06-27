@@ -124,3 +124,11 @@ void ClientProtocol::setMapSelected(uint8_t map) { mapSelected = map; }
 void ClientProtocol::setPlayerSelected(uint8_t player) {
   playerSelected = player;
 }
+void ClientProtocol::setGameId(uint32_t gameId) { this->gameId = gameId; }
+uint32_t ClientProtocol::getGameId() { return gameId; }
+uint8_t ClientProtocol::getMapSelected() { return mapSelected; }
+uint8_t ClientProtocol::getPlayerSelected() { return playerSelected; }
+uint8_t ClientProtocol::getDifficulty() { return difficulty; }
+void ClientProtocol::setDifficulty(uint8_t difficulty) {
+  this->difficulty = difficulty;
+}

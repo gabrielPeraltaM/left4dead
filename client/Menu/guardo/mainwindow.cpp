@@ -1,12 +1,7 @@
 #include "mainwindow.h"
 
-#include <string>
-
 #include "./ui_mainwindow.h"
-#include "createroom.h"
-#include "joinroom.h"
-#include "leaderboard.h"
-#include "options.h"
+#include "client/ClientProtocol.h"
 
 MainWindow::MainWindow(ClientProtocol protocol, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), protocol(protocol) {
@@ -15,32 +10,15 @@ MainWindow::MainWindow(ClientProtocol protocol, QWidget *parent)
 
 MainWindow::~MainWindow() { delete ui; }
 
+// CREATE
 void MainWindow::on_CreateButton_clicked() {
   CreateRoom create;
   create.setModal(true);
   if (create.exec() == QDialog::Accepted) {
-    // Game Name
     std::string name = create.getName().toStdString();
-    if (name == "") {
-      return;
-    }
-    // Player Type
-    int playerType = create.getPlayerType();
-    protocol.setPlayerSelected(playerType);
-
-    // Map
-    int map = create.getMap();
-    protocol.setMapSelected(map);
-
-    // Difficulty
-    int difficulty = create.getDifficulty();
-    protocol.setDifficulty(difficulty);
-
     uint32_t gameId = protocol.createGame(name);
-    protocol.setGameId(gameId);
-
     hide();
-    room = new Room(protocol);
+    room = new Room(protocol, this, QString::number(gameId));
     room->setModal(true);
     auto res = room->exec();
     if (res == QDialog::Rejected) {
@@ -54,26 +32,21 @@ void MainWindow::on_CreateButton_clicked() {
   }
 }
 
+// JOIN
 void MainWindow::on_JoinButton_clicked() {
   JoinRoom join;
   join.setModal(true);
   if (join.exec() == QDialog::Accepted) {
-    hide();
-
-    int playerType = join.getPlayerType();
-    protocol.setPlayerSelected(playerType);
-
-    QString id = join.getId();
-    std::string idStd = id.toStdString();
-    protocol.setGameId(std::stoi(idStd));
-    uint8_t response = protocol.joinGame(protocol.getGameId());
+    std::string id = join.getId().toStdString();
+    uint32_t gameId = std::stoi(id);
+    uint8_t response = protocol.joinGame(gameId);
 
     if (response == 1) {
       return;
     }
 
     hide();
-    room = new Room(protocol, this);
+    room = new Room(protocol, this, QString::number(gameId));
     room->setModal(true);
     auto res = room->exec();
     if (res == QDialog::Rejected) {

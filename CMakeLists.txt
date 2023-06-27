@@ -131,5 +131,4 @@ ngrok
 yaml cpp
 sudo install sdl
 estadisticas
-limites en x
 ]===]

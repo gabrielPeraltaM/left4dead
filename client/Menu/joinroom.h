@@ -15,6 +15,7 @@ public:
     explicit JoinRoom(QWidget *parent = nullptr);
     ~JoinRoom();
     QString getId();
+    int getPlayerType();
 
 private:
     Ui::JoinRoom *ui;

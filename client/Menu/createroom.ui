@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>240</width>
-    <height>320</height>
+    <width>242</width>
+    <height>609</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,6 +61,159 @@
      </item>
      <item>
       <widget class="QLineEdit" name="name"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_pt">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Player Type:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QRadioButton" name="IDF">
+          <property name="text">
+           <string>IDF</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">playerType</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="P90">
+          <property name="text">
+           <string>P90</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">playerType</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="Scout">
+          <property name="text">
+           <string>Scout</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">playerType</string>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelDifficulty">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Difficulty</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QRadioButton" name="easy">
+          <property name="text">
+           <string>Easy</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">difficulty</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="medium">
+          <property name="text">
+           <string>Medium</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">difficulty</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="hard">
+          <property name="text">
+           <string>Hard</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">difficulty</string>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Map</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QRadioButton" name="Sabana">
+          <property name="text">
+           <string>Sabana</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">map</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="City">
+          <property name="text">
+           <string>City</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">map</string>
+          </attribute>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="Dark">
+          <property name="text">
+           <string>Dark</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">map</string>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -178,4 +331,9 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="difficulty"/>
+  <buttongroup name="playerType"/>
+  <buttongroup name="map"/>
+ </buttongroups>
 </ui>
