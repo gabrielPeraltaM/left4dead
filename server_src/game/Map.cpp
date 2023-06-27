@@ -116,7 +116,7 @@ std::shared_ptr<State> Map::update() {
         // need to initialize the zombies in the elements
         zombie.second->interact();
     }
-    std::vector<uint16_t> buf(elements.size() * CHARACTER_ATTRIBUTES_AMOUNT);
+    std::vector<uint16_t> buf(elements.size() * CHARACTER_ATTRIBUTES_AMOUNT + 1);
     int pos = 0;
     for (auto element: elements) {
         auto character_id = (uint16_t) element.first;

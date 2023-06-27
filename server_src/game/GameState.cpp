@@ -15,5 +15,15 @@ void GameState::receive_action(const std::shared_ptr<Action> &action) {
 }
 
 std::shared_ptr<State> GameState::update() {
-    return map.update();
+    std::shared_ptr<State> state = map.update();
+    if (map.all_players_dead()) {
+        state->set_loose();
+        return state;
+    }
+    if (map.all_zombies_dead()) {
+        state->set_win();
+        return state;
+    }
+    state->set_continue();
+    return state;
 }
