@@ -19,7 +19,7 @@ public:
 
     int create(std::string name, int max_players);
 
-    Player join(int match_code);
+    Player join(int match_code, int character_type);
 };
 
 #endif //MATCHES_H

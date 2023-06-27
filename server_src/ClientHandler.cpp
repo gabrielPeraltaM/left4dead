@@ -8,9 +8,11 @@
 
 void ClientHandler::run() {
     int match_code = -1;
+    int character_type = -1;
     while (match_code < 0) {
         Login login = protocol.receive_login();
         match_code = login.get_login(matches);
+        character_type = login.get_character_type();
         if (not login.is_joined() && match_code >= 0) {
             protocol.send_match_code(match_code);
             continue;
@@ -21,7 +23,7 @@ void ClientHandler::run() {
         }
         protocol.send_join_fail();
     }
-    Player match = matches.join(match_code);
+    Player match = matches.join(match_code, character_type);
     protocol.send_player_id(match.get_player_id());
     protocol.receive_start(match);
     Commands commands(protocol, match);

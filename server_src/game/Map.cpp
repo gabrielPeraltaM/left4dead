@@ -4,6 +4,8 @@
 
 #include "Map.h"
 #include "Idf.h"
+#include "P90.h"
+#include "Scout.h"
 #include "Witch.h"
 #include <arpa/inet.h>
 #include <iostream>
@@ -40,14 +42,32 @@ Map::~Map() {
     }
 }
 
-void Map::add_character(int id, int collision_range) {
+void Map::add_character(int id, int collision_range, int character_type) {
     // change this
     int pos_x = 0;
     int pos_y = 0;
     calculate_position(pos_x, pos_y);
-    auto *character = new Idf(pos_x, pos_y, dead_players);  // change this
-    characters[id] = character;
-    elements[id] = character;
+    Character *player;
+    switch (character_type) {
+        case IDF:
+            player = new Idf(pos_x, pos_y, dead_players);
+            break;
+
+        case P_90:
+            player = new P90(pos_x, pos_y, dead_players);
+            break;
+
+        case SCOUT:
+            player = new Scout(pos_x, pos_y, dead_players);
+            break;
+
+        default:
+            player = new Idf(pos_x, pos_y, dead_players);
+            break;
+    }
+    //auto *character = new Idf(pos_x, pos_y, dead_players);  // change this
+    characters[id] = player;
+    elements[id] = player;
     ++players;
 }
 

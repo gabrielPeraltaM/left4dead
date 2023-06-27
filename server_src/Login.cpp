@@ -7,10 +7,11 @@
 
 #define MAX_PLAYERS 5  // Hardcoded for now
 
-Login::Login(std::string match_name, int match_code) : match_name(std::move(match_name)),
+Login::Login(std::string match_name, int match_code, int character_type) : match_name(std::move(match_name)),
                                                        join_code(match_code),
                                                        login_type(CREATE),
-                                                       joined(false) {}
+                                                       joined(false),
+                                                       character_type(character_type) {}
 
 int Login::get_login(Matches &matches) {
     if (login_type == CREATE) {
@@ -36,3 +37,5 @@ void Login::set_join() {
 bool Login::is_joined() const {
     return joined;
 }
+
+int Login::get_character_type() const { return character_type; }

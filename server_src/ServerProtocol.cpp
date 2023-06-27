@@ -51,7 +51,7 @@ Login ServerProtocol::receive_login() {
   int s;
   s = sk.recvall(&action, sizeof(action), &was_closed);
   if (s == 0) {
-    return {"", (-1)};
+    return {"", (-1), (-1)};
   }
   int match_code = 0;
   if (action == ACTION_CREATE) {
@@ -66,7 +66,11 @@ Login ServerProtocol::receive_login() {
     if (s == 0) {
       throw LibError(EPIPE, "The client was disconnected");
     }
-    Login login(std::move(name), match_code);
+    uint8_t character_type;
+    if (sk.recvall(&character_type, sizeof(character_type), &was_closed) == 0) {
+      throw LibError(EPIPE, "The client was disconnected");
+    }
+    Login login(std::move(name), match_code, (int)character_type);
     login.set_create();
     return login;
   } else if (action == ACTION_JOIN) {
@@ -77,11 +81,15 @@ Login ServerProtocol::receive_login() {
     }
     code = ntohl(code);
     match_code = (int)code;
-    Login login("", match_code);
+    uint8_t character_type;
+    if (sk.recvall(&character_type, sizeof(character_type), &was_closed) == 0) {
+      throw LibError(EPIPE, "The client was disconnected");
+    }
+    Login login("", match_code, (int)character_type);
     login.set_join();
     return login;
   }
-  return {"", (-1)};
+  return {"", (-1), (-1)};
 }
 
 void ServerProtocol::send_match_code(int match_code) {

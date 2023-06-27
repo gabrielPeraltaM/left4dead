@@ -30,7 +30,7 @@ public:
 
     void run() override;
 
-    Player add_player();
+    Player add_player(int character_type);
 
     bool is_available() const;
 

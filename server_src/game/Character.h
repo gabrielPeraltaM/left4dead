@@ -11,7 +11,7 @@
 enum Type : int {
     IDF = 1,
     SCOUT,
-    P90,
+    P_90,
     INFECTED,
     JUMPER,
     SPEAR,
