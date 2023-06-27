@@ -26,10 +26,11 @@ void ClientProtocol::createGame(std::string &scenarioName) {
   uint16_t scenarioNameLength = scenarioName.length();
   uint16_t scenarioNameLengthNetwork = htons(scenarioNameLength);
 
+  std::cout << scenarioNameLength << std::endl;
   // Send opcode
   socket.sendall(&opcode, 1, &was_closed);
   // Send scenario name length
-  socket.sendall(&scenarioNameLengthNetwork, 4, &was_closed);
+  socket.sendall(&scenarioNameLengthNetwork, sizeof(scenarioNameLengthNetwork), &was_closed);
   // Send scenario name
   socket.sendall(scenarioName.c_str(), scenarioNameLength, &was_closed);
 

@@ -39,3 +39,5 @@ cmake-build-debug
 # Other
 tasks.json
 launch.json
+
+CMakeLists.txt
