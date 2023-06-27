@@ -66,10 +66,9 @@ Login ServerProtocol::receive_login() {
     if (s == 0) {
       throw LibError(EPIPE, "The client was disconnected");
     }
-    uint8_t character_type;
-    if (sk.recvall(&character_type, sizeof(character_type), &was_closed) == 0) {
-      throw LibError(EPIPE, "The client was disconnected");
-    }
+    uint8_t character_type = receive_byte();
+    uint8_t map = receive_byte();
+    uint8_t difficulty = receive_byte();
     Login login(std::move(name), match_code, (int)character_type);
     login.set_create();
     return login;
@@ -81,10 +80,7 @@ Login ServerProtocol::receive_login() {
     }
     code = ntohl(code);
     match_code = (int)code;
-    uint8_t character_type;
-    if (sk.recvall(&character_type, sizeof(character_type), &was_closed) == 0) {
-      throw LibError(EPIPE, "The client was disconnected");
-    }
+    uint8_t character_type = receive_byte();
     Login login("", match_code, (int)character_type);
     login.set_join();
     return login;
@@ -194,8 +190,7 @@ std::shared_ptr<Action> ServerProtocol::receive_action() {
       return std::make_shared<ActionReload>();
 
     default:
-      // change this
-      return nullptr;
+      throw std::runtime_error("Invalid Action");
   }
 }
 
