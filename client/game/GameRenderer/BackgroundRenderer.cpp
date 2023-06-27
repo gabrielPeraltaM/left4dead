@@ -3,7 +3,6 @@
 //
 
 #include "BackgroundRenderer.h"
-
 BackgroundRenderer::BackgroundRenderer(Renderer &renderer,
                                        std::map<int, std::shared_ptr<Character>> &characters,
                                        int playerId, int mapSelected)

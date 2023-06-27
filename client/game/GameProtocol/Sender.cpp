@@ -29,16 +29,18 @@ void Sender::run() {
      * para no floodear la red, trackeen que keys ya apretaron (cosa de no
     volver a enviarlas)
 
-
     if (action && action != previous_action) {
-      previous_action = action;
-      socket.sendall(&action, sizeof(action), &was_closed);
-      if (was_closed) {
-        running = false;
-        break;
-      }
+  previous_action = action;
+  socket.sendall(&action, sizeof(action), &was_closed);
+  if (was_closed) {
+    running = false;
+    break;
+  }
+
     }
      */
+
+
     if (action) {
       socket.sendall(&action, sizeof(action), &was_closed);
       if (was_closed) {

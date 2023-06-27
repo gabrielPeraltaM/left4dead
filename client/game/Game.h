@@ -34,7 +34,8 @@ class Game {
     const int numZombies;
     const int mapSelected;
     bool isLoadingPlayers = true;
-    bool running = true;
+    bool running = true; // std atomic bool
+    bool muted = false;
 
     // Storage
     std::map<int, std::shared_ptr<Character>> characters;
