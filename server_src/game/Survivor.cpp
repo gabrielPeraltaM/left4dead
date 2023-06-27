@@ -101,7 +101,6 @@ void Survivor::receive_damage(int damage) {
         return;
     }
     life -= damage;
-    state = DAMAGING;
     if (life <= 0) {
         life = 0;
         state = DEAD;

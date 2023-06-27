@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 
+#include <iostream>
 #include <string>
 
 #include "./ui_mainwindow.h"
@@ -8,7 +9,7 @@
 #include "leaderboard.h"
 #include "options.h"
 
-MainWindow::MainWindow(ClientProtocol protocol, QWidget *parent)
+MainWindow::MainWindow(ClientProtocol protocol, QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), protocol(protocol) {
   ui->setupUi(this);
 }
@@ -36,8 +37,7 @@ void MainWindow::on_CreateButton_clicked() {
     int difficulty = create.getDifficulty();
     protocol.setDifficulty(difficulty);
 
-    uint32_t gameId = protocol.createGame(name);
-    protocol.setGameId(gameId);
+    protocol.createGame(name);
 
     hide();
     room = new Room(protocol);
@@ -66,9 +66,10 @@ void MainWindow::on_JoinButton_clicked() {
     QString id = join.getId();
     std::string idStd = id.toStdString();
     protocol.setGameId(std::stoi(idStd));
-    uint8_t response = protocol.joinGame(protocol.getGameId());
-
-    if (response == 1) {
+    try {
+      protocol.joinGame();
+    } catch (const std::exception& e) {
+      std::cout << e.what() << std::endl;
       return;
     }
 

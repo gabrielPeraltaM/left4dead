@@ -16,18 +16,15 @@
 #define CREATE 0X01
 #define JOIN 0X02
 #define START 0X03
-#define MAP_SELECTED 0X04
-#define PLAYER_SELECTED 0X05
 
 ClientProtocol::ClientProtocol(Socket &socket, bool &was_closed)
     : socket(socket), was_closed(was_closed) {}
 
-uint32_t ClientProtocol::createGame(std::string &scenarioName) {
+void ClientProtocol::createGame(std::string &scenarioName) {
   // Variables
   uint8_t opcode = CREATE;
   uint16_t scenarioNameLength = scenarioName.length();
   uint16_t scenarioNameLengthNetwork = htons(scenarioNameLength);
-  uint32_t gameId;
 
   // Send opcode
   socket.sendall(&opcode, 1, &was_closed);
@@ -38,12 +35,15 @@ uint32_t ClientProtocol::createGame(std::string &scenarioName) {
 
   socket.recvall(&gameId, 4, &was_closed);
   if (was_closed) throw std::runtime_error("Connection closed");
-
+  gameId = ntohl(gameId);
   host = true;
-  return ntohl(gameId);
+
+  sendCharacterType();
+  sendMapSelected();
+  sendDifficulty();
 }
 
-uint8_t ClientProtocol::joinGame(uint32_t gameId) {
+void ClientProtocol::joinGame() {
   // Variables
   uint8_t opcode = JOIN;
   uint32_t gameIdNetwork = htonl(gameId);
@@ -53,10 +53,12 @@ uint8_t ClientProtocol::joinGame(uint32_t gameId) {
   socket.sendall(&opcode, 1, &was_closed);
   // Send game id
   socket.sendall(&gameIdNetwork, 4, &was_closed);
+  // Send character type
+  sendCharacterType();
 
   socket.recvall(&response, 1, &was_closed);
   if (was_closed) throw std::runtime_error("Connection closed");
-  return response;
+  if (response == 1) throw std::runtime_error("Game not found");
 }
 
 uint8_t ClientProtocol::getPlayerId() {
@@ -78,20 +80,11 @@ void ClientProtocol::startGame() {
 }
 
 void ClientProtocol::sendCharacterType() {
-  uint8_t opcode = PLAYER_SELECTED;
-  socket.sendall(&opcode, 1, &was_closed);
-  if (was_closed) throw std::runtime_error("Connection closed");
-
   socket.sendall(&playerSelected, 1, &was_closed);
   if (was_closed) throw std::runtime_error("Connection closed");
 }
 
 void ClientProtocol::sendMapSelected() {
-  uint8_t opcode = MAP_SELECTED;
-
-  socket.sendall(&opcode, 1, &was_closed);
-  if (was_closed) throw std::runtime_error("Connection closed");
-
   socket.sendall(&mapSelected, 1, &was_closed);
   if (was_closed) throw std::runtime_error("Connection closed");
 }
@@ -131,4 +124,8 @@ uint8_t ClientProtocol::getPlayerSelected() { return playerSelected; }
 uint8_t ClientProtocol::getDifficulty() { return difficulty; }
 void ClientProtocol::setDifficulty(uint8_t difficulty) {
   this->difficulty = difficulty;
+}
+void ClientProtocol::sendDifficulty() {
+  socket.sendall(&difficulty, 1, &was_closed);
+  if (was_closed) throw std::runtime_error("Connection closed");
 }

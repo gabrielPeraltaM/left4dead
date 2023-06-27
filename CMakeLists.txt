@@ -111,7 +111,7 @@ add_executable(server server_src/main.cpp
         server_src/game/Witch.cpp
         server_src/game/Idf.cpp
         server_src/game/Scout.cpp
-        server_src/actions/ActionStart.cpp)
+        server_src/actions/ActionStart.cpp server_src/game/P90.cpp)
 
 install(TARGETS client server DESTINATION bin)
 
