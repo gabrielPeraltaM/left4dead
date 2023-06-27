@@ -34,14 +34,15 @@ void ClientProtocol::createGame(std::string &scenarioName) {
   // Send scenario name
   socket.sendall(scenarioName.c_str(), scenarioNameLength, &was_closed);
 
+  sendCharacterType();
+  sendMapSelected();
+  sendDifficulty();
+
   socket.recvall(&gameId, 4, &was_closed);
   if (was_closed) throw std::runtime_error("Connection closed");
   gameId = ntohl(gameId);
   host = true;
 
-  sendCharacterType();
-  sendMapSelected();
-  sendDifficulty();
 }
 
 void ClientProtocol::joinGame() {
