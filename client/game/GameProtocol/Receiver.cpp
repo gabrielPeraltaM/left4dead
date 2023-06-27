@@ -6,12 +6,13 @@
 
 Receiver::Receiver(Socket &socket, bool &running,
                    std::map<int, std::shared_ptr<Character>> &characters,
-                   int numCharacters, bool &isLoadingPlayers)
+                   int numCharacters, bool &isLoadingPlayers, int playerId)
     : socket(socket),
       running(running),
       characters(characters),
       numCharacters(numCharacters),
-      isLoadingPlayers(isLoadingPlayers){}
+      isLoadingPlayers(isLoadingPlayers),
+      playerId(playerId) {}
 
 void Receiver::run() {
   // First Receive

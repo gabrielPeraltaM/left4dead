@@ -13,8 +13,8 @@ void GameRenderer::run() {
   int behind = 0;
   int lost = 0;
   const int rate = 1000 / 60;
-
   int playersRate = 0;
+  uiRenderer.setPlayer(characters[playerId].get());
   while (running) {
     // Clear screen
     renderer.SetDrawColor(Color(0, 0, 0, 255));

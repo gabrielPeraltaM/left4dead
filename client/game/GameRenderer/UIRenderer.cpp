@@ -6,39 +6,40 @@
 
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
+#define GAPX (SCREEN_WIDTH * 0.05)
+#define GAPY (SCREEN_HEIGHT * 0.05)
+#define HEIGHT (SCREEN_HEIGHT * 0.03)
+#define SIZE_FACTOR 2
+#define AMMO_FACTOR 10
+#define ALPHA 100
 
-UIRenderer::UIRenderer(Renderer &renderer, int health, int ammo, int score, int stamina) : renderer(renderer), health(health), ammo(ammo), score(score), stamina(stamina) {}
+UIRenderer::UIRenderer(Renderer &renderer) : renderer(renderer) {}
 
 void UIRenderer::render() {
-    int gapX = SCREEN_WIDTH * 0.05;
-    int gapY = SCREEN_HEIGHT * 0.05;
-    Uint8 alpha = 100;
-    int frameWidth = 12.5 * (SCREEN_WIDTH / 100);
-    int frameHeight = 4 * (SCREEN_HEIGHT / 150);
+  renderHealthBar();
+  renderAmmo();
+}
 
-    // Render a red rectangle representing the health at top left corner
-    renderer.SetDrawColor(255, 0, 0, alpha);
-    renderer.FillRect(Rect(gapX, gapY, frameWidth, frameHeight));
-    // Render a black border around the health bar
-    renderer.SetDrawColor(0, 0, 0, alpha);
-    renderer.DrawRect(Rect(gapX, gapY, frameWidth, frameHeight));
+void UIRenderer::setPlayer(Character *thisPlayer) {
+  player = thisPlayer;
+  maxHealth = player->getMaxHealth();
+  maxAmmo = player->getMaxAmmo();
+}
 
-    // Render a blue rectangle representing the stamina below the health bar
-    renderer.SetDrawColor(0, 0, 255, alpha);
-    renderer.FillRect(
-            Rect(gapX, gapY + 1.5 * frameHeight, frameWidth, frameHeight));
-    // Render a black border around the stamina bar
-    renderer.SetDrawColor(0, 0, 0, alpha);
-    renderer.DrawRect(
-            Rect(gapX, gapY + 1.5 * frameHeight, frameWidth, frameHeight));
+void UIRenderer::renderHealthBar() {
+  // Render a red rectangle representing the health at top left corner
+  renderer.SetDrawColor(255, 0, 0, ALPHA);
+  renderer.FillRect(Rect(GAPX, GAPY, player->getHealth() * SIZE_FACTOR, HEIGHT));
+  // Render a black border around the health bar
+  renderer.SetDrawColor(0, 0, 0, ALPHA);
+  renderer.DrawRect(Rect(GAPX, GAPY, maxHealth * SIZE_FACTOR, HEIGHT));
+}
 
-    // Render a green rectangle representing the ammo below the stamina bar
-    renderer.SetDrawColor(0, 255, 0, alpha);
-    renderer.FillRect(
-            Rect(gapX, gapY + 3 * frameHeight, frameWidth, frameHeight));
-    // Render a black border around the ammo bar
-    renderer.SetDrawColor(0, 0, 0, alpha);
-    renderer.DrawRect(
-            Rect(gapX, gapY + 3 * frameHeight, frameWidth, frameHeight));
-
+void UIRenderer::renderAmmo() {
+  // Render a blue rectangle representing the ammo at top left corner
+  renderer.SetDrawColor(0, 0, 255, ALPHA);
+  renderer.FillRect(Rect(GAPX, GAPY * SIZE_FACTOR, player->getAmmo() * SIZE_FACTOR * AMMO_FACTOR, HEIGHT));
+  // Render a black border around the ammo bar
+  renderer.SetDrawColor(0, 0, 0, ALPHA);
+  renderer.DrawRect(Rect(GAPX, GAPY * SIZE_FACTOR, maxAmmo * SIZE_FACTOR * AMMO_FACTOR, HEIGHT));
 }

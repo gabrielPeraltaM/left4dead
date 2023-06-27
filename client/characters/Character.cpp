@@ -9,12 +9,6 @@ enum Type : int { IDF = 1, SCOUT, P90, INFECTED, JUMPER, SPEAR, VENOM, WITCH };
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 
-Character::Character(int id, const char *type)
-    : posX(0), posY(0), id(id), type(type) {}
-
-Character::Character(int posX, int posY, int id, const char *type)
-    : posX(posX), posY(posY), id(id), type(type) {}
-
 void Character::move(int x, int y) {
   if (posX == x && posY == y) {
     setStatus(IDLE);
@@ -47,8 +41,6 @@ int Character::getPosX() const { return posX; }
 int Character::getPosY() const { return posY; }
 
 int Character::getId() const { return id; }
-
-actions Character::getStatus() const { return status; }
 
 SDL_RendererFlip Character::getFlip() const {
   return flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
@@ -99,15 +91,11 @@ void Character::setStatus(actions newStatus) { status = newStatus; }
 
 int Character::getFrameSize() const { return frameSize; }
 
-Character::Character(int posX, int posY, int id, const char *type,
-                     int frameSize)
-    : posX(posX), posY(posY), id(id), type(type), frameSize(frameSize) {}
-
 void Character::kill() { dead = true; }
 
 bool Character::isDead() const { return dead; }
 
-Character::Character(int id, int type): id(id) {
+Character::Character(int id, int type) : id(id) {
   switch (type) {
     case IDF:
       this->type = "IDF";
@@ -140,4 +128,24 @@ Character::Character(int id, int type): id(id) {
       this->type = "IDF";
       break;
   }
+}
+int Character::getHealth() const { return health; }
+
+void Character::setHealth(int newHealth) { health = newHealth; }
+
+int Character::getMaxHealth() const { return maxHealth; }
+
+int Character::getAmmo() const { return ammo; }
+
+void Character::setAmmo(int newAmmo) { ammo = newAmmo; }
+
+int Character::getMaxAmmo() const { return maxAmmo; }
+void Character::setMaxHealth(int newMaxHealth) {
+  maxHealth = newMaxHealth;
+  health = newMaxHealth;
+}
+
+void Character::setMaxAmmo(int newMaxAmmo) {
+  maxAmmo = newMaxAmmo;
+  ammo = newMaxAmmo;
 }

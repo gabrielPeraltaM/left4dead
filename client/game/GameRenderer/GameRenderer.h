@@ -25,7 +25,7 @@ class GameRenderer : public Thread {
   bool &isLoadingPlayers;
   BackgroundRenderer backgroundRenderer =
       BackgroundRenderer(renderer, characters, playerId, mapSelected);
-  UIRenderer uiRenderer = UIRenderer(renderer, 100, 100, 100, 100);
+  UIRenderer uiRenderer = UIRenderer(renderer);
   PlayerRenderer playerRenderer = PlayerRenderer(characters, renderer);
 
  public:

@@ -12,8 +12,9 @@
 class ReceiverProtocol {
   std::map<int, std::shared_ptr<Character>> &characters;
   const int numCharacters;
+  const int playerId;
  public:
-  explicit ReceiverProtocol(std::map<int, std::shared_ptr<Character>> &characters, int numCharacters);
+  ReceiverProtocol(std::map<int, std::shared_ptr<Character>> &characters, int numCharacters, int playerId);
   ~ReceiverProtocol() = default;
   void handleReceive(std::vector<uint16_t> &state);
   void handleFirstReceive(std::vector<uint16_t> &state);

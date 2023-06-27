@@ -45,7 +45,7 @@ class Game {
 
     // Threads
     GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId, mapSelected, isLoadingPlayers);
-    Receiver receiver = Receiver(socket, running, characters, numZombies+numPlayers, isLoadingPlayers);
+    Receiver receiver = Receiver(socket, running, characters, numZombies+numPlayers, isLoadingPlayers, playerId);
     Sender sender = Sender(socket, running);
 
 public:

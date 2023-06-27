@@ -15,15 +15,16 @@ class Receiver : public Thread {
   bool &running;
   bool &isLoadingPlayers;
   const int numCharacters;
+  const int playerId;
   std::map<int, std::shared_ptr<Character>> &characters;
   Socket &socket;
-  ReceiverProtocol receiverProtocol = ReceiverProtocol(characters, numCharacters);
+  ReceiverProtocol receiverProtocol = ReceiverProtocol(characters, numCharacters, playerId);
   std::vector<uint16_t> state = std::vector<uint16_t>(numCharacters * CHARACTER_ATTRIBUTES_AMOUNT);
   bool was_closed = false;
 
  public:
   Receiver(Socket &socket, bool &was_closed,
-           std::map<int, std::shared_ptr<Character>> &characters, int numCharacters, bool &isLoadingPlayers);
+           std::map<int, std::shared_ptr<Character>> &characters, int numCharacters, bool &isLoadingPlayers, int playerId);
   void run() override;
 };
 

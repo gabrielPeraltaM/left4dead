@@ -21,50 +21,57 @@ enum States : uint16_t {
 void ReceiverProtocol::handleReceive(std::vector<uint16_t>& state) {
   for (int i = 0; i < numCharacters * CHARACTER_ATTRIBUTES_AMOUNT;
        i += CHARACTER_ATTRIBUTES_AMOUNT) {
-    uint16_t playerId = ntohs(state[i]);
+    uint16_t id = ntohs(state[i]);
     uint16_t x = ntohs(state[i + 1]);
     uint16_t y = ntohs(state[i + 2]);
     uint16_t character_state = ntohs(state[i + 3]);
-    uint16_t health = ntohs(state[i + 4]);
-    uint16_t ammo = htons(state[i + 5]);
-
-    /*
-     * race condition
-     * fijensé si hay manera de comunicar al receiver con el renderer que no
-     * sea compartiendo el vector de caracteres...
-     */
+    if (id == playerId) {
+      uint16_t health = ntohs(state[i + 4]);
+      uint16_t ammo = htons(state[i + 5]);
+      characters[id]->setHealth(health);
+      characters[id]->setAmmo(ammo);
+    }
     switch (character_state) {
       case DEAD:
-        characters[playerId]->die();
+        characters[id]->die();
         break;
       case SHOOTING:
-        characters[playerId]->shoot();
+        characters[id]->shoot();
         break;
       case ATTACKING:
-        characters[playerId]->attack();
+        characters[id]->attack();
         break;
       case RELOADING:
-        characters[playerId]->reload();
+        characters[id]->reload();
         break;
       case DAMAGING:
-        characters[playerId]->hurt();
+        characters[id]->hurt();
         break;
       default:
-        characters[playerId]->move(x, y);
+        characters[id]->move(x, y);
         break;
     }
   }
 }
 ReceiverProtocol::ReceiverProtocol(
-    std::map<int, std::shared_ptr<Character>>& characters, int numCharacters)
-    : characters(characters), numCharacters(numCharacters) {}
+    std::map<int, std::shared_ptr<Character>>& characters, int numCharacters,
+    int playerId)
+    : characters(characters),
+      numCharacters(numCharacters),
+      playerId(playerId) {}
 
 void ReceiverProtocol::handleFirstReceive(std::vector<uint16_t>& state) {
   for (int i = 0; i < numCharacters * CHARACTER_ATTRIBUTES_AMOUNT;
        i += CHARACTER_ATTRIBUTES_AMOUNT) {
-        uint16_t playerId = ntohs(state[i]);
-        uint16_t type = ntohs(state[i + 6]);
-        auto *character = new Character(playerId, type);
-        characters[playerId] = std::shared_ptr<Character>(character);
+    uint16_t id = ntohs(state[i]);
+    uint16_t type = ntohs(state[i + 6]);
+    auto* character = new Character(id, type);
+    if (id == playerId) {
+      uint16_t health = ntohs(state[i + 4]);
+      uint16_t ammo = htons(state[i + 5]);
+      character->setMaxHealth(health);
+      character->setMaxAmmo(ammo);
+    }
+    characters[id] = std::shared_ptr<Character>(character);
   }
 }
