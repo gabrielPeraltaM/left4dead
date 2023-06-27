@@ -7,6 +7,9 @@ JoinRoom::JoinRoom(QWidget *parent) : QDialog(parent), ui(new Ui::JoinRoom) {
   ui->PlayerType->setId(ui->PlayerType->buttons()[0], 1);
   ui->PlayerType->setId(ui->PlayerType->buttons()[1], 2);
   ui->PlayerType->setId(ui->PlayerType->buttons()[2], 3);
+
+  // Select the default playerType
+  ui->PlayerType->buttons()[0]->setChecked(true);
 }
 
 JoinRoom::~JoinRoom() { delete ui; }

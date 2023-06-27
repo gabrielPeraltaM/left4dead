@@ -16,6 +16,14 @@ CreateRoom::CreateRoom(QWidget *parent)
         ui->map->setId(ui->map->buttons()[0], 0);
         ui->map->setId(ui->map->buttons()[1], 1);
         ui->map->setId(ui->map->buttons()[2], 2);
+
+
+        // Select the default playerType
+        ui->playerType->buttons()[0]->setChecked(true);
+        ui->difficulty->buttons()[0]->setChecked(true);
+        ui->map->buttons()[0]->setChecked(true);
+        // Set the default name
+        ui->name->setText("Game");
 }
 
 CreateRoom::~CreateRoom() { delete ui; }

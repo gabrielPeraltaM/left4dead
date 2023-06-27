@@ -28,7 +28,6 @@ enum actions : int {
   RUN_UP_RIGHT,
   RUN_DOWN_LEFT,
   RUN_DOWN_RIGHT,
-
 };
 
 #endif  // SDL_PRUEBA_ACTIONS_H
