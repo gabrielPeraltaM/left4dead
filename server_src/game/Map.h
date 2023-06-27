@@ -27,7 +27,7 @@ class Map {
 
     ~Map();
 
-    void add_character(int id, int collision_range, int character_type);
+    void add_character(int player_id, int character_type);
 
     void move_character(int id, int move_x, int move_y, bool isRunning);
 

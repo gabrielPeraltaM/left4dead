@@ -12,5 +12,4 @@ public:
     P90(int pos_x, int pos_y, int &dead_players);
 };
 
-
 #endif //LEFT4DEAD_P90_H

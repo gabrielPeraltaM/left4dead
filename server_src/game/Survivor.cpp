@@ -18,9 +18,9 @@
 #define SHOOTING_DELAY 14
 #define DAMAGING_DELAY 16
 
-Survivor::Survivor(int pos_x, int pos_y, Type type, int hurt_range, int &dead_players) : Character(SURVIVOR_LIFE, pos_x, pos_y,
+Survivor::Survivor(int pos_x, int pos_y, Type type, int hurt_range, int &dead_players, int ammo) : Character(SURVIVOR_LIFE, pos_x, pos_y,
                                                                                 SURVIVOR_COLLISION_RANGE, hurt_range,
-                                                                                DEFAULT_SURVIVOR_AMMO, type),
+                                                                                ammo, type),
                                                                       orientation(RIGHT),
                                                                       delay(0),
                                                                       dead_players(dead_players) {}

@@ -17,7 +17,7 @@ class GameState {
    public:
     explicit GameState(int limit_y);
 
-    void add_character(int id, int collision_range, int character_type);
+    void add_character(int player_id, int character_type);
 
     void receive_action(const std::shared_ptr<Action>& action);
 

@@ -6,9 +6,8 @@
 
 GameState::GameState(int limit_y) : map(limit_y) {}
 
-void GameState::add_character(int id, int collision_range, int character_type) {
-    // change this
-    map.add_character(id, collision_range, character_type);
+void GameState::add_character(int player_id, int character_type) {
+    map.add_character(player_id, character_type);
 }
 
 void GameState::receive_action(const std::shared_ptr<Action> &action) {

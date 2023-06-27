@@ -10,10 +10,11 @@
 Scout::Scout(int pos_x, int pos_y, int &dead_players) : Survivor(pos_x, pos_y,
                                                                  SCOUT,
                                                                  SCOUT_HURT_RANGE,
-                                                                 dead_players) {}
+                                                                 dead_players,
+                                                                 SCOUT_AMMO) {}
 
-void Scout::receive_damage(int damage) {
+/*void Scout::receive_damage(int damage) {
     if (state == DEAD) {
         return;
     }
-}
+}*/

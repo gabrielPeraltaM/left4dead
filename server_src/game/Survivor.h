@@ -13,7 +13,7 @@ class Survivor : public Character {
     int &dead_players;
 
 public:
-    Survivor(int pos_x, int pos_y, Type type, int hurt_range, int &dead_players);
+    Survivor(int pos_x, int pos_y, Type type, int hurt_range, int &dead_players, int ammo);
 
     void move(int move_x, int move_y) override;
 

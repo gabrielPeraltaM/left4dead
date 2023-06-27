@@ -30,7 +30,8 @@
 #define MAX_PLAYER_AMOUNT 10
 
 Map::Map(int limit_y) : limit_y(limit_y),
-                        players(0), generic(0, 0, IDF, CHARACTER_DEFAULT_HURT_RANGE, dead_players),
+                        players(0),
+                        generic(0, 0, IDF, CHARACTER_DEFAULT_HURT_RANGE, dead_players, 0),
                         dead_players(0),
                         dead_zombies(0) {
     initialize_zombies();
@@ -42,8 +43,7 @@ Map::~Map() {
     }
 }
 
-void Map::add_character(int id, int collision_range, int character_type) {
-    // change this
+void Map::add_character(int player_id, int character_type) {
     int pos_x = 0;
     int pos_y = 0;
     calculate_position(pos_x, pos_y);
@@ -65,9 +65,8 @@ void Map::add_character(int id, int collision_range, int character_type) {
             player = new Idf(pos_x, pos_y, dead_players);
             break;
     }
-    //auto *character = new Idf(pos_x, pos_y, dead_players);  // change this
-    characters[id] = player;
-    elements[id] = player;
+    characters[player_id] = player;
+    elements[player_id] = player;
     ++players;
 }
 
@@ -143,7 +142,7 @@ std::shared_ptr<State> Map::update() {
         buf[pos++] = life;
         buf[pos++] = ammo;
         buf[pos++] = type;
-        character->reset_state();  // change this
+        character->reset_state();
     }
     return std::make_shared<State>(std::move(buf), (uint16_t) characters.size(), zombies.size());
 }

@@ -7,7 +7,6 @@
 #include <memory>
 
 #define LIMIT_Y 750
-#define PLAYER_COLLISION_RANGE 22
 
 GroupMatch::GroupMatch(std::string name, int max_players) : name(std::move(name)),
                                                             game(LIMIT_Y),
@@ -36,7 +35,7 @@ Player GroupMatch::add_player(int character_type) {
     std::lock_guard<std::mutex> lock(m);
     auto *state = new StateQueue;
     player_states.push_back(state);
-    game.add_character(players, PLAYER_COLLISION_RANGE, character_type);
+    game.add_character(players, character_type);
     bool host = false;
     if (players == 0) {
         host = true;
