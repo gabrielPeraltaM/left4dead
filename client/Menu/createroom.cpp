@@ -5,12 +5,14 @@
 CreateRoom::CreateRoom(QWidget *parent)
     : QDialog(parent), ui(new Ui::CreateRoom) {
   ui->setupUi(this);
-        ui->playerType->setId(ui->playerType->buttons()[0], 0);
-        ui->playerType->setId(ui->playerType->buttons()[1], 1);
+        ui->playerType->setId(ui->playerType->buttons()[0], 1);
+        ui->playerType->setId(ui->playerType->buttons()[1], 3);
         ui->playerType->setId(ui->playerType->buttons()[2], 2);
+
         ui->difficulty->setId(ui->difficulty->buttons()[0], 0);
         ui->difficulty->setId(ui->difficulty->buttons()[1], 1);
         ui->difficulty->setId(ui->difficulty->buttons()[2], 2);
+
         ui->map->setId(ui->map->buttons()[0], 0);
         ui->map->setId(ui->map->buttons()[1], 1);
         ui->map->setId(ui->map->buttons()[2], 2);
