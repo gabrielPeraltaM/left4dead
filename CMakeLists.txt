@@ -20,7 +20,7 @@ add_definitions(-DRESOURCE_PATH="${PROJECT_SOURCE_DIR}/resources")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
-set(CMAKE_PREFIX_PATH "/home/ignacio/Qt/6.5.0/gcc_64") # TODO: Change this to your Qt installation path
+set(CMAKE_PREFIX_PATH "/home/$ENV{USER}/Qt/6.5.0/gcc_64") # TODO: Change this to your Qt installation path
 find_package(Qt6 COMPONENTS
         Core
         Gui
@@ -64,7 +64,12 @@ add_executable(client
         client/Menu/mainwindow.ui
         client/Menu/room.cpp
         client/Menu/room.ui
-        client/game/GameMonitor/CharactersQueue.cpp client/game/GameMonitor/CharactersQueue.h)
+        client/game/GameMonitor/CharactersQueue.cpp
+        client/game/GameMonitor/CharactersQueue.h
+        client/Menu/leaderboard.cpp
+        client/Menu/leaderboard.ui
+        client/Menu/options.cpp
+        client/Menu/options.ui)
 
 target_link_libraries(client PUBLIC SDL2pp Qt6::Core
         Qt6::Gui

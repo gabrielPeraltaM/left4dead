@@ -29,6 +29,7 @@ cd build
 - [x] Lobby en Qt
 - [x] Background Scrolling
 - [x] Adaptable a distintas resoluciones
+- [x] Barras de vida y municiones
 - [x] Animaciones de los personajes
 - [x] Animaciones de los zombies
 - [x] 3 mapas distintos (uno por nivel)
@@ -36,16 +37,19 @@ cd build
 - [x] 3 niveles distintos
 - [x] Colisión de players
 - [x] Limites de mapa
-- [x] Colisión de balas
+- [x] Daño por balas y ataques meles
 - [x] Witch (zombie especial)
 - [x] Infected (zombie común)
 - [x] Instalador por script
+- [x] LeaderBoard
+- [x] Multiplayer
 
 # Imágenes del juego
 
 Más imagenes en carpeta images
 ## In-game
 ![Animación ataque](./images/1.png)
+![Players vs Zombies](./images/5.png)
 
 ## Lobby
 ![Lobby](./images/2.png)
@@ -65,10 +69,8 @@ Link PlantUML: www.plantuml.com/plantuml/png/FOx1IiOm48Jl-nHBJXRyyLv4VkX12Wg5uWD
 ## Cosas que faltan por agregar
 
 - [ ] Agregar tests
-- [ ] Crear UI para el juego
 - [ ] Agregar estadisticas
 - [ ] Arreglar bugs
-- [ ] Agregar más zombies
 - [ ] Testear instalador
 - [ ] Elegir personaje
 - [ ] Elegir mapa

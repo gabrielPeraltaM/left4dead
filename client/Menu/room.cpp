@@ -20,6 +20,11 @@ Room::Room(ClientProtocol &protocol, QWidget *parent, QString id)
   ui->PlayerType->setId(ui->PlayerType->buttons()[1], 1);
   ui->PlayerType->setId(ui->PlayerType->buttons()[2], 2);
 
+  // Set default MapType the first one
+  ui->MapType->button(0)->setChecked(true);
+  // Set default PlayerType the first one
+  ui->PlayerType->button(0)->setChecked(true);
+
   connect(ui->MapType, SIGNAL(idClicked(int)), this,
           SLOT(onMapSelected(int)));
   connect(ui->PlayerType, SIGNAL(idClicked(int)), this,

@@ -4,6 +4,8 @@
 #include "client/ClientProtocol.h"
 #include "createroom.h"
 #include "joinroom.h"
+#include "leaderboard.h"
+#include "options.h"
 
 MainWindow::MainWindow(ClientProtocol protocol, QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), protocol(protocol) {
@@ -59,4 +61,16 @@ void MainWindow::on_JoinButton_clicked() {
       QApplication::exit(0);
     }
   }
+}
+
+void MainWindow::on_LeaderBoardButton_clicked() {
+  LeaderBoard leaderBoard;
+  leaderBoard.setModal(true);
+  leaderBoard.exec();
+}
+
+void MainWindow::on_pushButton_clicked() {
+  Options options;
+  options.setModal(true);
+  options.exec();
 }

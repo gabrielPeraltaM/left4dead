@@ -23,6 +23,10 @@ private slots:
 
     void on_JoinButton_clicked();
 
+    void on_LeaderBoardButton_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Room *room;
