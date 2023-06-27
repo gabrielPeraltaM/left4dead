@@ -51,8 +51,10 @@ void GroupMatch::handle_game() {
     std::lock_guard<std::mutex> lock(m);
     int missing_players = 0;
     std::shared_ptr<Action> action;
-    if (actions.try_pop(action)) {
+    int action_amount = 0;
+    while (actions.try_pop(action) && action_amount < 20) {
         game.receive_action(action);
+        action_amount++;
     }
     std::shared_ptr<State> state = game.update();
     for (auto *player_state: player_states) {

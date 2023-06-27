@@ -144,6 +144,7 @@ std::shared_ptr<State> Map::update() {
         buf[pos++] = type;
         character->reset_state();
     }
+
     return std::make_shared<State>(std::move(buf), (uint16_t) characters.size(), zombies.size());
 }
 
