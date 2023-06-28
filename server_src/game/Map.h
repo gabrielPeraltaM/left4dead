@@ -15,7 +15,6 @@
 class Map {
     const int limit_y;
     int players;
-    Survivor generic;
     int dead_players;
     int dead_zombies;
     std::map<int, Character*> characters;
@@ -46,9 +45,7 @@ class Map {
    private:
     bool limit_collision(Character *character, int move_x, int move_y) const;
 
-    void calculate_position(int &pos_x, int &pos_y);
-
-    bool collision(int pos_x, int pos_y);
+    void calculate_position(int &pos_x, int &pos_y) const;
 
     void initialize_zombies();
 };

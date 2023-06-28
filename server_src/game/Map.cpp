@@ -18,7 +18,6 @@
 #define WITCH_POS_Y 820
 
 #define CHARACTER_ATTRIBUTES_AMOUNT 7
-#define CHARACTER_DEFAULT_HURT_RANGE 26
 #define ZOMBIES_AMOUNT 40
 #define ZOMBIE_DEFAULT_COLLISION_RANGE 20
 #define ZOMBIE_DEFAULT_HURT_RANGE 32
@@ -31,7 +30,6 @@
 
 Map::Map(int limit_y) : limit_y(limit_y),
                         players(0),
-                        generic(0, 0, IDF, CHARACTER_DEFAULT_HURT_RANGE, dead_players, 0),
                         dead_players(0),
                         dead_zombies(0) {
     initialize_zombies();
@@ -165,27 +163,9 @@ bool Map::limit_collision(Character *character, int move_x, int move_y) const {
     return false;
 }
 
-void Map::calculate_position(int &pos_x, int &pos_y) {
+void Map::calculate_position(int &pos_x, int &pos_y) const {
     pos_x = POS_X_FIRST + players * POS_X_GAP;
     pos_y = POS_Y_FIRST;
-
-    /*std::random_device rd;
-    std::uniform_int_distribution<int> dist_x(PLAYER_ZONE_LIMIT_LEFT,
-    PLAYER_ZONE_LIMIT_RIGHT); std::uniform_int_distribution<int> dist_y(limit_y,
-    ZONE_LIMIT_UP); int tentative_pos_x; int tentative_pos_y; do { tentative_pos_x
-    = dist_x(rd); tentative_pos_y = dist_y(rd); } while
-    (collision(tentative_pos_x, tentative_pos_y)); pos_x = tentative_pos_x; pos_y
-    = tentative_pos_y;*/
-}
-
-bool Map::collision(int pos_x, int pos_y) {
-    bool collision = false;
-    for (auto other: characters) {
-        if (generic.collision(other.second, pos_x, pos_y)) {
-            collision = true;
-        }
-    }
-    return collision;
 }
 
 void Map::initialize_zombies() {

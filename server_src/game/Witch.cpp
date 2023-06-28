@@ -72,5 +72,6 @@ void Witch::receive_damage(int damage) {
         life = 0;
         stop_zombies();
         state = DEAD;
+        ++dead_zombies;
     }
 }
