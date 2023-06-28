@@ -6,7 +6,6 @@
 #define LEFT4DEAD_STATEQUEUE_H
 
 #include <queue>
-#include <vector>
 #include <mutex>
 #include <condition_variable>
 #include <memory>
@@ -24,7 +23,7 @@ public:
 
     void push(const std::vector<uint16_t>& state);
 
-    std::shared_ptr<std::vector<uint16_t>> pop();
+    std::vector<uint16_t> pop();
 
     void close();
 

@@ -24,6 +24,6 @@ std::shared_ptr<State> GameState::update() {
         state->set_win();
         return state;
     }
-    state->set_continue();
+    //state->set_continue();
     return state;
 }
