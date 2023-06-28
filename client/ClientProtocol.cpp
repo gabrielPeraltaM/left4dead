@@ -26,7 +26,6 @@ void ClientProtocol::createGame(std::string &scenarioName) {
   uint16_t scenarioNameLength = scenarioName.length();
   uint16_t scenarioNameLengthNetwork = htons(scenarioNameLength);
 
-  std::cout << scenarioNameLength << std::endl;
   // Send opcode
   socket.sendall(&opcode, 1, &was_closed);
   // Send scenario name length
@@ -100,13 +99,11 @@ void ClientProtocol::waitStart() {
   if (was_closed) throw std::runtime_error("Connection closed");
 
   numPlayers = ntohs(numPlayers);
-  std::cout << "numPlayers: " << numPlayers << std::endl;
 
   socket.recvall(&numZombies, 2, &was_closed);
   if (was_closed) throw std::runtime_error("Connection closed");
 
   numZombies = ntohs(numZombies);
-  std::cout << "numZombies: " << numZombies << std::endl;
 
   Game game(socket, playerId, numPlayers, mapSelected, numZombies);
   game.start();

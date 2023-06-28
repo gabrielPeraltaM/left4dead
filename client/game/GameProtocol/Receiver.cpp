@@ -12,11 +12,12 @@ Receiver::Receiver(Socket &socket, bool &running,
 
 void Receiver::run() {
   // First Receive
-  /*socket.recvall(state.data(), (numCharacters * CHARACTER_ATTRIBUTES_AMOUNT * 2),
+  socket.recvall(state.data(), (numCharacters * CHARACTER_ATTRIBUTES_AMOUNT * 2),
                  &was_closed);
   //receiverProtocol.handleFirstReceive(state);
   socket.recvall(&gameStatus, 1, &was_closed);
-  isLoadingPlayers = false;*/
+  isLoadingPlayers = false;
+  states.push(state);
   // Loop
   while (running && gameStatus == 0) {
     socket.recvall(state.data(), (numCharacters * CHARACTER_ATTRIBUTES_AMOUNT * 2),
@@ -27,7 +28,5 @@ void Receiver::run() {
     }
     socket.recvall(&gameStatus, 1, &was_closed);
     states.push(state);
-    std::cout << "Game Status: " << (int)gameStatus << std::endl;
-    //receiverProtocol.handleReceive(state);
   }
 }

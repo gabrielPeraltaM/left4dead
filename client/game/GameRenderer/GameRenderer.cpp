@@ -3,6 +3,7 @@
 //
 
 #include "GameRenderer.h"
+
 #include <arpa/inet.h>
 
 enum States : uint16_t {
@@ -50,7 +51,7 @@ void GameRenderer::run() {
     // Delay
     Uint32 t2 = SDL_GetTicks();
     int rest = rate - (t2 - t1);
-    if (rest < 0) { // No deberia pasar nunca
+    if (rest < 0) {  // No deberia pasar nunca
       behind = -rest;
       lost = behind - behind % rate;
       t1 += lost;
@@ -75,6 +76,12 @@ void GameRenderer::initialize_characters() {
     uint16_t id = ntohs(state[i]);
     uint16_t type = ntohs(state[i + 6]);
     auto *character = new Character(id, type);
+    if (id == playerId) {
+      uint16_t health = ntohs(state[i + 4]);
+      uint16_t ammo = htons(state[i + 5]);
+      character->setMaxHealth(health);
+      character->setMaxAmmo(ammo);
+    }
     characters[id] = std::shared_ptr<Character>(character);
   }
 }
@@ -86,14 +93,12 @@ void GameRenderer::update_characters() {
     uint16_t x = ntohs(state[i + 1]);
     uint16_t y = ntohs(state[i + 2]);
     uint16_t character_state = ntohs(state[i + 3]);
-    uint16_t health = ntohs(state[i + 4]);
-    uint16_t ammo = htons(state[i + 5]);
-
-    /*
-         * race condition
-         * fijensé si hay manera de comunicar al receiver con el renderer que no
-         * sea compartiendo el vector de caracteres...
-     */
+    if (id == playerId) {
+      uint16_t health = ntohs(state[i + 4]);
+      uint16_t ammo = htons(state[i + 5]);
+      characters[id]->setHealth(health);
+      characters[id]->setAmmo(ammo);
+    }
     switch (character_state) {
       case DEAD:
         characters[id]->die();
@@ -117,9 +122,10 @@ void GameRenderer::update_characters() {
   }
 }
 
-GameRenderer::GameRenderer(
-    Renderer &renderer, bool &running, int playerId,
-    int mapSelected, bool &isLoadingPlayers, uint8_t &gameStatus, StateQueue &states, int numCharacters)
+GameRenderer::GameRenderer(Renderer &renderer, bool &running, int playerId,
+                           int mapSelected, bool &isLoadingPlayers,
+                           uint8_t &gameStatus, StateQueue &states,
+                           int numCharacters)
     : renderer(renderer),
       running(running),
       playerId(playerId),
@@ -127,5 +133,4 @@ GameRenderer::GameRenderer(
       isLoadingPlayers(isLoadingPlayers),
       gameStatus(gameStatus),
       numCharacters(numCharacters),
-      states(states)
-{}
+      states(states) {}

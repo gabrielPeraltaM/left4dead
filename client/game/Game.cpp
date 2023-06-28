@@ -3,7 +3,6 @@
 //
 
 #include "Game.h"
-
 #include <sys/socket.h>
 
 void Game::start() {
