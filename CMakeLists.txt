@@ -69,7 +69,7 @@ add_executable(client
         client/Menu/leaderboard.cpp
         client/Menu/leaderboard.ui
         client/Menu/options.cpp
-        client/Menu/options.ui)
+        client/Menu/options.ui client/StateQueue.cpp)
 
 target_link_libraries(client PUBLIC SDL2pp Qt6::Core
         Qt6::Gui
