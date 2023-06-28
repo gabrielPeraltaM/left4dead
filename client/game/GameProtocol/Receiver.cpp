@@ -27,7 +27,7 @@ void Receiver::run() {
       break;
     }
     socket.recvall(&gameStatus, 1, &was_closed);
-
+    std::cout << "Game Status: " << (int)gameStatus << std::endl;
     receiverProtocol.handleReceive(state);
   }
 }

@@ -48,6 +48,7 @@ void BackgroundRenderer::render() {
     character->setCameraY(character->getPosY());
   }
 
+
   if (gameStatus == 1) {
     // Show the texture you win in the middle of the screen
     Texture youWin = Texture(renderer, RESOURCE_PATH "/win.png");
