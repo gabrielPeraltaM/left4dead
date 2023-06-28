@@ -24,7 +24,7 @@ void Game::start() {
   } else {
     music = Mix_LoadMUS(RESOURCE_PATH "/Media/bg-music3.mp3");
   }
-  if (muted)
+  if (!muted)
     Mix_PlayMusic(music, -1);
 
   // Game loop
