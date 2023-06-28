@@ -19,7 +19,7 @@ class Receiver : public Thread {
   std::map<int, std::shared_ptr<Character>> &characters;
   Socket &socket;
   ReceiverProtocol receiverProtocol = ReceiverProtocol(characters, numCharacters, playerId);
-  std::vector<uint16_t> state = std::vector<uint16_t>(numCharacters * CHARACTER_ATTRIBUTES_AMOUNT + 1);
+  std::vector<uint16_t> state = std::vector<uint16_t>(numCharacters * CHARACTER_ATTRIBUTES_AMOUNT);
   bool was_closed = false;
 
  public:
