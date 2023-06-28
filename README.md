@@ -65,14 +65,3 @@ Link overleaf: https://www.overleaf.com/project/6498abd3c81ecb7ca80ae8b0
 
 ## Diagrama de Robustez
 Link PlantUML: www.plantuml.com/plantuml/png/FOx1IiOm48Jl-nHBJXRyyLv4VkX12Wg5uWDiazKgIIERhT2tbtH3JmiptyxClIY9xYb2FqKwM7gytLxmuIqloz51kwQzKk8EBksvQk-aVksmnsgEuJ7hoeBZzfd1UCDc9TrBvOQLXBoo50oa132p_B5OWwL1kwQrLm1tzg8N9kMdd_ozuHSbTaZbskicoPfzZZYS69v9XhHmz_4RgbFNeOMRVnNTUGjxYly0
-
-## Cosas que faltan por agregar
-
-- [ ] Agregar tests
-- [ ] Agregar estadisticas
-- [ ] Arreglar bugs
-- [ ] Testear instalador
-- [ ] Elegir personaje
-- [ ] Elegir mapa
-- [ ] Elegir dificultad
-- [ ] Niveles distintos
