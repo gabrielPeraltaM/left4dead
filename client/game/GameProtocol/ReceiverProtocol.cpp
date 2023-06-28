@@ -75,4 +75,5 @@ void ReceiverProtocol::handleFirstReceive(std::vector<uint16_t>& state) {
     }
     characters[id] = std::shared_ptr<Character>(character);
   }
+
 }
