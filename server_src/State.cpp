@@ -12,15 +12,12 @@ State::State(std::vector<uint16_t> elements, uint16_t characters,
 
 void State::set_continue() {
     match_state = CONTINUE;
-    elements.push_back(CONTINUE);
 }
 
 void State::set_win() {
     match_state = WIN;
-    elements.push_back(WIN);
 }
 
 void State::set_loose() {
     match_state = LOOSE;
-    elements.push_back(LOOSE);
 }

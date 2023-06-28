@@ -199,6 +199,10 @@ void ServerProtocol::send_state(const std::shared_ptr<State>& state) {
                  &was_closed) == 0) {
     throw LibError(EPIPE, "The client was disconnected");
   }
+  uint8_t match_state = state->match_state;
+    if (sk.sendall(&match_state,  1, &was_closed) == 0) {
+        throw LibError(EPIPE, "The client was disconnected");
+    }
 }
 
 bool ServerProtocol::closed() const { return was_closed; }

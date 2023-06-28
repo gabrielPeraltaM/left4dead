@@ -16,13 +16,13 @@ Receiver::Receiver(Socket &socket, bool &running,
 
 void Receiver::run() {
   // First Receive
-  socket.recvall(state.data(), (numCharacters * CHARACTER_ATTRIBUTES_AMOUNT * 2) + 1,
+  socket.recvall(state.data(), ((numCharacters * CHARACTER_ATTRIBUTES_AMOUNT) + 1) * 2,
                  &was_closed);
   receiverProtocol.handleFirstReceive(state);
   isLoadingPlayers = false;
   // Loop
   while (running) {
-    socket.recvall(state.data(), (numCharacters * CHARACTER_ATTRIBUTES_AMOUNT * 2) + 1,
+    socket.recvall(state.data(), ((numCharacters * CHARACTER_ATTRIBUTES_AMOUNT) + 1) * 2,
                    &was_closed);
     if (was_closed) {
       running = false;
