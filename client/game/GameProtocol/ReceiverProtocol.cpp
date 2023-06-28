@@ -21,6 +21,7 @@ enum States : uint16_t {
 void ReceiverProtocol::handleReceive(std::vector<uint16_t>& state) {
   for (int i = 0; i < numCharacters * CHARACTER_ATTRIBUTES_AMOUNT;
        i += CHARACTER_ATTRIBUTES_AMOUNT) {
+    std::cout << "ID: " << ntohs(state[i]) << std::endl;
     uint16_t id = ntohs(state[i]);
     uint16_t x = ntohs(state[i + 1]);
     uint16_t y = ntohs(state[i + 2]);
