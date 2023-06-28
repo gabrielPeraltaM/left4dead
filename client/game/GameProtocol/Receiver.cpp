@@ -1,11 +1,10 @@
 #include "Receiver.h"
 
 Receiver::Receiver(Socket &socket, bool &running,
-                   std::map<int, std::shared_ptr<Character>> &characters,
-                   int numCharacters, bool &isLoadingPlayers, int playerId, uint8_t &gameStatus)
+                   int numCharacters, bool &isLoadingPlayers, int playerId, uint8_t &gameStatus, StateQueue &states)
     : socket(socket),
+      states(states),
       running(running),
-      characters(characters),
       numCharacters(numCharacters),
       isLoadingPlayers(isLoadingPlayers),
       playerId(playerId),
@@ -13,11 +12,11 @@ Receiver::Receiver(Socket &socket, bool &running,
 
 void Receiver::run() {
   // First Receive
-  socket.recvall(state.data(), (numCharacters * CHARACTER_ATTRIBUTES_AMOUNT * 2),
+  /*socket.recvall(state.data(), (numCharacters * CHARACTER_ATTRIBUTES_AMOUNT * 2),
                  &was_closed);
-  receiverProtocol.handleFirstReceive(state);
+  //receiverProtocol.handleFirstReceive(state);
   socket.recvall(&gameStatus, 1, &was_closed);
-  isLoadingPlayers = false;
+  isLoadingPlayers = false;*/
   // Loop
   while (running && gameStatus == 0) {
     socket.recvall(state.data(), (numCharacters * CHARACTER_ATTRIBUTES_AMOUNT * 2),
@@ -27,7 +26,8 @@ void Receiver::run() {
       break;
     }
     socket.recvall(&gameStatus, 1, &was_closed);
+    states.push(state);
     std::cout << "Game Status: " << (int)gameStatus << std::endl;
-    receiverProtocol.handleReceive(state);
+    //receiverProtocol.handleReceive(state);
   }
 }

@@ -2,7 +2,7 @@
 #define SDL_PRUEBA_RECEIVER_H
 
 #include <vector>
-
+#include "../../StateQueue.h"
 #include "ReceiverProtocol.h"
 #include "client/characters/Character.h"
 #include "common_src/socket.h"
@@ -17,15 +17,14 @@ class Receiver : public Thread {
   const int numCharacters;
   const int playerId;
   uint8_t &gameStatus;
-  std::map<int, std::shared_ptr<Character>> &characters;
   Socket &socket;
-  ReceiverProtocol receiverProtocol = ReceiverProtocol(characters, numCharacters, playerId);
+  StateQueue &states;
+  //ReceiverProtocol receiverProtocol = ReceiverProtocol(numCharacters);
   std::vector<uint16_t> state = std::vector<uint16_t>(numCharacters * CHARACTER_ATTRIBUTES_AMOUNT);
   bool was_closed = false;
 
  public:
-  Receiver(Socket &socket, bool &was_closed,
-           std::map<int, std::shared_ptr<Character>> &characters, int numCharacters, bool &isLoadingPlayers, int playerId, uint8_t &gameStatus);
+  Receiver(Socket &socket, bool &was_closed, int numCharacters, bool &isLoadingPlayers, int playerId, uint8_t &gameStatus, StateQueue &states);
   void run() override;
 };
 

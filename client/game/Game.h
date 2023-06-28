@@ -39,15 +39,20 @@ class Game {
     uint8_t gameStatus = 0;
 
     // Storage
-    std::map<int, std::shared_ptr<Character>> characters;
+    //std::map<int, std::shared_ptr<Character>> characters;
+    StateQueue states;
 
     // Music
     Mix_Music *music = nullptr;
     int musicIndex = 0;
 
     // Threads
-    GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId, mapSelected, isLoadingPlayers, gameStatus);
-    Receiver receiver = Receiver(socket, running, characters, numZombies+numPlayers, isLoadingPlayers, playerId, gameStatus);
+    GameRenderer gameRenderer = GameRenderer(renderer, running, playerId, mapSelected,
+                                             isLoadingPlayers, gameStatus, states,
+                                             numZombies + numPlayers);
+    Receiver receiver = Receiver(socket, running,
+                                 numZombies+numPlayers,
+                                 isLoadingPlayers, playerId, gameStatus, states);
     Sender sender = Sender(socket, running);
 
 public:
