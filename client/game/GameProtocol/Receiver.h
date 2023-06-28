@@ -16,6 +16,7 @@ class Receiver : public Thread {
   bool &isLoadingPlayers;
   const int numCharacters;
   const int playerId;
+  uint8_t &gameStatus;
   std::map<int, std::shared_ptr<Character>> &characters;
   Socket &socket;
   ReceiverProtocol receiverProtocol = ReceiverProtocol(characters, numCharacters, playerId);
@@ -24,7 +25,7 @@ class Receiver : public Thread {
 
  public:
   Receiver(Socket &socket, bool &was_closed,
-           std::map<int, std::shared_ptr<Character>> &characters, int numCharacters, bool &isLoadingPlayers, int playerId);
+           std::map<int, std::shared_ptr<Character>> &characters, int numCharacters, bool &isLoadingPlayers, int playerId, uint8_t &gameStatus);
   void run() override;
 };
 

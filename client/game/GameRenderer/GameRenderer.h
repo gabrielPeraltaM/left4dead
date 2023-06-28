@@ -23,15 +23,16 @@ class GameRenderer : public Thread {
   const int playerId;
   const int mapSelected;
   bool &isLoadingPlayers;
+  uint8_t &gameStatus;
   BackgroundRenderer backgroundRenderer =
-      BackgroundRenderer(renderer, characters, playerId, mapSelected);
+      BackgroundRenderer(renderer, characters, playerId, mapSelected, gameStatus);
   UIRenderer uiRenderer = UIRenderer(renderer);
   PlayerRenderer playerRenderer = PlayerRenderer(characters, renderer);
 
  public:
   GameRenderer(Renderer &renderer, bool &running,
                std::map<int, std::shared_ptr<Character>> &characters,
-               int playerId, int mapSelected, bool &isLoadingPlayers);
+               int playerId, int mapSelected, bool &isLoadingPlayers, uint8_t &gameStatus);
 
   void run() override;
 };

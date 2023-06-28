@@ -17,6 +17,7 @@ private:
     Renderer &renderer;
     std::map<int, std::shared_ptr<Character>> &characters;
     const int mapSelected;
+    uint8_t &gameStatus;
     std::string mapPath = RESOURCE_PATH "/background" + std::to_string(mapSelected) + "/";
     Texture floor = Texture(renderer,
                             mapPath + "road.png");
@@ -35,7 +36,7 @@ private:
     Rect housesCamera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
     const int playerId;
 public:
-    BackgroundRenderer(Renderer &renderer, std::map<int, std::shared_ptr<Character>> &characters, int playerId, int mapSelected);
+    BackgroundRenderer(Renderer &renderer, std::map<int, std::shared_ptr<Character>> &characters, int playerId, int mapSelected, uint8_t &gameStatus);
     void render();
     ~BackgroundRenderer() = default;
 };

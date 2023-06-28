@@ -57,10 +57,12 @@ void GameRenderer::run() {
 GameRenderer::GameRenderer(
     Renderer &renderer, bool &running,
     std::map<int, std::shared_ptr<Character>> &characters, int playerId,
-    int mapSelected, bool &isLoadingPlayers)
+    int mapSelected, bool &isLoadingPlayers, uint8_t &gameStatus)
     : renderer(renderer),
       running(running),
       characters(characters),
       playerId(playerId),
       mapSelected(mapSelected),
-      isLoadingPlayers(isLoadingPlayers){}
+      isLoadingPlayers(isLoadingPlayers),
+      gameStatus(gameStatus)
+{}

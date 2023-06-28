@@ -36,6 +36,7 @@ class Game {
     bool isLoadingPlayers = true;
     bool running = true; // std atomic bool
     bool muted = false;
+    uint8_t gameStatus = 0;
 
     // Storage
     std::map<int, std::shared_ptr<Character>> characters;
@@ -45,8 +46,8 @@ class Game {
     int musicIndex = 0;
 
     // Threads
-    GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId, mapSelected, isLoadingPlayers);
-    Receiver receiver = Receiver(socket, running, characters, numZombies+numPlayers, isLoadingPlayers, playerId);
+    GameRenderer gameRenderer = GameRenderer(renderer, running, characters, playerId, mapSelected, isLoadingPlayers, gameStatus);
+    Receiver receiver = Receiver(socket, running, characters, numZombies+numPlayers, isLoadingPlayers, playerId, gameStatus);
     Sender sender = Sender(socket, running);
 
 public:
